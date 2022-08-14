@@ -6,9 +6,6 @@
             width: 100%;
         }
     </style>
-
-    <!-- SIDEBAR -->
-    @include('components.sidebar.sidebar') 
     
     <div class="container-scroller">
         <!-- partial -->

@@ -80,7 +80,7 @@
                     <i class="fa fa-scroll"></i>
                 </span>
                 <span class="menu-title">Relatórios</span>
-                <i class="menu-arrow" style="margin-left: 5px"></i>
+                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="relatorios">
                 <ul class="nav flex-column sub-menu">
@@ -96,7 +96,7 @@
                     </li>
                     <li class="nav-item"> 
                         <a class="nav-link" href="pages/samples/error-404.html"> Resumo geral </a>
-                    </li>
+                    </li>                  
                 </ul>
             </div>
         </li>
@@ -107,16 +107,13 @@
                     <i class="fa fa-cog"></i>
                 </span>
                 <span class="menu-title">Configurações</span>
-                <i class="menu-arrow" style="margin-left: 5px"></i>
+                <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="config">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> 
-                        <a class="nav-link" href="pages/samples/error-404.html"> Meus dados </a>
-                    </li>
-                    <li class="nav-item"> 
-                        <a class="nav-link" href="pages/samples/error-404.html"> Senha </a>
-                    </li>
+                        <a class="nav-link" href="pages/ui-features/buttons.html">Meus dados</a>
+                    </li>                   
                 </ul>
             </div>
         </li>

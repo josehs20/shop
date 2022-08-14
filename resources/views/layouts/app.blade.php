@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -41,8 +42,9 @@
     <!-- End layout styles -->
     <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
+
 <body>
-    <div id="app" style="display: flex;">
+    <div id="app">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -96,8 +98,20 @@
                 </div>
             </div>
         </nav> --}}
-               
-        @yield('content')         
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-2 position-fixed" style="width: fit-content">
+                    <!-- SIDEBAR -->
+                    @include('components.sidebar.sidebar')
+                </div>
+        
+                <div class="col-10 offset-2">
+                    @yield('content')
+                </div>
+            </div>
+        </div>        
+        
     </div>
 
 
@@ -123,4 +137,5 @@
     <script src="assets/js/dashboard.js"></script>
     <!-- End custom js for this page -->
 </body>
+
 </html>
