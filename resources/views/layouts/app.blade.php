@@ -20,7 +20,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
-
+    <!-- ICONES FAS FA-->
+    <script src="https://kit.fontawesome.com/fc066fbf39.js" crossorigin="anonymous" defer></script>
 
 
     <!-- plugins:css -->
@@ -41,7 +42,7 @@
     <link rel="shortcut icon" href="assets/images/favicon.png" />
 </head>
 <body>
-    <div id="app">
+    <div id="app" style="display: flex;">
         {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -95,10 +96,8 @@
                 </div>
             </div>
         </nav> --}}
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+               
+        @yield('content')         
     </div>
 
 
