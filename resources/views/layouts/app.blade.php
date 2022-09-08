@@ -44,6 +44,20 @@
         height: 100%;
         padding: 20px;
     }
+
+    .mostrarSidebar{
+        display: block !important;
+        
+    }
+
+    @media(max-width: 860px){
+        .conteudo-sidebar{
+            display: none
+        }
+        .conteudo-principal{
+            margin-left: unset !important
+        }
+    }
 </style>
 
 <body>
@@ -52,7 +66,7 @@
             @if (auth()->user())
                 <div class="conteudo-completo">
                     <!-- SIDEBAR -->
-                    <div class="conteudo-sidebar">
+                    <div id="conteudoSidebar" class="conteudo-sidebar">
                         @include('admin.sidebar.sidebar')
                     </div>
                     <!-- CONTEUDO -->
@@ -120,5 +134,7 @@
                 </div>
             </div>
         </nav> --}}
+
+    <script src="{{ asset('js/principal.js') }}" defer></script>
 </body>
 </html>
