@@ -29,9 +29,45 @@
 
 </head>
 
+<style>
+    .conteudo-completo{
+        display: flex;
+    }
+    .conteudo-sidebar{
+        position: fixed;
+        width: 260px;
+        height: 100vh;
+    }
+    .conteudo-principal{
+        margin-left: 260px;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+</style>
+
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div>
+            @if (auth()->user())
+                <div class="conteudo-completo">
+                    <!-- SIDEBAR -->
+                    <div class="conteudo-sidebar">
+                        @include('admin.sidebar.sidebar')
+                    </div>
+                    <!-- CONTEUDO -->
+                    <div class="conteudo-principal">
+                        @yield('content')
+                    </div>
+                </div>
+            @else
+                @yield('content')
+            @endif
+        </div>
+    </div>
+
+
+    {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -84,23 +120,5 @@
                 </div>
             </div>
         </nav> --}}
-
-        <div>
-            @if (auth()->user())
-                <div class="conteudo-completo">
-                    <!-- SIDEBAR -->
-                    <div class="conteudo-sidebar">
-                        @include('components.sidebar.sidebar')
-                    </div>
-                    <!-- CONTEUDO -->
-                    <div class="conteudo-principal">
-                        @yield('content')
-                    </div>
-                </div>
-            @else
-                @yield('content')
-            @endif
-        </div>
-    </div>
 </body>
 </html>
