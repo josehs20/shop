@@ -21,39 +21,67 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
+    <!-- CSS para todas as páginas -->
+    <link rel="stylesheet" href="{{asset('css/geral.css')}}">
 
     <!-- ICONES FAS FA-->
     <script src="https://kit.fontawesome.com/fc066fbf39.js" crossorigin="anonymous" defer></script>
 
-
-    <!-- ESTILO DO TEMPLATE  -->
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
-
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
-        class="template-customizer-theme-css">
-    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
-
-    <link rel="stylesheet" href="{{asset('sass/app/app.css')}}">
-    <!-- Page CSS -->
-
-    <!-- End layout styles -->
-    <link rel="shortcut icon" href="{{ asset('assets/img/favicon/favicon.ico') }}" />
-
 </head>
+
+<style>
+    .conteudo-completo{
+        display: flex;
+    }
+    .conteudo-sidebar{
+        position: fixed;
+        width: 260px;
+        height: 100vh;
+    }
+    .conteudo-principal{
+        margin-left: 260px;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .mostrarSidebar{
+        display: block !important;
+        
+    }
+
+    @media(max-width: 860px){
+        .conteudo-sidebar{
+            display: none
+        }
+        .conteudo-principal{
+            margin-left: unset !important
+        }
+    }
+</style>
 
 <body>
     <div id="app">
-        {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <div>
+            @if (auth()->user())
+                <div class="conteudo-completo">
+                    <!-- SIDEBAR -->
+                    <div id="conteudoSidebar" class="conteudo-sidebar">
+                        @include('admin.sidebar.sidebar')
+                    </div>
+                    <!-- CONTEUDO -->
+                    <div class="conteudo-principal">
+                        @yield('content')
+                    </div>
+                </div>
+            @else
+                @yield('content')
+            @endif
+        </div>
+    </div>
+
+
+    {{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -107,40 +135,6 @@
             </div>
         </nav> --}}
 
-        <div>
-            @if (auth()->user())
-                <div class="conteudo-completo">
-                    <!-- SIDEBAR -->
-                    <div class="conteudo-sidebar">
-                        @include('components.sidebar.sidebar')
-                    </div>
-                    <!-- CONTEUDO -->
-                    <div class="conteudo-principal">
-                        @yield('content')
-                    </div>
-                </div>
-            @else
-                @yield('content')
-            @endif
-        </div>
-    </div>
-
-    <!-- Helpers -->
-    <script src="../assets/vendor/js/helpers.js"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../assets/js/config.js"></script>
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
-    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
-    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
-    <script src="{{ asset('assets/js/main.js') }}"></script>
-    <script src="{{ asset('assets/js/dashboards-analytics.js') }}"></script>
+    <script src="{{ asset('js/principal.js') }}" defer></script>
 </body>
-
 </html>

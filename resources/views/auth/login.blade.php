@@ -1,7 +1,110 @@
 @extends('layouts.app')
 
+<style>
+    .entrar{
+        display: flex;
+    }
+    .div-imagem{
+        width: 60%;
+        background-image: url(imagens/montanha.png);
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+    }
+    .div-form{
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .div-form form{
+        width: 300px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+    .div-form input{
+        width: 100%;
+        margin: 7px 0;
+    }
+    .bcustom{
+        width: 100% !important;
+        margin-top: 40px
+    }
+    .tenho-conta{
+        margin-top: 10px
+    }
+    @media(max-width: 860px){
+        .entrar{
+            justify-content: center;
+            align-items: center;
+        }
+        .div-imagem{
+            display: none;
+        }
+        .div-form{
+            width: 100%;
+            height: 100vh;
+        }
+        .div-form form{
+            border: 1px solid #ccc !important;
+            padding: 50px 20px;
+            border-radius: 15px;
+            margin: 40px 0
+        }
+    }
+</style>
+
 @section('content')
-<div class="container">
+    <main class="entrar">
+        <div class="div-imagem">
+
+        </div>
+        <div class="div-form">
+            <form method="POST" action="{{ route('login') }}">
+                <h1>Entrar</h1>
+                @csrf
+                <!-- EMAIL -->
+                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                    placeholder="Nome de usuário" value="{{ old('email') }}" required autocomplete="email" autofocus>
+
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <!-- SENHA -->
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" placeholder="Senha" required autocomplete="current-password">
+
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
+                <!-- BOTAO LOGIN -->
+                <button type="submit" class="btn btn-outline-primary bcustom">
+                    ENTRAR
+                </button>
+
+                <a class="tenho-conta" href="{{route('register')}}"> Não tenho conta </a>
+
+                <!-- ESQUECI MINHA SENHA -->
+                {{-- @if (Route::has('password.request'))
+                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                        {{ __('Forgot Your Password?') }}
+                    </a>
+                @endif --}}
+
+            </form>
+        </div>
+    </main>
+    {{-- <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
@@ -69,5 +172,5 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection
