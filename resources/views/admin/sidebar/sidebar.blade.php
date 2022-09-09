@@ -62,17 +62,9 @@
 
     .fecharSidebar {
         display: none;
-        align-items: center;
-        justify-content: center;
         position: absolute;
-        right: -13px;
-        background-color: #797979;
-        width: 30px;
-        height: 30px;
-        border-radius: 27px;
-    }
-    .fecharSidebar>i{
-        color: #FFF
+        right: 5px;
+        top: 10px;
     }
 
     @media(max-width: 860px) {
@@ -83,9 +75,9 @@
 </style>
 
 <aside id="aside">
-    <div id="fecharSidebar" class="fecharSidebar">
-        <i class="fa fa-times"></i>
-    </div>
+    
+    <i id="fecharSidebar" class="fa fa-times fecharSidebar"></i>
+    
     <h1 class="logo">EMPRESA</h1>
     <br>
     <!-- NOME OU LOGO DA EMPRESA -->

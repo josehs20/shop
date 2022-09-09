@@ -37,6 +37,10 @@
         position: fixed;
         width: 260px;
         height: 100vh;
+        overflow: auto;
+        transition: 1s;
+        top: 0;
+        left: 0;
     }
     .conteudo-principal{
         margin-left: 260px;
@@ -46,13 +50,12 @@
     }
 
     .mostrarSidebar{
-        display: block !important;
-        
+        width: 260px !important;
     }
 
     @media(max-width: 860px){
         .conteudo-sidebar{
-            display: none
+            width: 0;
         }
         .conteudo-principal{
             margin-left: unset !important
