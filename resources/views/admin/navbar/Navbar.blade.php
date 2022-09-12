@@ -9,11 +9,8 @@
         justify-content: space-between;
         align-items: center
     }
-    .nome-usuario{
-        
-    }
     .bmenu{
-        visibility: hidden
+        visibility: hidden;
     }
 
     @media(max-width: 860px){
@@ -25,7 +22,7 @@
 
 <nav>
     <i id="bmenu" class="fa fa-bars bmenu"></i>
-    <div class="nav-item dropdown nome-usuario">
+    <div class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ Auth::user()->name }}
         </a>

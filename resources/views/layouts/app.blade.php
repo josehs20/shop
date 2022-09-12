@@ -22,7 +22,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <!-- CSS para todas as páginas -->
-    <link rel="stylesheet" href="{{asset('css/geral.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/geral.css') }}">
 
     <!-- ICONES FAS FA-->
     <script src="https://kit.fontawesome.com/fc066fbf39.js" crossorigin="anonymous" defer></script>
@@ -30,31 +30,38 @@
 </head>
 
 <style>
-    .conteudo-completo{
+    .conteudo-completo {
         display: flex;
     }
-    .conteudo-sidebar{
+
+    .conteudo-sidebar {
         position: fixed;
         width: 260px;
         height: 100vh;
+        overflow: auto;
+        transition: 1s;
+        top: 0;
+        left: 0;
+        z-index: 15000;
     }
-    .conteudo-principal{
+
+    .conteudo-principal {
         margin-left: 260px;
         width: 100%;
         height: 100%;
         padding: 20px;
     }
 
-    .mostrarSidebar{
-        display: block !important;
-        
+    .mostrarSidebar {
+        width: 260px !important;
     }
 
-    @media(max-width: 860px){
-        .conteudo-sidebar{
-            display: none
+    @media(max-width: 860px) {
+        .conteudo-sidebar {
+            width: 0;
         }
-        .conteudo-principal{
+
+        .conteudo-principal {
             margin-left: unset !important
         }
     }
@@ -62,6 +69,10 @@
 
 <body>
     <div id="app">
+        @if (Session::get('msgAlerta'))
+            <body onload="alerta('<?php echo Session::get('msgAlerta')[0]; ?>', 
+                                '<?php echo Session::get('msgAlerta')[1]; ?>')">
+        @endif
         <div>
             @if (auth()->user())
                 <div class="conteudo-completo">
@@ -71,6 +82,7 @@
                     </div>
                     <!-- CONTEUDO -->
                     <div class="conteudo-principal">
+                        @include('admin.navbar.navbar')
                         @yield('content')
                     </div>
                 </div>
@@ -136,5 +148,7 @@
         </nav> --}}
 
     <script src="{{ asset('js/principal.js') }}" defer></script>
+    <script src="{{ asset('js/alertas.js') }}" defer></script>
 </body>
+
 </html>

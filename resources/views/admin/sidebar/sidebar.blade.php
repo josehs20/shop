@@ -54,6 +54,11 @@
     .active {
         background-color: orangered !important;
         color: #FFF !important;
+        border-radius: 10px
+    }
+
+    .active a{
+        color: #FFF !important
     }
 
     .esconder {
@@ -62,17 +67,9 @@
 
     .fecharSidebar {
         display: none;
-        align-items: center;
-        justify-content: center;
         position: absolute;
-        right: -13px;
-        background-color: #797979;
-        width: 30px;
-        height: 30px;
-        border-radius: 27px;
-    }
-    .fecharSidebar>i{
-        color: #FFF
+        right: 5px;
+        top: 10px;
     }
 
     @media(max-width: 860px) {
@@ -83,16 +80,16 @@
 </style>
 
 <aside id="aside">
-    <div id="fecharSidebar" class="fecharSidebar">
-        <i class="fa fa-times"></i>
-    </div>
+    
+    <i id="fecharSidebar" class="fa fa-times fecharSidebar"></i>
+    
     <h1 class="logo">EMPRESA</h1>
     <br>
     <!-- NOME OU LOGO DA EMPRESA -->
-    <div class="dashboard-opcao @if (Request::segment(1) == 'home') active @endif">
+    <div class="dashboard-opcao @if (Request::segment(1) == 'homeAdmin') active @endif">
         <div>
             <i class="fa fa-home"></i>
-            <h5>Dashboard</h5>
+            <h5><a href="{{route('homeAdmin.index')}}">Dashboard</a></h5>
         </div>
     </div>
 
@@ -107,8 +104,8 @@
             <i class="fa fa-sort-down mb-2"></i>
         </a>
     </div>
-    <div class="collapse" id="cadastros">
-        <p class="opcoes"><a href="#produtos">- &nbsp;&nbsp;&nbsp; Produtos</a></p>
+    <div class="collapse @if (Request::segment(1) == 'produto') show @endif" id="cadastros">
+        <p class="opcoes @if (Request::segment(1) == 'produto') active @endif"><a href="{{route('produto.index')}}">- &nbsp;&nbsp;&nbsp; Produtos</a></p>
     </div>
 
     <!-- CONFIGURAÇÕES -->

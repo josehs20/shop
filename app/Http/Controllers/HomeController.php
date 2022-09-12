@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        if(auth()->user()->perfil == 'administrador'){
+            Session::flash('msgAlerta', ['success', 'Bem vindo, '.auth()->user()->name.'!']);
+            return redirect()->route('homeAdmin.index');
+        } else {
+            return view('welcome');
+        }
     }
 }
