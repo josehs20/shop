@@ -105,7 +105,7 @@
         </a>
     </div>
     <div class="collapse @if (Request::segment(1) == 'produto') show @endif" id="cadastros">
-        <p class="opcoes @if (Request::segment(1) == 'produto') active @endif"><a href="{{route('produto.index')}}">- &nbsp;&nbsp;&nbsp; Produtos</a></p>
+        <a href="{{route('produto.index')}}"><p class="opcoes @if (Request::segment(1) == 'produto') active @endif">- &nbsp;&nbsp;&nbsp; Produtos</p></a>
     </div>
 
     <!-- CONFIGURAÇÕES -->
