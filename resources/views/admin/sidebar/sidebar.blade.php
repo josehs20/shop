@@ -80,7 +80,7 @@
 </style>
 
 <aside id="aside">
-    
+    <?php $teste = false ?>
     <i id="fecharSidebar" class="fa fa-times fecharSidebar"></i>
     
     <h1 class="logo">EMPRESA</h1>

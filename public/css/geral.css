@@ -19,6 +19,10 @@
     color: #FFF;
 }
 
+.btn-outline-secondary{
+    box-shadow: none !important;
+}
+
 input {
     box-shadow: none !important;
     border-color: #ccc !important;

@@ -21,11 +21,9 @@ function rotacionarElemento(elemento) {
         rotate = 0
         elemento.style.transform = "rotate(" + rotate + "deg)";
     }
-    console.log(rotate);
-    console.log(elemento);
 }
 
 function div_nao_contem_registro(elemento, texto) {
     var div = document.getElementById(elemento)
-    div.innerHTML = `<div class="alert alert-info col-12" role="alert">${texto}</div>`;
+    div.innerHTML = `<div class="alert alert-info mx-auto" role="alert">${texto}</div>`;
 }
