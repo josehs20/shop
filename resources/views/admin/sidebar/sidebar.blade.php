@@ -80,7 +80,7 @@
 </style>
 
 <aside id="aside">
-    
+    <?php $teste = false ?>
     <i id="fecharSidebar" class="fa fa-times fecharSidebar"></i>
     
     <h1 class="logo">EMPRESA</h1>
@@ -104,8 +104,9 @@
             <i class="fa fa-sort-down mb-2"></i>
         </a>
     </div>
-    <div class="collapse @if (Request::segment(1) == 'produto') show @endif" id="cadastros">
-        <a href="{{route('produto.index')}}"><p class="opcoes @if (Request::segment(1) == 'produto') active @endif">- &nbsp;&nbsp;&nbsp; Produtos</p></a>
+    <div class="collapse @if (Request::segment(1) == 'cadastro') show @endif" id="cadastros">
+        <a href="{{route('produto.index')}}"><p class="opcoes @if (Request::segment(2) == 'produto') active @endif">- &nbsp;&nbsp;&nbsp; Produtos</p></a>
+        <a href="{{route('categoria.index')}}"><p class="opcoes @if (Request::segment(2) == 'categoria') active @endif">- &nbsp;&nbsp;&nbsp; Categoria</p></a>
     </div>
 
     <!-- CONFIGURAÇÕES -->

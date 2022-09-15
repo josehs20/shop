@@ -56,6 +56,35 @@
         margin-bottom: 10px;
     }
 
+    .search{
+        display: flex;
+        justify-content: space-between;
+        align-items: center
+    }
+
+    .search > div{
+        width: 70% !important;
+        height: fit-content;
+        margin: 0 !important;
+    }
+
+    .search > h5 {
+        margin: 0 !important;
+        height: fit-content;
+    }
+    
+    .insearch i{
+        color: #000 !important
+    }
+
+    .insearch:hover i{
+        color: #FFF !important
+    }
+
+    .insearch:hover{
+        background-color: orangered;
+    }
+
     @media(max-width: 860px) {
         .card-body {
             justify-content: space-between
@@ -91,16 +120,15 @@
     }
 </style>
 @section('content')
+    <!-- CADASTRO DE PRODUTOS -->
     <div class="card mb-3">
         <form method="POST" action="{{ route('produto.store') }}" enctype="multipart/form-data">
             @csrf
             <h5 class="card-header d-flex justify-content-between">
                 <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')" data-bs-toggle="collapse"
                     href="#cadastroDeProdutos" role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
-                    <i id="iconCadatroProduto" class="fa fa-caret-down mx-2"></i> Cadastro de produtos
+                    <i id="iconCadatroProduto" class="fa fa-caret-down"></i> &nbsp; Cadastro de produtos
                 </a>
-                <button type="button" onclick="limparInputs('cadastroDeProdutos')" class="btn btn-outline-secondary">Limpar
-                    campos</button>
             </h5>
 
             <div class="collapse" id="cadastroDeProdutos">
@@ -153,28 +181,31 @@
                     <div>
                         <!-- BOTOES FICAM AQUI -->
                         <button type="submit" class="btn btn-outline-primary">Cadastrar</button>
+                        <button type="reset" class="btn btn-outline-secondary">Limpar campos</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
 
+    <!-- LISTA DE PRODUTOS -->
     <div class="card">
-        <form onsubmit="return get_produtos();" method="GET">
+        <form id="formListaDeProdutos" method="GET">
             @csrf
-            <h5 class="card-header">
-                Lista de produtos
-            </h5>  
+            <div class="card-header search">
+                <h5>Lista de produtos</h5>
+                <div class="input-group mb-3">
+                    <!-- INPUT PARA PESQUISAR PRODUTOS -->
+                    <input id="inputPesquisarProduto" type="search" class="form-control" placeholder="Pesquise os produtos"
+                        aria-label="Pesquise os produtos">
+                    <button class="input-group-text insearch" type="submit"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
 
             <div id="divListaProdutos" class="card-body">
-             
+
             </div>
             <div class="card-footer">
-                <p></p> <!-- APENAS PARA OCUPAR ESPAÇO -->
-                <div>
-                    <!-- BOTOES FICAM AQUI -->
-                    <button type="submit" class="btn"></button>
-                </div>
             </div>
 
         </form>
