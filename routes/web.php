@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use Illuminate\Support\Facades\Auth;
@@ -25,6 +26,9 @@ Auth::routes();
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/homeAdmin', HomeAdminController::class);
 
-//produtos
-Route::resource('/produto', ProdutoController::class);
+//PRODUTOS
+Route::resource('/cadastro/produto', ProdutoController::class);
+//CATEGORIAS
+Route::resource('/cadastro/categoria', CategoriaController::class);
+//PESQUISA DE PRODUTOS
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
