@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,4 +24,7 @@ Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/homeAdmin', HomeAdminController::class);
+
+//produtos
 Route::resource('/produto', ProdutoController::class);
+Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);

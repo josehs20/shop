@@ -94,12 +94,15 @@
     <div class="card mb-3">
         <form method="POST" action="{{ route('produto.store') }}" enctype="multipart/form-data">
             @csrf
-            <h5 class="card-header">
-                <a data-bs-toggle="collapse" href="#cadastroDeProdutos" role="button" aria-expanded="false"
-                    aria-controls="cadastroDeProdutos">
-                    <i class="fa fa-caret-down"></i> Cadastro de produtos
+            <h5 class="card-header d-flex justify-content-between">
+                <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')" data-bs-toggle="collapse"
+                    href="#cadastroDeProdutos" role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
+                    <i id="iconCadatroProduto" class="fa fa-caret-down mx-2"></i> Cadastro de produtos
                 </a>
+                <button type="button" onclick="limparInputs('cadastroDeProdutos')" class="btn btn-outline-secondary">Limpar
+                    campos</button>
             </h5>
+
             <div class="collapse" id="cadastroDeProdutos">
                 <div class="card-body">
                     <div class="input-group mb-2 inome">
@@ -157,14 +160,14 @@
     </div>
 
     <div class="card">
-        <form method="POST" action="{{ route('produto.store') }}" enctype="multipart/form-data">
+        <form onsubmit="return get_produtos();" method="GET">
             @csrf
             <h5 class="card-header">
                 Lista de produtos
-            </h5>
+            </h5>  
 
-            <div class="card-body">
-                <h1>PRODUTOS FICAM AQUI</h1>
+            <div id="divListaProdutos" class="card-body">
+             
             </div>
             <div class="card-footer">
                 <p></p> <!-- APENAS PARA OCUPAR ESPAÇO -->
@@ -177,3 +180,4 @@
         </form>
     </div>
 @endsection
+<script src="{{ asset('js/admin/cadastroProduto.js') }}" defer></script>

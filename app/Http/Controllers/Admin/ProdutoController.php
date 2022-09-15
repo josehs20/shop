@@ -19,6 +19,12 @@ class ProdutoController extends Controller
         return view('admin.produto.produto');
     }
 
+    public function get_produtos(Request $request)
+    {
+        $produtos = Produto::get();
+        return response()->json($produtos, 200);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
