@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CategoriaController extends Controller
 {
@@ -15,6 +17,12 @@ class CategoriaController extends Controller
     public function index()
     {
         return view('admin.categoria.categoria');
+    }
+
+    public function get_categorias(Request $request)
+    {
+        $categorias = Categoria::get();
+        return response()->json($categorias, 200);
     }
 
     /**
@@ -35,7 +43,11 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Session::flash('msgAlerta', ['success', 'CATEGORIA']);
+        // return redirect()->route('categoria.index');
+        
+        $categoria = Categoria::create($request->all());
+        return response()->json('Categoria '.$categoria->nome.' cadastrada com sucesso!', 200);
     }
 
     /**
@@ -80,6 +92,8 @@ class CategoriaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $categoria = Categoria::find($id);
+        $categoria->delete();
+        return response()->json('Categoria '.$categoria->nome.' excluída com sucesso!', 200);
     }
 }
