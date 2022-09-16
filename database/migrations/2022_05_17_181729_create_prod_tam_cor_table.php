@@ -18,6 +18,8 @@ class CreateProdTamCorTable extends Migration
             $table->unsignedBigInteger("produto_id");
             $table->unsignedBigInteger("tamanho_id");
             $table->unsignedBigInteger("cor_id");
+            $table->decimal("custo", 8, 2);
+            $table->decimal("preco", 8, 2);
 
 
             $table->timestamps();

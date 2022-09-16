@@ -1,13 +1,39 @@
 function post_produto() {
-    //funcao para inserir produtos
+    const formData = new FormData(document.querySelector('#formCadastroProduto'))
+
+    var imagens = document.getElementById('imagensProduto').files
+    if (imagens.length > 5) {
+        alerta('info', 'Limite inválido', 'Limite de 5 imagens, para melhor desempenho da plataforma', true)
+        return;
+    }
+
+    axios.post('/cadastro/produto', formData)
+        .then(response => {
+            console.log(response);
+        })
+        .catch(response => {
+            console.log(response);
+        })
 }
 
-var formularioListaProdutos = document.getElementById('formListaDeProdutos')
-formularioListaProdutos.addEventListener('submit', e => {
-    e.preventDefault()
-    var inputPesquisa = document.getElementById('inputPesquisarProduto').value;    
-    console.log(inputPesquisa)
-    axios.get('/get_produtos')
+function calcula_lucro() {
+    var preco = document.querySelector('input[name="preco"]').value
+    var custo = document.querySelector('input[name="custo"]').value
+    var lucro = document.querySelector('input[name="lucro"]')
+
+    if (preco && custo) {
+        var valor = ((preco - custo) / preco) * 100;
+        lucro.value = valor.toFixed(2);
+    }
+
+
+
+}
+
+function get_produtos() {
+    var nome = document.getElementById('inputPesquisarProduto').value;
+
+    axios.get('/get_produtos', { params: { nome: nome } })
         .then(response => {
             if (response.data.length) {
                 monta_lista_produtos(response.data);
@@ -17,8 +43,9 @@ formularioListaProdutos.addEventListener('submit', e => {
         })
         .catch(response => {
             alerta('error', 'Não foi possível buscar os produtos, tente novamente mais tarde.')
-        }) 
-})
+        })
+}
+get_produtos();
 
 function monta_lista_produtos(produtos) {
     //funcao chamada

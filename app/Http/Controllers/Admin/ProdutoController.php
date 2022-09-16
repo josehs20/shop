@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categoria;
+use App\Models\Cor;
+use App\Models\ProdTamCor;
 use App\Models\Produto;
+use App\Models\Tamanho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Faker\Provider\Image;
 
 class ProdutoController extends Controller
 {
@@ -16,7 +21,11 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        return view('admin.produto.produto');
+        return view('admin.produto.produto', [
+            'tamanhos' => Tamanho::get(),
+            'cores' => Cor::get(),
+            'categorias' => Categoria::get(),
+        ]);
     }
 
     public function get_produtos(Request $request)
@@ -43,10 +52,17 @@ class ProdutoController extends Controller
      */
     public function store(Request $request)
     {
-        // $produto = Produto::create($request->all());
-        // dd($produto);
-        Session::flash('msgAlerta', ['success', 'PRODUTO']);
-        return redirect()->route('produto.index');
+        $produto = Produto::with('prodTamCors')->where('nome', $request->nome)->first();
+
+        if (!$produto) {
+            $produto = Produto::create(['nome' => $request->nome, 'categoria_id' => $request->categoria]);
+            $ptc = true;
+        }
+
+        $ptc = $produto->prodTamCors();
+
+
+        return response()->json($ptc, 200);
     }
 
     /**

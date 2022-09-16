@@ -56,32 +56,32 @@
         margin-bottom: 10px;
     }
 
-    .search{
+    .search {
         display: flex;
         justify-content: space-between;
         align-items: center
     }
 
-    .search > div{
+    .search>div {
         width: 70% !important;
         height: fit-content;
         margin: 0 !important;
     }
 
-    .search > h5 {
+    .search>h5 {
         margin: 0 !important;
         height: fit-content;
     }
-    
-    .insearch i{
+
+    .insearch i {
         color: #000 !important
     }
 
-    .insearch:hover i{
+    .insearch:hover i {
         color: #FFF !important
     }
 
-    .insearch:hover{
+    .insearch:hover {
         background-color: orangered;
     }
 
@@ -122,11 +122,12 @@
 @section('content')
     <!-- CADASTRO DE PRODUTOS -->
     <div class="card mb-3">
-        <form method="POST" action="{{ route('produto.store') }}" enctype="multipart/form-data">
+        <form id="formCadastroProduto" onsubmit="post_produto(); return false;" method="POST" enctype="multipart/form-data" >
             @csrf
-            <h5 class="card-header d-flex justify-content-between">
-                <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')" data-bs-toggle="collapse"
-                    href="#cadastroDeProdutos" role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
+
+            <h5 class="card-header d-flex justify-content-between col-12" data-bs-toggle="collapse"
+            href="#cadastroDeProdutos" role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
+                <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')" >
                     <i id="iconCadatroProduto" class="fa fa-caret-down"></i> &nbsp; Cadastro de produtos
                 </a>
             </h5>
@@ -139,42 +140,40 @@
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input type="number" class="form-control" placeholder="Custo" name="custo">
+                        <input onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Custo" name="custo">
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input type="number" class="form-control" placeholder="Preço" name="preco">
+                        <input onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Preço" name="preco">
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input type="number" class="form-control" placeholder="Lucro" name="lucro">
+                        <input readonly type="number" class="form-control" placeholder="Lucro" name="lucro">
                     </div>
-                    <select class="form-select icategoria" aria-label="Default select example">
-                        <option selected>Categoria</option>
-                        <option value="1">Calça</option>
-                        <option value="2">Camisa</option>
+
+                    <select name="categoria" class="form-select icategoria" aria-label="Default select example">
+                        @foreach ($categorias as $cat)
+                            <option value="{{ $cat->id }}">{{ $cat->nome }}</option>
+                        @endforeach
                     </select>
-                    <select class="form-select icor" aria-label="Default select example">
-                        <option selected>Cor</option>
-                        <option value="1">Cinza</option>
-                        <option value="2">Branco</option>
-                        <option value="3">Vermelho</option>
+                    <select name="cor" class="form-select icor" aria-label="Default select example">
+                        @foreach ($cores as $c)
+                            <option value="{{ $c->id }}">{{ $c->nome }}</option>
+                        @endforeach
                     </select>
-                    <select class="form-select itamanho" aria-label="Default select example">
-                        <option selected>Tamanho</option>
-                        <option value="1">PP</option>
-                        <option value="2">P</option>
-                        <option value="3">M</option>
-                        <option value="4">G</option>
-                        <option value="5">GG</option>
+                    <select name="tamanho" class="form-select itamanho" aria-label="Default select example">
+                        @foreach ($tamanhos as $t)
+                            <option value="{{ $t->id }}">{{ $t->nome }}</option>
+                        @endforeach
                     </select>
                     <div class="input-group mb-2 iestoque">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-memory"></i></span>
-                        <input type="number" class="form-control" placeholder="Estoque" name="estoque">
+                        <input name="estoque" type="number" class="form-control" placeholder="Estoque" name="estoque">
                     </div>
 
-                    <input required type="file" class="form-control disabledInsert iimagem" id="imagensProdutoValue"
-                        accept="image/*" multiple placeholder="Imagem">
+                    <input id="imagensProduto" name="imagens[]" required type="file"
+                        class="form-control disabledInsert iimagem" id="imagensProdutoValue" accept="image/*" multiple
+                        placeholder="Imagem">
                 </div>
                 <div class="card-footer">
                     <p></p> <!-- APENAS PARA OCUPAR ESPAÇO -->
@@ -190,7 +189,7 @@
 
     <!-- LISTA DE PRODUTOS -->
     <div class="card">
-        <form id="formListaDeProdutos" method="GET">
+        <form onsubmit="get_produtos(); return false;" id="formListaDeProdutos" method="GET">
             @csrf
             <div class="card-header search">
                 <h5>Lista de produtos</h5>
@@ -210,5 +209,5 @@
 
         </form>
     </div>
+    <script src="{{ asset('js/admin/cadastroProduto.js') }}" defer></script>
 @endsection
-<script src="{{ asset('js/admin/cadastroProduto.js') }}" defer></script>
