@@ -32,3 +32,8 @@ Route::resource('/cadastro/produto', ProdutoController::class);
 Route::resource('/cadastro/categoria', CategoriaController::class);
 //PESQUISA DE PRODUTOS
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
+//PESQUISA DE CATEGORIAS
+Route::get('/get_categorias', [\App\Http\Controllers\Admin\CategoriaController::class, 'get_categorias']);
+
+
+

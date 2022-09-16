@@ -66,7 +66,7 @@
     }
 
     .fecharSidebar {
-        display: none;
+        display: none !important;
         position: absolute;
         right: 5px;
         top: 10px;
@@ -74,7 +74,7 @@
 
     @media(max-width: 860px) {
         .fecharSidebar {
-            display: flex;
+            display: flex !important;
         }
     }
 </style>
