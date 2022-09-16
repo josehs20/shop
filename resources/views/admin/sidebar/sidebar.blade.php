@@ -108,6 +108,7 @@
         <a href="{{route('produto.index')}}"><p class="opcoes @if (Request::segment(2) == 'produto') active @endif">- &nbsp;&nbsp;&nbsp; Produto</p></a>
         <a href="{{route('categoria.index')}}"><p class="opcoes @if (Request::segment(2) == 'categoria') active @endif">- &nbsp;&nbsp;&nbsp; Categoria</p></a>
         <a href="{{route('tamanho.index')}}"><p class="opcoes @if (Request::segment(2) == 'tamanho') active @endif">- &nbsp;&nbsp;&nbsp; Tamanho</p></a>
+        <a href="{{route('cor.index')}}"><p class="opcoes @if (Request::segment(2) == 'cor') active @endif">- &nbsp;&nbsp;&nbsp; Cor</p></a>
     </div>
 
     <!-- CONFIGURAÇÕES -->

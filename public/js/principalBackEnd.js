@@ -11,6 +11,9 @@ function excluir_elemento(elementoID, rota, funcaoGetElementos) {
             if(funcaoGetElementos == "get_tamanhos"){
               get_tamanhos()
             }
+            if(funcaoGetElementos == "get_cores"){
+              get_cores()
+            }
         }).catch(errors => {
             console.log(errors);
         })
