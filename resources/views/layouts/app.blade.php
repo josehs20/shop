@@ -146,7 +146,8 @@
                 </div>
             </div>
         </nav> --}}
-    <script src="{{ asset('js/principal.js') }}" defer></script>
+    <script src="{{ asset('js/principalFrontEnd.js') }}" defer></script>
+    <script src="{{ asset('js/principalBackEnd.js') }}" defer></script>
     <script src="{{ asset('js/alertas.js') }}" defer></script>
 </body>
 
