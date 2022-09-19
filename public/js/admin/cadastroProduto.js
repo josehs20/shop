@@ -1,5 +1,5 @@
 function post_produto() {
-    const formData = new FormData(document.querySelector('#formCadastroProduto'))
+    const formData = new FormData(document.querySelector('#formCadastroProduto'));
 
     var imagens = document.getElementById('imagensProduto').files
     if (imagens.length > 5) {
@@ -10,9 +10,15 @@ function post_produto() {
     axios.post('/cadastro/produto', formData)
         .then(response => {
             console.log(response);
+            document.querySelector('select[name="categoria"]').disabled = true;
+            alerta('success','', response.data.msg, true);
         })
-        .catch(response => {
-            console.log(response);
+        .catch(errors => {
+            if (errors.response.status == 422) {
+                alerta('error', errors.response.data.msg, '', true);
+            } else {
+                alerta('error', 'Algo deu errado', 'Atualize a página e tente novamente', false);
+            }
         })
 }
 

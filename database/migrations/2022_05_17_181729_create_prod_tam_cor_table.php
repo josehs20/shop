@@ -20,8 +20,6 @@ class CreateProdTamCorTable extends Migration
             $table->unsignedBigInteger("cor_id");
             $table->decimal("custo", 8, 2);
             $table->decimal("preco", 8, 2);
-
-
             $table->timestamps();
 
             $table->foreign("produto_id")
@@ -31,7 +29,6 @@ class CreateProdTamCorTable extends Migration
             $table->foreign("tamanho_id")
                 ->references("id")->on("tamanhos")
                 ->onDelete("cascade");
-
 
             $table->foreign("cor_id")
                 ->references("id")->on("cores")

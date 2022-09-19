@@ -5,12 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Cor;
-use App\Models\ProdTamCor;
+use App\Models\Imagem;
 use App\Models\Produto;
 use App\Models\Tamanho;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
-use Faker\Provider\Image;
 
 class ProdutoController extends Controller
 {
@@ -55,14 +53,29 @@ class ProdutoController extends Controller
         $produto = Produto::with('prodTamCors')->where('nome', $request->nome)->first();
 
         if (!$produto) {
-            $produto = Produto::create(['nome' => $request->nome, 'categoria_id' => $request->categoria]);
-            $ptc = true;
+            $produto = Produto::create(['nome' => remove_espacos($request->nome), 'categoria_id' => $request->categoria]);
         }
 
-        $ptc = $produto->prodTamCors();
+        $ptc = $produto->prodTamCors()->where('tamanho_id', $request->tamanho)->where('cor_id', $request->cor)->first();
+        if (!$ptc) {
+            $ptc = $produto->prodTamCors()->create([
+                'tamanho_id' => $request->tamanho,
+                'cor_id' => $request->cor,
+                'custo' => $request->custo,
+                'preco' => $request->preco
+            ]);
+            
+            //cria estoque
+            $ptc->estoque()->create(['quantidade' =>  $request->estoque]);
 
-
-        return response()->json($ptc, 200);
+            if (!$ptc->produto->imagens()->count()) {
+                $image = new Imagem();
+                $image->upload_imagem_produto($request, $ptc->produto);
+            }
+            return response()->json(['msg' => 'Produto '.$ptc->produto->nome.', do tamanho '.$ptc->tamanho->nome.' e cor '. $ptc->cor->nome.', criado com sucesso!'], 200);
+        } else {  
+            return response()->json(['msg' => 'Produto da mesma cor e tamanho existente'], 422);
+        }
     }
 
     /**

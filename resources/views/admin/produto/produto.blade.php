@@ -140,11 +140,11 @@
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Custo" name="custo">
+                        <input required onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Custo" name="custo">
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Preço" name="preco">
+                        <input required onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Preço" name="preco">
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
@@ -168,7 +168,7 @@
                     </select>
                     <div class="input-group mb-2 iestoque">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-memory"></i></span>
-                        <input name="estoque" type="number" class="form-control" placeholder="Estoque" name="estoque">
+                        <input required name="estoque" type="number" class="form-control" placeholder="Estoque" name="estoque">
                     </div>
 
                     <input id="imagensProduto" name="imagens[]" required type="file"

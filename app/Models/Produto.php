@@ -17,4 +17,10 @@ class Produto extends Model
     {
         return $this->hasmany('App\Models\ProdTamCor');
     }
+
+    public function imagens()
+    {
+        return $this->hasMany('App\Models\Imagem');
+    }
+
 }
