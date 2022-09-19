@@ -10,3 +10,17 @@ function alerta(icone, title, texto, confirmButton) {
       timer: timer
     })
 }
+
+//ALERTA QUE CONFIRMA ANTES DE EXCLUIR PARA O USUARIO TER CERTEZA
+//ELA CHAMA A FUNÇÃO DE EXCLUIR(no arquivo princinpalBackEnd.js) QUANDO O USUARIO CONFIRMA QUE QUER EXCLUIR
+function confirmar_exclusao(elemento, rota, funcaoGetElementos, objeto) {
+  Swal.fire({
+      title: `Deseja realmente excluir ${objeto} ${elemento.nome}?`,
+      showCancelButton: true,
+      confirmButtonText: 'Confirmar',
+  }).then((result) => {
+      if (result.isConfirmed) {
+          excluir_elemento(elemento.id, rota, funcaoGetElementos)
+      }
+  })
+}

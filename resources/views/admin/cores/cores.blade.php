@@ -5,7 +5,8 @@
         display: flex;
         flex-wrap: wrap;
     }
-    .cadastrarCategoria {
+
+    .cadastrarCores {
         width: 300px !important;
         height: fit-content !important;
     }
@@ -16,36 +17,36 @@
         justify-content: space-between;
     }
 
-    .listarCategoria {
+    .listarCores {
         width: 70%
     }
 
-    .search{
+    .search {
         display: flex;
         justify-content: space-between;
         align-items: center
     }
 
-    .search > div{
+    .search>div {
         width: 70% !important;
         height: fit-content;
         margin: 0 !important;
     }
 
-    .search > h5 {
+    .search>h5 {
         margin: 0 !important;
         height: fit-content;
     }
 
-    .insearch i{
+    .insearch i {
         color: #000 !important
     }
 
-    .insearch:hover i{
+    .insearch:hover i {
         color: #FFF !important
     }
 
-    .insearch:hover{
+    .insearch:hover {
         background-color: orangered;
     }
 
@@ -54,11 +55,11 @@
             display: unset !important
         }
 
-        .cadastrarCategoria {
+        .cadastrarCores {
             width: 100% !important
         }
 
-        .listarCategoria {
+        .listarCores {
             width: 100% !important
         }
     }
@@ -68,16 +69,16 @@
     <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(C) E LISTAR(L) CATEGORIAS -->
     <div class="divPaiCL">
         <!-- CADASTRO DE CATEGORIAS -->
-        <div class="card mb-3 cadastrarCategoria">
-            <form id="formCadastrarCategoria" method="POST" onsubmit="post_categorias(); return false;">
+        <div class="card mb-3 cadastrarCores">
+            <form id="formCadastrarCores" method="POST" onsubmit="post_cores(); return false;">
                 @csrf
                 <h5 class="card-header d-flex justify-content-between">
-                    Cadastro de categorias
+                    Cadastro de cores
                 </h5>
                 <div class="card-body">
                     <div class="input-group mb-2">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-flag"></i></span>
-                        <input required type="text" class="form-control" placeholder="Nome da categoria" name="nome">
+                        <span class="input-group-text" id="basic-addon1"><input type="color" name="codigo"></span>
+                        <input required type="text" class="form-control" placeholder="Nome da cor" name="nome">
                     </div>
                 </div>
                 <div class="card-footer">
@@ -93,31 +94,32 @@
         </div>
 
         <!-- LISTA DE CATEGORIAS -->
-        <div class="card listarCategoria">
-            <form onsubmit="get_categorias(); return false;" id="formListaDeCategorias" method="GET">
+        <div class="card listarCores">
+            <form onsubmit="get_cores(); return false;" id="formListaDeCores" method="GET">
                 @csrf
                 <div class="card-header search">
-                    <h5>Lista de categorias</h5>
+                    <h5>Lista de cores</h5>
                     <div class="input-group mb-3">
                         <!-- INPUT PARA PESQUISAR CATEGORIAS -->
-                        <input id="inputPesquisarCategoria" type="search" class="form-control"
-                            placeholder="Pesquise as categorias" aria-label="Pesquise as categorias">
+                        <input id="inputPesquisarCor" type="search" class="form-control"
+                            placeholder="Pesquise as cores" aria-label="Pesquise as cores">
                         <button class="input-group-text insearch" type="submit"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
 
-                <div id="divListaCategorias" class="card-body">
+                <div id="divListaCores" class="card-body">
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Categoria</th>
+                                <th scope="col">Cor</th>
+                                <th scope="col">Nome</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
-                        <tbody id="tabelaCategoria">
-                            
-                        </tbody>    
+                        <tbody id="tabelaCor">
+
+                        </tbody>
                     </table>
                 </div>
                 <div class="card-footer">
@@ -127,4 +129,4 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('js/admin/cadastroCategoria.js') }}" defer></script>
+<script src="{{ asset('js/admin/cadastroCores.js') }}" defer></script>

@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\CoresController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use App\Http\Controllers\Admin\TamanhoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,10 +32,19 @@ Route::resource('/homeAdmin', HomeAdminController::class);
 Route::resource('/cadastro/produto', ProdutoController::class);
 //CATEGORIAS
 Route::resource('/cadastro/categoria', CategoriaController::class);
+//TAMANHO
+Route::resource('/cadastro/tamanho', TamanhoController::class);
+//COR
+Route::resource('/cadastro/cor', CoresController::class);
+
 //PESQUISA DE PRODUTOS
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
 //PESQUISA DE CATEGORIAS
 Route::get('/get_categorias', [\App\Http\Controllers\Admin\CategoriaController::class, 'get_categorias']);
+//PESQUISA DE TAMANHOS
+Route::get('/get_tamanhos', [\App\Http\Controllers\Admin\TamanhoController::class, 'get_tamanhos']);
+//PESQUISA DE CORES
+Route::get('/get_cores', [\App\Http\Controllers\Admin\CoresController::class, 'get_cores']);
 
 
 

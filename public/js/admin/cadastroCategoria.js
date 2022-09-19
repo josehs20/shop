@@ -10,15 +10,15 @@ function post_categorias() {
     axios.post('/cadastro/categoria', formData)
         .then(response => {
             get_categorias()
-            alerta('success', response.data)
+            alerta('success', response.data, '', false)
         })
         .catch(errors => {
             var resp = JSON.parse(errors.response.request.responseText)
             resp = resp.message.split(":")
             if(resp[0] == "SQLSTATE[23000]"){
-                alerta('error', 'Esta categoria já existe!')
+                alerta('error', 'Esta categoria já existe!', '', false)
             } else {
-                alerta('error', 'Ocorreu algum erro.')
+                alerta('error', 'Ocorreu algum erro.', '', false)
             }
         })
 }
@@ -33,13 +33,13 @@ function get_categorias() {
             }
         })
         .catch(response => {
-            alerta('error', 'Não foi possível buscar as categorias, tente novamente mais tarde.')
+            alerta('error', 'Não foi possível buscar as categorias, tente novamente mais tarde.', '', false)
         })
 }
 get_categorias()
 
-var count = 1
 function monta_lista_categorias(categorias) {
+    var count = 1
     var bodyTabela = document.getElementById('tabelaCategoria')
     linhaTabela = ''
     categorias.forEach(categoria => {
@@ -48,22 +48,10 @@ function monta_lista_categorias(categorias) {
         <td class="col-1">${count}</td>
         <td>${categoria.nome}</td>
         <td class="col-1">
-            <button onclick="excluirCategoria(${categoria.id})" type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
+            <button onclick='confirmar_exclusao(${JSON.stringify(categoria)}, "/cadastro/categoria/", "get_categorias", "a categoria")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
         </td>
     </tr>`
     count++
     });
     bodyTabela.innerHTML = linhaTabela
-}
-
-function excluirCategoria(categoriaID) {
-    var formData = new FormData()
-    formData.append('_method', 'delete')
-    axios.post(`/cadastro/categoria/${categoriaID}`, formData)
-        .then(response => {
-            alerta('success', response.data)
-            get_categorias()
-        }).catch(errors => {
-            console.log(errors);
-        })
 }
