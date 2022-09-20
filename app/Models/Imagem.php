@@ -31,7 +31,7 @@ class Imagem extends Model
             $dir = $request->file('imagens')[$i]->storeAs('public/imageProduto/'.$produto->id,  $nameImage);
             
             //cria caminho da imagem no banco de acordo com id de produto
-            $produto->imagens()->create(['nome' => str_replace('public', '', $dir)]);
+            $produto->imagens()->create(['nome' => str_replace('public/', '', $dir)]);
 
             //recupera imagem para redimencionar
             $img = Image::make('storage/imageProduto/' . $produto->id . '/' . $nameImage);

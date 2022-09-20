@@ -23,4 +23,14 @@ class Produto extends Model
         return $this->hasMany('App\Models\Imagem');
     }
 
+    static function get_produtos_ptc($nome = '')
+    {
+        $produtos = ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque', 'imagens'])
+            ->whereHas('produto', function ($query) use ($nome) {
+                $query->where('nome', 'like', '%' . $nome . '%');
+            })->get()->groupBy('produto_id');
+
+        return $produtos;
+    }
+
 }

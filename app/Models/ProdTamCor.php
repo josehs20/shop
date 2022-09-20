@@ -9,6 +9,7 @@ class ProdTamCor extends Model
 {
     protected $table = 'prod_tam_cor';
     protected $fillable = [
+        'id',
         'produto_id',
         'tamanho_id',
         'cor_id',
@@ -19,6 +20,11 @@ class ProdTamCor extends Model
     public function produto()
     {
         return $this->hasOne('App\Models\Produto', 'id', 'produto_id');
+    }
+
+    public function imagens()
+    {
+        return $this->hasMany('App\Models\Imagem', 'produto_id', 'produto_id');
     }
 
     public function tamanho()

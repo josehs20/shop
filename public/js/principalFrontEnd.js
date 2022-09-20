@@ -11,19 +11,25 @@ fecharSidebar.addEventListener("click", () => {
     conteudoSidebar.classList.toggle('mostrarSidebar')
 })
 
-var rotate = 0;
+//var rotate = 0;
 function rotacionarElemento(elemento) {
     var elemento = document.getElementById(elemento);
-    if (rotate == 0) {
-        rotate = 180
-        elemento.style.transform = "rotate(" + rotate + "deg)";
+   
+    if (!elemento.style.transform) {
+     //   rotate = 180
+        elemento.style.transform = "rotate(" + 180 + "deg)";
     } else {
-        rotate = 0
-        elemento.style.transform = "rotate(" + rotate + "deg)";
+        //rotate = 0
+        elemento.style.transform = "rotate(" + 0 + "deg)";
+        elemento.removeAttribute("style")
     }
 }
 
 function div_nao_contem_registro(elemento, texto) {
     var div = document.getElementById(elemento)
     div.innerHTML = `<div class="alert alert-info mx-auto" role="alert">${texto}</div>`;
+}
+
+function mascaraDinheiro(input) {
+  return $(`.${input}`).mask('#.##0,00', {reverse: true});
 }

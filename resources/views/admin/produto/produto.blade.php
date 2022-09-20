@@ -122,12 +122,12 @@
 @section('content')
     <!-- CADASTRO DE PRODUTOS -->
     <div class="card mb-3">
-        <form id="formCadastroProduto" onsubmit="post_produto(); return false;" method="POST" enctype="multipart/form-data" >
+        <form id="formCadastroProduto" onsubmit="post_produto(); return false;" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <h5 class="card-header d-flex justify-content-between col-12" data-bs-toggle="collapse"
-            href="#cadastroDeProdutos" role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
-                <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')" >
+            <h5 class="card-header d-flex justify-content-between col-12" data-bs-toggle="collapse" href="#cadastroDeProdutos"
+                role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
+                <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')">
                     <i id="iconCadatroProduto" class="fa fa-caret-down"></i> &nbsp; Cadastro de produtos
                 </a>
             </h5>
@@ -140,15 +140,17 @@
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input required onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Custo" name="custo">
+                        <input required onkeyup="calcula_lucro(), mascaraDinheiro('inputCusto')" type="text"
+                            class="form-control inputCusto" placeholder="Custo" name="custo">
                     </div>
                     <div class="input-group mb-2 inumero">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input required onkeyup="calcula_lucro()" type="number" class="form-control" placeholder="Preço" name="preco">
+                        <input required onkeyup="calcula_lucro(), mascaraDinheiro('inputPreco')" type="text"
+                            class="form-control inputPreco" placeholder="Preço" name="preco">
                     </div>
                     <div class="input-group mb-2 inumero">
-                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-money-bill-wave"></i></span>
-                        <input readonly type="number" class="form-control" placeholder="Lucro" name="lucro">
+                        <span class="input-group-text" id="basic-addon1"><i class="fa fa-percent"></i></span>
+                        <input readonly type="text" class="form-control" placeholder="Lucro" name="lucro">
                     </div>
 
                     <select name="categoria" class="form-select icategoria" aria-label="Default select example">
@@ -168,7 +170,8 @@
                     </select>
                     <div class="input-group mb-2 iestoque">
                         <span class="input-group-text" id="basic-addon1"><i class="fa fa-memory"></i></span>
-                        <input required name="estoque" type="number" class="form-control" placeholder="Estoque" name="estoque">
+                        <input required name="estoque" type="number" class="form-control" placeholder="Estoque"
+                            name="estoque">
                     </div>
 
                     <input id="imagensProduto" name="imagens[]" required type="file"
@@ -189,7 +192,7 @@
 
     <!-- LISTA DE PRODUTOS -->
     <div class="card">
-        <form onsubmit="get_produtos(); return false;" id="formListaDeProdutos" method="GET">
+        <form id="formListaDeProdutos" onsubmit="get_produtos(); return false;" method="GET">
             @csrf
             <div class="card-header search">
                 <h5>Lista de produtos</h5>
@@ -200,14 +203,12 @@
                     <button class="input-group-text insearch" type="submit"><i class="fa fa-search"></i></button>
                 </div>
             </div>
-
-            <div id="divListaProdutos" class="card-body">
-
-            </div>
-            <div class="card-footer">
-            </div>
-
         </form>
+        <div id="divListaProdutos" class="card-body">
+          
+        </div>
+        <div class="card-footer">
+        </div>
     </div>
     <script src="{{ asset('js/admin/cadastroProduto.js') }}" defer></script>
 @endsection

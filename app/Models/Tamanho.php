@@ -9,6 +9,7 @@ class Tamanho extends Model
 {
     protected $table = 'tamanhos';
     protected $fillable = [
+        'id',
         'nome'
     ];
 

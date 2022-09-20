@@ -28,8 +28,9 @@ class ProdutoController extends Controller
 
     public function get_produtos(Request $request)
     {
-        $produtos = Produto::get();
-        return response()->json($produtos, 200);
+        $consulta = new Produto();
+        $produtos = $consulta->get_produtos_ptc($request->nome);
+        return response()->json(['data' => $produtos], 200);
     }
 
     /**
@@ -51,7 +52,6 @@ class ProdutoController extends Controller
     public function store(Request $request)
     {
         $produto = Produto::with('prodTamCors')->where('nome', $request->nome)->first();
-
         if (!$produto) {
             $produto = Produto::create(['nome' => remove_espacos($request->nome), 'categoria_id' => $request->categoria]);
         }
@@ -61,19 +61,19 @@ class ProdutoController extends Controller
             $ptc = $produto->prodTamCors()->create([
                 'tamanho_id' => $request->tamanho,
                 'cor_id' => $request->cor,
-                'custo' => $request->custo,
-                'preco' => $request->preco
+                'custo' => str_replace(',', '.', $request->custo),
+                'preco' => str_replace(',', '.', $request->preco)
             ]);
-            
+
             //cria estoque
             $ptc->estoque()->create(['quantidade' =>  $request->estoque]);
-
             if (!$ptc->produto->imagens()->count()) {
                 $image = new Imagem();
                 $image->upload_imagem_produto($request, $ptc->produto);
             }
-            return response()->json(['msg' => 'Produto '.$ptc->produto->nome.', do tamanho '.$ptc->tamanho->nome.' e cor '. $ptc->cor->nome.', criado com sucesso!'], 200);
-        } else {  
+
+            return response()->json(['msg' => 'Produto ' . $ptc->produto->nome . ', do tamanho ' . $ptc->tamanho->nome . ' e cor ' . $ptc->cor->nome . ', criado com sucesso!'], 200);
+        } else {
             return response()->json(['msg' => 'Produto da mesma cor e tamanho existente'], 422);
         }
     }
