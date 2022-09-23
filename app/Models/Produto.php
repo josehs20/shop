@@ -23,7 +23,7 @@ class Produto extends Model
         return $this->hasMany('App\Models\Imagem');
     }
 
-    static function get_produtos_ptc($nome = '')
+    static function get_produtos($nome = '')
     {
         $produtos = ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque', 'imagens'])
             ->whereHas('produto', function ($query) use ($nome) {
@@ -33,4 +33,10 @@ class Produto extends Model
         return $produtos;
     }
 
+    static function get_produto_id($id)
+    {
+        $produto = ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque', 'imagens'])
+            ->where('produto_id', $id)->get();
+        return $produto;
+    }
 }

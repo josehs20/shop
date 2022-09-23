@@ -35,10 +35,24 @@ class Imagem extends Model
 
             //recupera imagem para redimencionar
             $img = Image::make('storage/imageProduto/' . $produto->id . '/' . $nameImage);
-            $img->resize(400, 500, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save();
+            $img->resize(150, 200)->save('storage/imageProduto/' . $produto->id . '/' . $nameImage, null, 'jpg');
+            // $img->resize(200, 200, function ($constraint) {
+            //     $constraint->aspectRatio();
+            //     $constraint->upsize();
+            // })->save('storage/imageProduto/'. $nameImage, null, 'jpg');
         }
         return;
+    }
+
+    static function get_imagens_produto($id)
+    {
+        return Imagem::where('produto_id', $id)->get();
+    }
+
+    //id da imagem a ser passado
+    static function get_imagens_relacao_produto($id)
+    {
+        return Imagem::find($id)->produto()->first()->imagens()->get();
+        
     }
 }

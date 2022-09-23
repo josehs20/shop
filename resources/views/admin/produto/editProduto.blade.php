@@ -121,39 +121,33 @@
 </style>
 @section('content')
     <!-- CADASTRO DE PRODUTOS -->
-    <div class="card mb-3">
-        <form id="formCadastroProduto" onsubmit="post_produto(); return false;" method="POST" enctype="multipart/form-data">
+    {{-- onload para carregar as infomações e inputs de edição de produto --}}
+    <body onload='preenche_campos(<?php echo $produto ?>), local_storage_dados_banco_ptc(<?php echo json_encode(["cores" => $cores, "tamanhos" => $tamanhos]) ?>)'>
+        <div class="card mb-3">
+        <form id="formUpdateProduto" method="POST" enctype="multipart/form-data">
             @csrf
-
             <h5 class="card-header d-flex justify-content-between col-12" data-bs-toggle="collapse" href="#cadastroDeProdutos"
                 role="button" aria-expanded="false" aria-controls="cadastroDeProdutos">
                 <a class="d-flex" onclick="rotacionarElemento('iconCadatroProduto')">
-                    <i id="iconCadatroProduto" class="fa fa-caret-down"></i> &nbsp; Cadastro de Produto
+                    <i id="iconCadatroProduto" class="fa fa-caret-down"></i> &nbsp; Editar produto
                 </a>
             </h5>
-            @include('admin.produto.inc.inputs', ['produto' => []])
+            @include('admin.produto.inc.inputs')
         </form>
     </div>
 
-    <!-- LISTA DE PRODUTOS -->
+    {{-- lista da grade de tamanho cores e estoque --}}
     <div class="card">
-        <form id="formListaDeProdutos" onsubmit="get_produtos(); return false;" method="GET">
-            @csrf
             <div class="card-header search">
-                <h5>Lista de produtos</h5>
-                <div class="input-group mb-3">
-                    <!-- INPUT PARA PESQUISAR PRODUTOS -->
-                    <input id="inputPesquisarProduto" type="search" class="form-control" placeholder="Pesquise os produtos"
-                        aria-label="Pesquise os produtos">
-                    <button class="input-group-text insearch" type="submit"><i class="fa fa-search"></i></button>
-                </div>
+                <h5>Imagens</h5>
             </div>
-        </form>
-        <div id="divListaProdutos" class="card-body">
+        <div id="divListaImagensProdutos" class="card-body d-flex justify-content-around">
           
         </div>
-        <div class="card-footer">
+        <div class="card-footer d-flex justify-content-end">
+            <button type="button" class="btn btn-outline-primary" onclick="adicionar_imagem(<?php echo $produto->first()->produto_id ?>)">Adicionar</button>
         </div>
     </div>
-    <script src="{{ asset('js/admin/produto/cadastroProduto.js') }}" defer></script>
+    <script src="{{ asset('js/admin/produto/updateProduto.js') }}" defer></script>
+
 @endsection

@@ -7,7 +7,7 @@
 
 function post_tamanhos() {
     const formData = new FormData(document.querySelector('#formCadastrarTamanho'))
-    axios.post('/cadastro/tamanho', formData)
+    axios.post('/tamanho', formData)
         .then(response => {
             get_tamanhos()
             alerta('success', response.data, '', false)
@@ -48,7 +48,7 @@ function monta_lista_tamanhos(tamanhos) {
         <td class="col-1">${count}</td>
         <td>${tamanho.nome}</td>
         <td class="col-1">
-            <button onclick='confirmar_exclusao(${JSON.stringify(tamanho)}, "/cadastro/tamanho/", "get_tamanhos", "o tamanho")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
+            <button onclick='confirmar_exclusao(${JSON.stringify(tamanho)}, "/tamanho/", "get_tamanhos", "o tamanho")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
         </td>
     </tr>`
         count++

@@ -1,26 +1,29 @@
-// var formularioListaCategorias = document.getElementById('formListaDeCategorias')
-// formularioListaCategorias.addEventListener('submit', e => {
-//     e.preventDefault()
-//     var inputPesquisa = document.getElementById('inputPesquisarCategoria').value;    
-//     console.log(inputPesquisa)
-// })
-
 function post_cores() {
-    const formData = new FormData(document.querySelector('#formCadastrarCor'))
-    axios.post('/cadastro/cor/', formData)
-        .then(response => {
+    var attrs = {
+        codigo: document.querySelector('input[name="codigo"]').value,
+        nome: document.querySelector('input[name="nome"]').value
+    }
+    $.ajax({
+        url: '/cor',
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        data: attrs,
+        dataType: 'json',
+        success: function (response) {
             get_cores()
-            alerta('success', response.data, '', false)
-        })
-        .catch(errors => {
-            var resp = JSON.parse(errors.response.request.responseText)
-            resp = resp.message.split(":")
+            alerta('success', response, '', false)
+        },
+        error: function (errors) {
+            var resp = errors.responseJSON.message.split(":")
             if (resp[0] == "SQLSTATE[23000]") {
                 alerta('error', 'Esta cor já existe!', '', false)
             } else {
-                alerta('error', 'Ocorreu algum erro.', '', false)
+                alerta('error', 'Ocorreu algum erro. Tente novamente em alguns instantes', '', false)
             }
-        })
+        }
+    })
 }
 
 function get_cores() {
@@ -49,7 +52,7 @@ function monta_lista_cores(cores) {
         <td><input type="color" value="${cor.codigo}"></td>
         <td>${cor.nome}</td>
         <td class="col-1">
-            <button onclick='confirmar_exclusao(${JSON.stringify(cor)}, "/cadastro/cor/", "get_cores", "a cor")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
+            <button onclick='confirmar_exclusao(${cor.id}, "/cor/", get_cores, "Deseja realmente excluir a cor ${cor.nome}")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
         </td>
     </tr>`
         count++

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoriaController;
 use App\Http\Controllers\Admin\CoresController;
+use App\Http\Controllers\Admin\EstoqueController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Admin\TamanhoController;
@@ -29,16 +30,22 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::resource('/homeAdmin', HomeAdminController::class);
 
 //PRODUTOS
-Route::resource('/cadastro/produto', ProdutoController::class);
-//CATEGORIAS
-Route::resource('/cadastro/categoria', CategoriaController::class);
-//TAMANHO
-Route::resource('/cadastro/tamanho', TamanhoController::class);
-//COR
-Route::resource('/cadastro/cor', CoresController::class);
-
-//PESQUISA DE PRODUTOS
+Route::resource('/produto', ProdutoController::class);
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
+Route::post('store_ptc/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'store_ptc']);
+Route::put('update_ptc/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'update_ptc']);
+Route::post('/upload-imagem-produto/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'upload_imagem_produto']);
+Route::delete('/remove-imagem/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'remove_imagem']);
+Route::put('/prioridade-imagem/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'prioridade_imagem']);
+
+//CATEGORIAS
+Route::resource('/categoria', CategoriaController::class);
+//TAMANHO
+Route::resource('/tamanho', TamanhoController::class);
+//COR
+Route::resource('/cor', CoresController::class);
+//ESTOQUE
+Route::resource('/estoque', EstoqueController::class);
 //PESQUISA DE CATEGORIAS
 Route::get('/get_categorias', [\App\Http\Controllers\Admin\CategoriaController::class, 'get_categorias']);
 //PESQUISA DE TAMANHOS

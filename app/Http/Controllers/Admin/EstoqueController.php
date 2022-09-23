@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cor;
-use App\Models\ProdTamCor;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\ProdTamCor;
 
-class CoresController extends Controller
+class EstoqueController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +15,7 @@ class CoresController extends Controller
      */
     public function index()
     {
-        return view('admin.cores.cores');
-    }
-    public function get_cores(Request $request)
-    {
-        $cores = Cor::get();
-        return response()->json($cores, 200);
+        //
     }
 
     /**
@@ -42,8 +36,7 @@ class CoresController extends Controller
      */
     public function store(Request $request)
     {
-        $cores = Cor::create($request->all());
-        return response()->json('Cor ' . $cores->nome . ' cadastrada com sucesso!', 200);
+        //
     }
 
     /**
@@ -89,17 +82,7 @@ class CoresController extends Controller
     public function destroy($id)
     {
         $ptc = new ProdTamCor();
-        $relacaoPtc = $ptc->get_relacao_cores_ptc($id);
-        if (count($relacaoPtc)) {
-            return response()->json([
-                'msg' => 'A cor ' . $relacaoPtc->first()->cor->nome . ' contem relação com produtos e estoque existentes.',
-                'contemPTC' => $relacaoPtc->groupBy('produto_id'),
-                'texto' => 'Para excluir esta cor, é necessário excluir os produtos vinculados a ela.'
-            ], 200);
-        } else {
-            $cor = Cor::find($id);
-            $cor->delete();
-            return response()->json('Cor ' . $cor->nome . ' excluída com sucesso!', 200);
-        }
+        $elemento = $ptc->destroy_prod_tam_cor($id);
+        return response()->json();
     }
 }

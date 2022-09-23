@@ -41,4 +41,19 @@ class ProdTamCor extends Model
     {
         return $this->hasOne('App\Models\Estoque');
     }
+
+    static function get_relacao_cores_ptc($id)
+    {
+      $ptc = ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque'])->where('cor_id', $id)
+      ->get();
+      return $ptc;
+    }
+    static function destroy_prod_tam_cor($id)
+    {
+
+        $ptc = ProdTamCor::find($id);
+        dd($ptc);
+        $ptc->delete();
+        return $ptc;
+    }
 }

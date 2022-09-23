@@ -7,7 +7,7 @@
 
 function post_categorias() {
     const formData = new FormData(document.querySelector('#formCadastrarCategoria'))
-    axios.post('/cadastro/categoria', formData)
+    axios.post('/categoria', formData)
         .then(response => {
             get_categorias()
             alerta('success', response.data, '', false)
@@ -48,7 +48,7 @@ function monta_lista_categorias(categorias) {
         <td class="col-1">${count}</td>
         <td>${categoria.nome}</td>
         <td class="col-1">
-            <button onclick='confirmar_exclusao(${JSON.stringify(categoria)}, "/cadastro/categoria/", "get_categorias", "a categoria")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
+            <button onclick='confirmar_exclusao(${JSON.stringify(categoria)}, "/categoria/", "get_categorias", "a categoria")' type="submit" class="btn" style="border: none"><i class="fa fa-trash"></i></button>
         </td>
     </tr>`
     count++

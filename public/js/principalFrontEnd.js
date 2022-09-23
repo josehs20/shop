@@ -14,9 +14,8 @@ fecharSidebar.addEventListener("click", () => {
 //var rotate = 0;
 function rotacionarElemento(elemento) {
     var elemento = document.getElementById(elemento);
-   
     if (!elemento.style.transform) {
-     //   rotate = 180
+        //   rotate = 180
         elemento.style.transform = "rotate(" + 180 + "deg)";
     } else {
         //rotate = 0
@@ -31,5 +30,36 @@ function div_nao_contem_registro(elemento, texto) {
 }
 
 function mascaraDinheiro(input) {
-  return $(`.${input}`).mask('#.##0,00', {reverse: true});
+    return $(`.${input}`).mask('#.##0,00', { reverse: true });
+}
+
+function monta_html_list_group(dados, titulo) {
+    var html = `<div class="card"><div class="card-header">${titulo}</div><div class="card-body"><table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nome</th>
+        <th scope="col"></th>
+        <th scope="col">Estoque</th>
+      </tr>
+    </thead>
+    <tbody>`
+ var count = 1;
+    //NECESSÁRIO PASSAR UM ARRAY MESMO QUE CONTENHA UM OBJETO SÓ PARA FUNCAO computa_produtos FUNCIONAR
+    computa_produtos(dados).forEach(element => {     
+        html += `
+            <tr>
+              <th scope="row">${count}</th>
+              <td colspan="2">${element.nome}</td>
+              <td >${element.totalEstoque}</td>
+            </tr>`
+            count++
+    });
+    html += `</tbody></table>`
+    return html;
+}
+
+function habilitainputs() {
+    document.querySelector("select[name='categoria']").disabled = false;
+    document.querySelector("#imagensProduto").disabled = false
 }
