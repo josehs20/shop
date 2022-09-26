@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriaController;
+use App\Http\Controllers\Admin\ConfiguracaoController;
 use App\Http\Controllers\Admin\CoresController;
 use App\Http\Controllers\Admin\EstoqueController;
 use App\Http\Controllers\Admin\ProdutoController;
@@ -28,6 +29,12 @@ Auth::routes();
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('/homeAdmin', HomeAdminController::class);
+
+//CONFIGURAÇÕES
+Route::resource('/config', ConfiguracaoController::class);
+Route::get('/config/meusdados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'meus_dados'])->name('meusdados');
+Route::put('/config/meusdados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_meus_dados']);
+Route::get('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha'])->name('alterarsenha');
 
 //PRODUTOS
 Route::resource('/produto', ProdutoController::class);
