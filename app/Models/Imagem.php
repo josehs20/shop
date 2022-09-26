@@ -20,7 +20,7 @@ class Imagem extends Model
         return $this->belongsTo('App\Models\Produto');
     }
 
-    static function upload_imagem_produto($request, $produto)
+    public function upload_imagem_produto($request, $produto)
     {
         for ($i = 0; $i < count($request->file('imagens')); $i++) {
 
@@ -44,13 +44,13 @@ class Imagem extends Model
         return;
     }
 
-    static function get_imagens_produto($id)
+    public function get_imagens_produto($id)
     {
         return Imagem::where('produto_id', $id)->get();
     }
 
     //id da imagem a ser passado
-    static function get_imagens_relacao_produto($id)
+    public function get_imagens_relacao_produto($id)
     {
         return Imagem::find($id)->produto()->first()->imagens()->get();
         

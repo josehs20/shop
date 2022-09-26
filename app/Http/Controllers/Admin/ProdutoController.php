@@ -190,20 +190,17 @@ class ProdutoController extends Controller
 
     public function prioridade_imagem(Request $request, $id)
     {
-        //Imagem::find($id)->update(['prioridade' => true]);
         $img = new Imagem();
         $imgs = $img->get_imagens_relacao_produto($id);
-        $imagPrioridade = $imgs->where('prioridade', true);
-        if (!count($imagPrioridade)) {
-            $imgs->first()->prioridade =  true;
-            $imgs->first()->save();
-        } else {
+        if (count($imgs->where('prioridade', true))) {
             $imgs->where('prioridade', true)->first()->update(['prioridade' => null]);
             $imgs->find($id)->update(['prioridade' => true]);
-            
-        }
 
-        return response()->json(['msg' => 'Prioridade de imagem alterada com sucesso!.', 'imagens' => $imgs], 200);
+            return response()->json(['msg' => 'Prioridade de imagem alterada com sucesso!.', 'imagens' => $imgs], 200);
+        } else {
+            $imgs->find($id)->update(['prioridade' => true]);
+            return response()->json(['imagens' => $imgs], 200);
+        }
     }
 
     public function remove_imagem($id)
@@ -215,7 +212,7 @@ class ProdutoController extends Controller
         } else {
             $imgDelete = Storage::delete('public/' . $imgs->find($id)->nome);
             if ($imgDelete) {
-                
+
                 if ($imgs->find($id)->prioridade) {
                     $imgs->where('prioridade', null)->first()->update(['prioridade' => true]);
                 }

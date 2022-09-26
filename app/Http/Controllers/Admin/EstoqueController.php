@@ -5,17 +5,49 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ProdTamCor;
+use App\Models\Produto;
+use App\Repositories\GeralRepositorie;
 
 class EstoqueController extends Controller
 {
+    public function __construct(GeralRepositorie $geral, Produto $prod)
+    {
+        $this->geral = $geral;
+        $this->prod = $prod;
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    // public function index()
+    // {
+    //     // $prod = new Produto();
+    //     // $produtos = $prod->get_produtos();
+    //     // return view('admin.estoque.index', ['produtos' => $produtos]);
+    // }
+
+    public function index_balanco(Request $request)
     {
-        //
+        return view('admin.estoque.index-balanco', [
+            'produtos' => $this->prod->get_produtos(),
+            'paramsFiltro' => $this->geral->get_tam_cor_cat(),
+        ]);
+    }
+
+    public function index_movimentacao(Request $request)
+    {
+        return;
+    }
+
+    public function get_produtos_filtro(Request $request)
+    {
+        return response()->json($this->geral->filtro_prod_tam_cor($request->coluna, $request->ids), 200);
+    }
+    
+    public function filtro_categoria_prod_tam_cor()
+    {
+        return response()->json('foi');
     }
 
     /**

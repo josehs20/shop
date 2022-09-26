@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['show' => 'cadastros', 'active' => 'produto'])
 <style>
     .card-body {
         display: flex;

@@ -72,9 +72,10 @@ function monta_lista_update_produto(produto) {
     div.innerHTML = tabela
 }
 
-function local_storage_dados_banco_ptc(dados) {
+function set_local_storage_tamanhos_cores(dados) {
     localStorage.setItem('tamanhos', JSON.stringify(dados.tamanhos));
     localStorage.setItem('cores', JSON.stringify(dados.cores));
+    return;
 }
 
 function monta_inputs_ptc(ptc) {
@@ -198,6 +199,12 @@ function monta_imagens_update(imagens) {
     localStorage.setItem('imagensProduto', JSON.stringify(imagens));
 
     var caminhos = JSON.parse(localStorage.getItem('imagensProduto'));
+
+    if (!caminhos.map(function (e) { return e.prioridade }).filter((p) => p == true).length) {
+         //ATUALIZA PRIORIODADE DO CASO NÃO EXISTA NENHUMA IMAGEM COMO PRIORIDADE
+        return prioridade_imagem(caminhos.shift().id)
+    }
+
     var divImagens = document.getElementById('divListaImagensProdutos');
     cardsImg = '';
     caminhos.forEach(img => {
@@ -210,7 +217,7 @@ function monta_imagens_update(imagens) {
                </div>
             </div>`
     });
-   
+
     divImagens.innerHTML = cardsImg;
 }
 
@@ -270,8 +277,12 @@ function prioridade_imagem(id) {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         dataType: 'json',
         success: function (response) {
+
+            if (response.msg) {
+                alerta_simples(response.msg)
+            }
             monta_imagens_update(response.imagens);
-            alerta_simples(response.msg)
+
             //alerta('success', response.msg, '', false);
         },
         error: function (errors) {

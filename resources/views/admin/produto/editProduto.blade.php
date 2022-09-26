@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['show' => 'cadastros', 'active' => 'produto'])
 <style>
     .card-body {
         display: flex;
@@ -122,7 +122,7 @@
 @section('content')
     <!-- CADASTRO DE PRODUTOS -->
     {{-- onload para carregar as infomações e inputs de edição de produto --}}
-    <body onload='preenche_campos(<?php echo $produto ?>), local_storage_dados_banco_ptc(<?php echo json_encode(["cores" => $cores, "tamanhos" => $tamanhos]) ?>)'>
+    <body onload='preenche_campos(<?php echo $produto ?>), set_local_storage_tamanhos_cores(<?php echo json_encode(["cores" => $cores, "tamanhos" => $tamanhos]) ?>)'>
         <div class="card mb-3">
         <form id="formUpdateProduto" method="POST" enctype="multipart/form-data">
             @csrf

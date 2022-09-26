@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['show' => 'cadastros', 'active' => 'categoria'])
 
 <style>
     .card-body {
@@ -127,4 +127,4 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('js/admin/cadastroCategoria.js') }}" defer></script>
+<script src="{{ asset('js/admin/categoria/cadastroCategoria.js') }}" defer></script>

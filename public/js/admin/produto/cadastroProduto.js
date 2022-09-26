@@ -13,7 +13,7 @@ function post_produto() {
             document.getElementById('imagensProduto').disabled = true;
             document.querySelector('input[name="nome"]').setAttribute('readonly', true);
             get_produtos();
-            alerta('success', '', response.data.msg, true);
+            alerta('success', response.data.msg, 'Você pode continuar adicionando mais variedades para o mesmo produto!.', true);
         })
         .catch(errors => {
             if (errors.response.status == 422) {
@@ -85,7 +85,7 @@ function monta_lista_produtos(produtos) {
                  </tr>`
         });
 
-        //MONTA TODA A TABELA E INSERE COM innerHtml
+        //MONTA TODA A TABELA E INSERE
         listProdutos += `<tr data-bs-toggle="collapse" href="#prod${element.id}"
         role="button" aria-expanded="false" aria-controls="prod" onclick="rotacionarElemento('iconProd${element.id}')">
         <td class="col-1">${count}</td>

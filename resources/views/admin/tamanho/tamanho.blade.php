@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app', ['show' => 'cadastros', 'active' => 'tamanho'])
 
 <style>
     .card-body {
@@ -128,4 +128,4 @@
         </div>
     </div>
 @endsection
-<script src="{{ asset('js/admin/cadastroTamanho.js') }}" defer></script>
+<script src="{{ asset('js/admin/tamanho/cadastroTamanho.js') }}" defer></script>

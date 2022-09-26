@@ -34,9 +34,18 @@ Route::resource('/produto', ProdutoController::class);
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
 Route::post('store_ptc/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'store_ptc']);
 Route::put('update_ptc/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'update_ptc']);
+//IMAGENS PRODUTO
 Route::post('/upload-imagem-produto/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'upload_imagem_produto']);
 Route::delete('/remove-imagem/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'remove_imagem']);
-Route::put('/prioridade-imagem/{id}', [\App\Http\Controllers\Admin\ProdutoController::class, 'prioridade_imagem']);
+Route::put('/prioridade-imagem/{id?}', [\App\Http\Controllers\Admin\ProdutoController::class, 'prioridade_imagem']);
+Route::put('/filtro_categoria_prod_tam_cor', [\App\Http\Controllers\Admin\ProdutoController::class, 'filtro_categoria_prod_tam_cor']);
+
+//ESTOQUES filtro_categoria_prod_tam_cor
+Route::resource('/estoque', EstoqueController::class);
+Route::get('/balanco', [\App\Http\Controllers\Admin\EstoqueController::class, 'index_balanco'])->name('index.balanco');
+Route::get('/movimentacao', [\App\Http\Controllers\Admin\EstoqueController::class, 'index_movimentacao'])->name('index.movimentacao');
+Route::get('/zeramento', [\App\Http\Controllers\Admin\EstoqueController::class, 'index_zeramento'])->name('zeramento.index');
+Route::get('/get_produtos_filtro', [\App\Http\Controllers\Admin\EstoqueController::class, 'get_produtos_filtro']);
 
 //CATEGORIAS
 Route::resource('/categoria', CategoriaController::class);
@@ -44,8 +53,6 @@ Route::resource('/categoria', CategoriaController::class);
 Route::resource('/tamanho', TamanhoController::class);
 //COR
 Route::resource('/cor', CoresController::class);
-//ESTOQUE
-Route::resource('/estoque', EstoqueController::class);
 //PESQUISA DE CATEGORIAS
 Route::get('/get_categorias', [\App\Http\Controllers\Admin\CategoriaController::class, 'get_categorias']);
 //PESQUISA DE TAMANHOS
