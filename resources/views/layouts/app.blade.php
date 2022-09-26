@@ -30,6 +30,10 @@
 </head>
 
 <style>
+    .main-config {
+        display: flex;
+    }
+
     .conteudo-completo {
         display: flex;
     }
@@ -56,7 +60,26 @@
         width: 260px !important;
     }
 
+    .active {
+        background-color: orangered !important
+    }
+
+    .list-group {
+        width: 260px;
+        box-shadow: 0px 0px 5px #ccc !important;
+    }
+
+    .list-group-item {
+        border-color: #CCC !important
+    }
+
     @media(max-width: 860px) {
+        .main-config {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+
         .conteudo-sidebar {
             width: 0;
         }
@@ -70,21 +93,33 @@
 <body>
     <div id="app">
         @if (Session::get('msgAlerta'))
+
             <body onload="alerta('<?php echo Session::get('msgAlerta')[0]; ?>', 
                                 '<?php echo Session::get('msgAlerta')[1]; ?>')">
         @endif
         <div>
             @if (auth()->user())
                 <div class="conteudo-completo">
-                    <!-- SIDEBAR -->
-                    <div id="conteudoSidebar" class="conteudo-sidebar">
-                        @include('admin.sidebar.sidebar')
-                    </div>
-                    <!-- CONTEUDO -->
-                    <div class="conteudo-principal">
-                        @include('admin.navbar.navbar')
-                        @yield('content')
-                    </div>
+                    @if (Request::segment(1) == 'config')
+                        <!-- CONTEUDO EM CONFIG -->
+                        <div class="conteudo-principal" style="margin:0 !important">
+                            @include('admin.navbar.navbar')
+                            <div class="main-config">
+                                @include('admin.config.menuConfig') <!--MENU DAS CONFIGURAÇÕES DE MINHA CONTA-->
+                                @yield('content')
+                            </div>
+                        </div>
+                    @else
+                        <!-- SIDEBAR -->
+                        <div id="conteudoSidebar" class="conteudo-sidebar">
+                            @include('admin.sidebar.sidebar')
+                        </div>
+                        <!-- CONTEUDO -->
+                        <div class="conteudo-principal">
+                            @include('admin.navbar.navbar')
+                            @yield('content')
+                        </div>
+                    @endif
                 </div>
             @else
                 @yield('content')

@@ -21,12 +21,19 @@
 </style>
 
 <nav>
-    <i id="bmenu" class="fa fa-bars bmenu"></i>
+    <div class="d-flex">
+        <i id="bmenu" class="fa fa-bars bmenu"></i>
+        @if(Request::segment(1) != 'homeAdmin')
+            <a class="d-flex" href="{{route('homeAdmin.index')}}"><i class="fa fa-home"></i> &nbsp;&nbsp; Dashboard</a>
+        @endif
+    </div>
+        
     <div class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ Auth::user()->name }}
         </a>
         <div class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+            <a href="{{route('config.index')}}" class="dropdown-item">Minha conta</a>
             <a class="dropdown-item" href="{{ route('logout') }}"
                onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();">
