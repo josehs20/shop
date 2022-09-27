@@ -32,8 +32,8 @@ Route::resource('/homeAdmin', HomeAdminController::class);
 
 //CONFIGURAÇÕES
 Route::resource('/config', ConfiguracaoController::class);
+Route::put('/config/alterarMeusDados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_meus_dados']);
 Route::get('/config/meusdados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'meus_dados'])->name('meusdados');
-Route::put('/config/meusdados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_meus_dados']);
 Route::get('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha'])->name('alterarsenha');
 
 //PRODUTOS
