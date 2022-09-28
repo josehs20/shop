@@ -11,7 +11,7 @@ function alerta(icone, title, texto, confirmButton) {
   })
 }
 
-function alerta_simples(titulo) {
+function alerta_simples(icone,titulo) {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -25,7 +25,7 @@ function alerta_simples(titulo) {
   })
 
   Toast.fire({
-    icon: 'success',
+    icon: icone,
     title: titulo
   })
 }
@@ -143,7 +143,7 @@ async function alert_editar_ptc(ptc) {
   }
 }
 
-function confirmando_alteracao(id) {
+function confirmando_alteracao(id, funcao) {
   Swal.fire({
     title: '<h1>Digite sua senha</h1><h5>Informe a senha para confirmar a alteração.</h5>',
     html: '<input id="inputSenha" name="password" class="form-control mx-auto w-50" type="password" />',
@@ -168,7 +168,7 @@ function confirmando_alteracao(id) {
     backdrop: true
   }).then((result) => {
     if (result.isConfirmed) {
-      atualizarMeusDados(id, result.value.senha)
+      funcao(id, result.value.senha)
     }
   })
 }

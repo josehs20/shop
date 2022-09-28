@@ -10,7 +10,7 @@
 @section('content')
     <main class="conteudo-meus-dados">
         <div class="card">
-            <form id="formularioMeusDados" onsubmit="confirmando_alteracao(<?php echo auth()->user()->id?>); return false;" method="PUT">
+            <form id="formularioMeusDados" onsubmit='confirmando_alteracao(<?php echo auth()->user()->id?>, atualizarMeusDados); return false;' method="PUT">
                 @csrf
                 <div class="card-header">
                     <h5 style="margin: 0 !important">Meus dados</h5>

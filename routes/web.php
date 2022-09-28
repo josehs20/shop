@@ -32,9 +32,14 @@ Route::resource('/homeAdmin', HomeAdminController::class);
 
 //CONFIGURAÇÕES
 Route::resource('/config', ConfiguracaoController::class);
+//ROTA PARA ALTERAR OS DADOS DO USUARIO
 Route::put('/config/alterarMeusDados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_meus_dados']);
 Route::get('/config/meusdados/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'meus_dados'])->name('meusdados');
+//ROTA PARA A VIEW DE ALTERAR A SENHA
 Route::get('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha'])->name('alterarsenha');
+//ROTA QUE REALMENTE ALTERA A SENHA, QUE FAZ O UPDATE NO BANCO DE DADOS
+Route::put('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha_usuario']);
+
 
 //PRODUTOS
 Route::resource('/produto', ProdutoController::class);
