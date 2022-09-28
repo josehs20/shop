@@ -15,38 +15,25 @@ class EstoqueController extends Controller
     {
         $this->geral = $geral;
         $this->prod = $prod;
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    // public function index()
-    // {
-    //     // $prod = new Produto();
-    //     // $produtos = $prod->get_produtos();
-    //     // return view('admin.estoque.index', ['produtos' => $produtos]);
-    // }
-
-    public function index_balanco(Request $request)
-    {
-        return view('admin.estoque.index-balanco', [
+        $this->dadosIniciais = [
             'produtos' => $this->prod->get_produtos(),
             'paramsFiltro' => $this->geral->get_tam_cor_cat(),
-        ]);
+        ];
+    }
+  
+    public function index_balanco(Request $request)
+    {
+        return view('admin.estoque.index-balanco', $this->dadosIniciais);
     }
 
     public function index_movimentacao(Request $request)
     {
-        return view('admin.estoque.index-movimentacao', [
-            'produtos' => $this->prod->get_produtos(),
-            'paramsFiltro' => $this->geral->get_tam_cor_cat(),
-        ]);
+        return view('admin.estoque.index-movimentacao', $this->dadosIniciais);
     }
 
     public function index_zeramento(Request $request)
     {
-        return;
+        return view('admin.estoque.index-zeramento', $this->dadosIniciais);
     }
 
     public function get_produtos_filtro(Request $request)
@@ -67,90 +54,32 @@ class EstoqueController extends Controller
         return response()->json($this->geral->filtro_prod_tam_cor($request->coluna, $request->ids), 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     public function update_estoques(Request $request)
     {
         if (!count($request->all())) {
             return response()->json(['valido' => false, 'msg' => 'Nenhuma alteração selecionada!.'], 200);
         } else {
-            if (array_key_exists('tipoMovimento', $request->data[0])) {
-                foreach ($request->data as $key => $v) {
-                  $estoque = Estoque::find($v['id']);
-                  $estoque->update(['quantidade' => $v['tipoMovimento'] == '-' ? $estoque->quantidade - $v['quantidade'] 
-                    : $estoque->quantidade + $v['quantidade']]);
-                }   
+            //CASO MOVIMENTO SEJA ADICIONAR OU DIMINUIR ENTRA AQUI
+            if (array_key_exists('tipoMovimento', $request->data[0])) { 
+                    foreach ($request->data as $key => $v) {
+                      $estoque = Estoque::find($v['id']);
+                      $estoque->update(['quantidade' => $v['tipoMovimento'] == '-' ? $estoque->quantidade - $v['quantidade'] 
+                        : $estoque->quantidade + $v['quantidade']]);
+                    }             
             }else {
+                //SE MOVIEMNTO FOI ZERAR OU BALANCEAR ENTRA AQUI
                 foreach ($request->data as $key => $v) {
                     Estoque::find($v['id'])->update(['quantidade' => $v['quantidade']]);
                 }
             }
-            return response()->json(['valido' => true, 'msg' => 'Estoque atualizado com sucesso!.'], 200);
+            return response()->json(['valido' => true, 'msg' => 'Estoque atualizado com sucesso!.', 'dados' => $this->prod->get_produtos()], 200);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $ptc = new ProdTamCor();
-        $elemento = $ptc->destroy_prod_tam_cor($id);
-        return response()->json();
-    }
+
+    // public function destroy($id)
+    // {
+    //     $ptc = new ProdTamCor();
+    //     $elemento = $ptc->destroy_prod_tam_cor($id);
+    //     return response()->json();
+    // }
 }

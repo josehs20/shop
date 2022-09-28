@@ -154,91 +154,22 @@ function get_produtos_filtro(coluna, values) {
     })
 }
 
-//----------PARTE DE ALTERAR ESTOQUE----------//
-async function modal_alterar_estoque(element) {
-    var tipoMovimento = JSON.parse(localStorage.getItem('tipoMovimento'))
-    switch (tipoMovimento) {
-        case 'balanco':
-            var html = monta_inputs_balanco(element.attrs);
-            var titulo = 'Balanço de estoque <br><h4>' + element.nome + '</h4><h6>O balanço altera o valor do estoque com o valor exato que você inserir.</h6>'
-            break;
-        case 'movimentacao':
-            var html = monta_inputs_movimento(element.attrs);
-            var titulo = 'Movimentação de estoque <br><h4>' + element.nome + '</h4><h6>O movimento é alterado de acordo com o tipo de movimento e quantidade informado.</h6>'
-            break;
-        case 'zeramento':
-            var html = monta_inputs_movimento(element.attrs);
-            var titulo = 'Balanço de estoque <br><h4>' + element.nome + '</h4>'
-            break;
-        default:
-            break;
-    }
-
-    const { value: formValues } = await Swal.fire({
-        title: titulo,
-        html: html,
-        showCancelButton: true,
-        confirmButtonText:
-            '<h6>Alterar</h6>',
-        cancelButtonText:
-            '<h6>Fechar</h6>',
-        focusConfirm: true,
-        stopKeydownPropagation: false,
-        didOpen: () => {
-            liberar_inputs(check, input);
-        },
-        preConfirm: () => {
-            var inputs = document.querySelectorAll('.checkboxInput')
-            var checkboxs = document.querySelectorAll('.checkboxs')
-            var inputTodos = document.querySelector('#inputTodos').value
-            var data = []
-            if (inputTodos) {
-                inputs.forEach(input => {
-                    if (tipoMovimento == 'balanco') {
-                        data.push({ id: input.id.replace('input', ''), quantidade: inputTodos })
-                    } else if (tipoMovimento == 'movimentacao') {
-                        var movimento = document.getElementById('selectMovimentoTodos').value
-                        data.push({
-                            id: input.id.replace('input', ''),
-                            quantidade: inputTodos,
-                            tipoMovimento: movimento
-                        })
-                    }
-                })
-            } else {
-                checkboxs.forEach(check => {
-                    inputs.forEach(input => {
-                        if (check.checked && check.value == input.id && !input.value) {
-                            Swal.showValidationMessage('Todos campos marcados, tem qeu ser preenchidos')
-                        } else if (check.checked && check.value == input.id && input.value) {
-                            if (tipoMovimento == 'balanco') {
-                                data.push({ id: input.id.replace('input', ''), quantidade: input.value })
-                            } else if (tipoMovimento == 'movimentacao') {
-                                var movimento = document.getElementById('selectMovimento' + input.id.replace('input', '')).value
-                                data.push({
-                                    id: input.id.replace('input', ''),
-                                    quantidade: input.value,
-                                    tipoMovimento: movimento
-                                })
-                            }
-                        }
-                    });
-                });
-            }
-            return data
-        }
-    })
-
-    if (formValues) {
-        update_estoque(formValues);
-    }
-}
-//----------------MANIPULAÇÃO DOS------------////
+//----------------MANIPULAÇÃO DOS CHECKEDS E INPUTS NO SWAL DE ATUALIZACAO------------////
 function liberar_inputs(check, Idinput) {
     var checkbox = document.getElementById(check);
     var input = document.getElementById(Idinput);
     var select = document.getElementById('selectMovimento' + Idinput.replace('input', ''))
     var selectMovimentoTodos = document.getElementById('selectMovimentoTodos')
+
+    if (JSON.parse(localStorage.getItem('tipoMovimento')) == 'zeramento') {
+        if (checkbox.id == 'checkedTodos') {
+            desabilita_todos_inputs_swal()
+
+        } else {
+            document.getElementById('checkedTodos').checked = false
+        }
+        return
+    }
 
     if (checkbox.checked) {
         if (select) {
@@ -334,6 +265,117 @@ function monta_inputs_movimento(attrs) {
 
     return inputs;
 }
+
+function monta_inputs_zeramento(attrs) {
+    var inputs = `<div class="input-group mb-3">
+    <span class="input-group-text">Alterar todos</span>
+    <div class="input-group-text">
+      <input id="checkedTodos" onclick='liberar_inputs("checkedTodos", "inputTodos")' class="form-check-input mt-0" type="checkbox" aria-label="Checkbox for following text input">
+    </div>
+    <input disabled type="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="inputTodos" placeholder="Alterar todos os itens" class="form-control checkboxInput" aria-label="Text input with">
+  </div>`;
+    attrs.forEach(element => {
+        inputs += `<div class="input-group mb-3">
+        <span class="input-group-text">${element.tamanho}</span>
+        <span class="input-group-text">${element.cor}</span>
+        <div class="input-group-text">
+          <input id="checked${element.ptcId}" value="input${element.ptcId}" onclick='liberar_inputs("checked${element.ptcId}", "input${element.ptcId}")' class="form-check-input mt-0 checkboxs" type="checkbox" aria-label="Checkbox for following text input">
+        </div>
+        <input disabled type="number"  onkeyup="this.value=this.value.replace(/[^0-9]/g,'');" id="input${element.ptcId}" placeholder="${element.estoque}" value="${element.estoque}" class="form-control checkboxInput" aria-label="Text input with">
+      </div>`
+    });
+    return inputs;
+}
+//----------PARTE DE ALTERAR ESTOQUE----------//
+async function modal_alterar_estoque(element) {
+    var tipoMovimento = JSON.parse(localStorage.getItem('tipoMovimento'))
+    switch (tipoMovimento) {
+        case 'balanco':
+            var html = monta_inputs_balanco(element.attrs);
+            var titulo = 'Balanço de estoque <br><h4>' + element.nome + '</h4><h6>O balanço altera o valor do estoque com o valor exato que você inserir.</h6>'
+            break;
+        case 'movimentacao':
+            var html = monta_inputs_movimento(element.attrs);
+            var titulo = 'Movimentação de estoque <br><h4>' + element.nome + '</h4><h6>O movimento é alterado de acordo com o tipo de movimento e quantidade informado.</h6>'
+            break;
+        case 'zeramento':
+            var html = monta_inputs_zeramento(element.attrs);
+            var titulo = 'Zeramento de estoque <br><h4>' + element.nome + '</h4><h6>Zeramento de estoque. Vai zerar o estoque dos itens selecionados.</h6>'
+            break;
+        default:
+            break;
+    }
+
+    const { value: formValues } = await Swal.fire({
+        title: titulo,
+        html: html,
+        showCancelButton: true,
+        confirmButtonText:
+            '<h6>Alterar</h6>',
+        cancelButtonText:
+            '<h6>Fechar</h6>',
+        focusConfirm: true,
+        stopKeydownPropagation: false,
+        didOpen: () => {
+            liberar_inputs(check, input);
+        },
+        preConfirm: () => {
+            var inputs = document.querySelectorAll('.checkboxInput')
+            var checkboxs = document.querySelectorAll('.checkboxs')
+            var inputTodos = document.querySelector('#inputTodos').value
+            var data = []
+            if (inputTodos || document.getElementById('checkedTodos').checked) {
+                inputs.forEach(input => {
+                    if (tipoMovimento == 'balanco') {
+                        data.push({ id: input.id.replace('input', ''), quantidade: inputTodos })
+                    } else if (tipoMovimento == 'movimentacao') {
+                        //ESSE MOVIMENTO DA MOVIMENTACAO É O MOVIMENTO DO SELECT
+                        var movimento = document.getElementById('selectMovimentoTodos').value
+                        data.push({
+                            id: input.id.replace('input', ''),
+                            quantidade: inputTodos,
+                            tipoMovimento: movimento
+                        })
+                    } else if (tipoMovimento == 'zeramento') {
+                        data.push({
+                            id: input.id.replace('input', ''),
+                            quantidade: 0,
+                        })
+                    }
+                })
+            } else {
+                checkboxs.forEach(check => {
+                    inputs.forEach(input => {
+                        if (check.checked && check.value == input.id && !input.value) {
+                            Swal.showValidationMessage('Todos campos marcados, tem qeu ser preenchidos')
+                        } else if (check.checked && check.value == input.id && input.value) {
+                            if (tipoMovimento == 'balanco') {
+                                data.push({ id: input.id.replace('input', ''), quantidade: input.value })
+                            } else if (tipoMovimento == 'movimentacao') {
+                                var movimento = document.getElementById('selectMovimento' + input.id.replace('input', '')).value
+                                data.push({
+                                    id: input.id.replace('input', ''),
+                                    quantidade: input.value,
+                                    tipoMovimento: movimento
+                                })
+                            } else if (tipoMovimento == 'zeramento') {
+                                data.push({
+                                    id: input.id.replace('input', ''),
+                                    quantidade: 0,
+                                })
+                            }
+                        }
+                    });
+                });
+            }
+            return data
+        }
+    })
+
+    if (formValues) {
+        update_estoque(formValues);
+    }
+}
 //----------------REQUISIÇÃO----------//
 function update_estoque(data) {
     //REMOVE O ELEMENTO ID TODOS DO ARRAY DE OBJETO
@@ -347,6 +389,7 @@ function update_estoque(data) {
         dataType: 'json',
         success: function (resp) {
             if (resp.valido) {
+                monta_lista_estoque(computa_produtos(resp.dados))
                 alerta('success', resp.msg, '', false);
             } else {
                 alerta('info', resp.msg, '', false);
@@ -354,7 +397,6 @@ function update_estoque(data) {
         },
         error: function (erros) {
             alerta('error', 'Não foi possível atualizar o estoque tente novamente.', '', false);
-
         }
     })
 }
