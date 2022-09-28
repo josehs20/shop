@@ -21,7 +21,7 @@ class CategoriaController extends Controller
 
     public function get_categorias(Request $request)
     {
-        $categorias = Categoria::get();
+        $categorias = Categoria::where('nome', 'like', '%' . $request->nome . '%')->get();
         return response()->json($categorias, 200);
     }
 
@@ -43,11 +43,8 @@ class CategoriaController extends Controller
      */
     public function store(Request $request)
     {
-        // Session::flash('msgAlerta', ['success', 'CATEGORIA']);
-        // return redirect()->route('categoria.index');
-        
-        $categoria = Categoria::create($request->all());
-        return response()->json('Categoria '.$categoria->nome.' cadastrada com sucesso!', 200);
+        $categoria = Categoria::create(['nome' => ucfirst(mb_strtolower(remove_espacos($request->nome)))]);
+        return response()->json('Categoria ' . $categoria->nome . ' cadastrada com sucesso!', 200);
     }
 
     /**
@@ -94,6 +91,6 @@ class CategoriaController extends Controller
     {
         $categoria = Categoria::find($id);
         $categoria->delete();
-        return response()->json('Categoria '.$categoria->nome.' excluída com sucesso!', 200);
+        return response()->json('Categoria ' . $categoria->nome . ' excluída com sucesso!', 200);
     }
 }

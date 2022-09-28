@@ -108,19 +108,7 @@
                 </div>
 
                 <div id="divListaCores" class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Cor</th>
-                                <th scope="col">Nome</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaCor">
-
-                        </tbody>
-                    </table>
+                    
                 </div>
                 <div class="card-footer">
                 </div>

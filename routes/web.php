@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CoresController;
 use App\Http\Controllers\Admin\EstoqueController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
+use App\Http\Controllers\Admin\PedidosController;
 use App\Http\Controllers\Admin\TamanhoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -39,7 +40,6 @@ Route::get('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\Configuraca
 //ROTA QUE REALMENTE ALTERA A SENHA, QUE FAZ O UPDATE NO BANCO DE DADOS
 Route::put('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha_usuario']);
 
-
 //PRODUTOS
 Route::resource('/produto', ProdutoController::class);
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
@@ -56,6 +56,10 @@ Route::get('/movimentacao', [\App\Http\Controllers\Admin\EstoqueController::clas
 Route::get('/zeramento', [\App\Http\Controllers\Admin\EstoqueController::class, 'index_zeramento'])->name('zeramento.index');
 Route::get('/get_produtos_filtro', [\App\Http\Controllers\Admin\EstoqueController::class, 'get_produtos_filtro']);
 Route::put('/update-estoques', [\App\Http\Controllers\Admin\EstoqueController::class, 'update_estoques']);
+//PEDIDOS
+Route::resource('/pedidos', PedidosController::class);
+
+
 
 //CATEGORIAS
 Route::resource('/categoria', CategoriaController::class);

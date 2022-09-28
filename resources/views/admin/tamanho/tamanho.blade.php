@@ -108,18 +108,7 @@
                 </div>
 
                 <div id="divListaTamanhos" class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Tamanho</th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="tabelaTamanho">
-
-                        </tbody>
-                    </table>
+                    
                 </div>
                 <div class="card-footer">
                 </div>

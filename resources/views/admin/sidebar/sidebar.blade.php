@@ -57,7 +57,7 @@
         border-radius: 10px
     }
 
-    .active a{
+    .active a {
         color: #FFF !important
     }
 
@@ -80,16 +80,16 @@
 </style>
 
 <aside id="aside">
-    <?php $teste = false ?>
+    <?php $teste = false; ?>
     <i id="fecharSidebar" class="fa fa-times fecharSidebar"></i>
-    
+
     <h1 class="logo">EMPRESA</h1>
     <br>
     <!-- NOME OU LOGO DA EMPRESA -->
     <div class="dashboard-opcao @if (Request::segment(1) == 'homeAdmin') active @endif">
         <div>
             <i class="fa fa-home"></i>
-            <h5><a href="{{route('homeAdmin.index')}}">Dashboard</a></h5>
+            <h5><a href="{{ route('homeAdmin.index') }}">Dashboard</a></h5>
         </div>
     </div>
 
@@ -104,14 +104,31 @@
             <i class="fa fa-sort-down mb-2"></i>
         </a>
     </div>
+<<<<<<< HEAD
+    <div class="collapse {{ $show == 'cadastros' ? 'show' : '' }}" id="cadastros">
+        <a href="{{ route('produto.index') }}">
+            <p class="opcoes {{ $active == 'produto' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Produto</p>
+        </a>
+        <a href="{{ route('categoria.index') }}">
+            <p class="opcoes {{ $active == 'categoria' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Categoria</p>
+        </a>
+        <a href="{{ route('tamanho.index') }}">
+            <p class="opcoes {{ $active == 'tamanho' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Tamanho</p>
+        </a>
+        <a href="{{ route('cor.index') }}">
+            <p class="opcoes {{ $active == 'cor' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Cor</p>
+        </a>
+=======
     <div class="collapse {{$show == 'cadastros' ? 'show' : ''}}" id="cadastros">
         <a href="{{route('produto.index')}}"><p class="opcoes {{$active == 'produto' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Produto</p></a>
         <a href="{{route('categoria.index')}}"><p class="opcoes {{$active == 'categoria' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Categoria</p></a>
         <a href="{{route('tamanho.index')}}"><p class="opcoes {{$active == 'tamanho' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Tamanho</p></a>
         <a href="{{route('cor.index')}}"><p class="opcoes {{$active == 'cor' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Cor</p></a>
         <hr>
+>>>>>>> f26ec41858211d19e64aedc66320c3e0fcd64bb7
     </div>
 
+    {{-- ESTOQUES --}}
     <div>
         <a class="dashboard-opcao" data-bs-toggle="collapse" href="#estoques" role="button" aria-expanded="false"
             aria-controls="estoques">
@@ -122,8 +139,41 @@
             <i class="fa fa-sort-down mb-2"></i>
         </a>
     </div>
-    <div class="collapse {{$show == 'estoques' ? 'show' : ''}}" id="estoques">
+    <div class="collapse {{ $show == 'estoques' ? 'show' : '' }}" id="estoques">
         {{-- <a href="{{route('estoque.index')}}"><p class="opcoes {{$active == 'consulta' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Consulta</p></a> --}}
+        <a href="{{ route('index.balanco') }}">
+            <p class="opcoes {{ $active == 'balanco' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Balaço</p>
+        </a>
+        <a href="{{ route('index.movimentacao') }}">
+            <p class="opcoes {{ $active == 'movimentacao' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Movimentação</p>
+        </a>
+        <a href="{{ route('zeramento.index') }}">
+            <p class="opcoes {{ $active == 'zeramento' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Zeramento</p>
+        </a>
+    </div>
+    {{-- PEDIDOS --}}
+
+    <div>
+        <a class="dashboard-opcao" data-bs-toggle="collapse" href="#pedidos" role="button" aria-expanded="false"
+            aria-controls="pedidos">
+            <div>
+                <i class="fa fa-book"></i>
+                <h5>Pedidos</h5>
+            </div>
+            <i class="fa fa-sort-down mb-2"></i>
+        </a>
+    </div>
+    <div class="collapse {{ $show == 'pedidos' ? 'show' : '' }}" id="pedidos">
+        {{-- <a href="{{route('estoque.index')}}"><p class="opcoes {{$active == 'consulta' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Consulta</p></a> --}}
+        <a href="{{ route('index.balanco') }}">
+            <p class="opcoes {{ $active == 'balanco' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Balaço</p>
+        </a>
+        <a href="{{ route('index.movimentacao') }}">
+            <p class="opcoes {{ $active == 'movimentacao' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Movimentação</p>
+        </a>
+        <a href="{{ route('zeramento.index') }}">
+            <p class="opcoes {{ $active == 'zeramento' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Zeramento</p>
+        </a>
         <a href="{{route('index.balanco')}}"><p class="opcoes {{$active == 'balanco' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Balanço</p></a>
         <a href="{{route('index.movimentacao')}}"><p class="opcoes {{$active == 'movimentacao' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Movimentação</p></a>
         <a href="{{route('zeramento.index')}}"><p class="opcoes {{$active == 'zeramento' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Zeramento</p></a>
