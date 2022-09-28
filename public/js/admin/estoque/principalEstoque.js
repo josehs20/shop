@@ -54,7 +54,7 @@ async function modal_filter_qtd_estoque() {
     const { value: values } = await Swal.fire({
         title: 'Filtrar por quantidade no estoque',
         html: `<div class="d-flex justify-content-center">
-        <select id="selectFiltro" class="form-select form-select-sm mx-1" aria-label=".form-select-sm example">
+        <select id="selectFiltro" class="form-select form-select-sm mx-3" aria-label=".form-select-sm example">
         <option value=">">Maior ></option>
         <option value="<">Menor <</option>
         <option value="=">Igual =</option>
@@ -87,23 +87,24 @@ async function modal_filter_qtd_estoque() {
 }
 //MODAL PARA FILTRAR EM COR E TAMANHO E CATEGORIA
 async function modal_filter_checkbox(itens, filtro) {
-    var inputs = `<form id="formFiltro" method="GET" class="d-flex justify-content-around">`;
+    var inputs = `<form id="formFiltro" method="GET" class="d-flex flex-column mx-auto" style="width: fit-content">`;
     itens.forEach(element => {
-        inputs += `<div class="form-check">
-            <input name='${filtro}' class="form-check-input" type="checkbox" value="${element.id}" id="flexCheckDefault">
+        inputs += `
+            <div class="form-check" style="text-align: left !important; width: fit-content; align-items: start">
+                <input name='${filtro}' class="form-check-input" type="checkbox" value="${element.id}" id="flexCheckDefault"/>
                 <label class="form-check-label" for="flexCheckDefault">${element.nome}</label>
             </div>`
     });
-    inputs += '</div>'
+    inputs += '</form>'
 
     const { value: values } = await Swal.fire({
         title: 'Filtrar por ' + filtro.replace('_id', ''),
         html: inputs,
         focusConfirm: true,
-        confirmButtonText: '<h5>filtrar</h5>',
+        confirmButtonText: 'Filtrar',
         showCancelButton: true,
         cancelButtonText:
-            '<h5>Fechar</h5>',
+            'Fechar',
         preConfirm: () => {
             var inputs = document.querySelectorAll(`input[name="${filtro}"]`);
             var ids = []
@@ -179,9 +180,9 @@ async function modal_alterar_estoque(element) {
         html: html,
         showCancelButton: true,
         confirmButtonText:
-            '<h6>Alterar</h6>',
+            'Alterar',
         cancelButtonText:
-            '<h6>Fechar</h6>',
+            'Fechar',
         focusConfirm: true,
         stopKeydownPropagation: false,
         didOpen: () => {

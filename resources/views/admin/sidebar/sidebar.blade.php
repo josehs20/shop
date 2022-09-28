@@ -109,13 +109,14 @@
         <a href="{{route('categoria.index')}}"><p class="opcoes {{$active == 'categoria' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Categoria</p></a>
         <a href="{{route('tamanho.index')}}"><p class="opcoes {{$active == 'tamanho' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Tamanho</p></a>
         <a href="{{route('cor.index')}}"><p class="opcoes {{$active == 'cor' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Cor</p></a>
+        <hr>
     </div>
 
     <div>
         <a class="dashboard-opcao" data-bs-toggle="collapse" href="#estoques" role="button" aria-expanded="false"
             aria-controls="estoques">
             <div>
-                <i class="fa fa-book"></i>
+                <i class="fa fa-memory"></i>
                 <h5>Estoques</h5>
             </div>
             <i class="fa fa-sort-down mb-2"></i>
@@ -123,9 +124,10 @@
     </div>
     <div class="collapse {{$show == 'estoques' ? 'show' : ''}}" id="estoques">
         {{-- <a href="{{route('estoque.index')}}"><p class="opcoes {{$active == 'consulta' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Consulta</p></a> --}}
-        <a href="{{route('index.balanco')}}"><p class="opcoes {{$active == 'balanco' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Balaço</p></a>
+        <a href="{{route('index.balanco')}}"><p class="opcoes {{$active == 'balanco' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Balanço</p></a>
         <a href="{{route('index.movimentacao')}}"><p class="opcoes {{$active == 'movimentacao' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Movimentação</p></a>
         <a href="{{route('zeramento.index')}}"><p class="opcoes {{$active == 'zeramento' ? 'active' : ''}}">- &nbsp;&nbsp;&nbsp; Zeramento</p></a>
+        <hr>
     </div>
 
     <!-- CONFIGURAÇÕES -->
@@ -140,7 +142,8 @@
         </a>
     </div>
     <div class="collapse" id="config">
-        <p class="opcoes"><a href="#produtos">- &nbsp;&nbsp;&nbsp; Minha conta</a></p>
+        <a href="#produtos"><p class="opcoes">- &nbsp;&nbsp;&nbsp; Minha conta</p></a>
+        <hr>
     </div>
 
 </aside>

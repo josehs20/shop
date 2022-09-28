@@ -13,6 +13,8 @@ function atualizarSenhaUsuario(id, senhaAtual) {
             dataType: 'json',
             success: function (response) {
                 if (response.valido) {
+                    document.getElementById('novaSenha').value = ''
+                    document.getElementById('confirmaNovaSenha').value =''
                     alerta('success', response.msg, '', false)
                 } else {
                     alerta('warning', response.msg, '', false)

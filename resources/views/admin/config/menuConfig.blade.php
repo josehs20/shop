@@ -1,4 +1,4 @@
-<aside class="menus">
+<aside class="menus mb-4">
     <div class="list-group">
         <a href="{{ route('meusdados', auth()->user()->id) }}"
             class="list-group-item list-group-item-action
