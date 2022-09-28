@@ -1,4 +1,4 @@
-@extends('layouts.app', ['show' => 'estoques', 'active' => 'balanco'])
+@extends('layouts.app', ['show' => 'estoques', 'active' => 'movimentacao'])
 
 <style>
     .card-body {
@@ -71,7 +71,7 @@
 
 @section('content')
 
-    <body onload='monta_lista_estoque(computa_produtos(<?php echo $produtos; ?>), "balanco"), set_tam_cor_cat_storage(<?php echo json_encode($paramsFiltro); ?>)'>
+    <body onload='monta_lista_estoque(computa_produtos(<?php echo $produtos; ?>), "movimentacao"), set_tam_cor_cat_storage(<?php echo json_encode($paramsFiltro); ?>)'>
  
         @include('admin.estoque.inc.view-base')
 

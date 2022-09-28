@@ -10,7 +10,7 @@
 @section('content')
     <main class="conteudo-meus-dados">
         <div class="card">
-            <form onsubmit="atualizarMeusDados(<?php echo auth()->user()->id?>); return false;" id="formMeusDados" method="PUT">
+            <form onsubmit="atualizarMeusDados(); return false;" id="formMeusDados" method="PUT">
                 @csrf
                 <div class="card-header">
                     <h5 style="margin: 0 !important">Meus dados</h5>
@@ -32,4 +32,4 @@
         </div>
     </main>
 @endsection
-<script src="{{ asset('js/admin/meusDados.js') }}" defer></script>
+<script src="{{ asset('js/admin/configuracoes/meusDados.js') }}" defer></script>

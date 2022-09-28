@@ -50,7 +50,6 @@ class ProdTamCor extends Model
     }
     public function destroy_prod_tam_cor($id)
     {
-
         $ptc = ProdTamCor::find($id);
         dd($ptc);
         $ptc->delete();

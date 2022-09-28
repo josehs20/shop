@@ -22,11 +22,13 @@ class ConfiguracaoController extends Controller
     public function meus_dados($id){
         return view('admin.config.meusDados');
     }
+
     public function alterar_meus_dados(Request $request){
-        dd($request->all());
-        User::find($request->id)->update(['name' => $request->name, 'email' => $request->email]);
+      dd($request->all());
+       // User::find(auth()->user()->id)->update(['name' => $request->name, 'email' => $request->email]);
         return response()->json(['Alterado com sucesso!'], 200);
     }
+    
     public function alterar_senha($id){
         return view('admin.config.alterarSenha');
     }

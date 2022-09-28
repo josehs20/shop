@@ -12,6 +12,6 @@ class Estoque extends Model
 
     public function prodTamCor()
     {
-        return $this->hasOne('App\Models\ProdTamCor');
+        return $this->belongsTo('App\Models\ProdTamCor');
     }
 }

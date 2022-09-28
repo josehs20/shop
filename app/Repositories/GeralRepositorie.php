@@ -4,7 +4,9 @@ namespace App\Repositories;
 
 use App\Models\Categoria;
 use App\Models\Cor;
+use App\Models\Estoque;
 use App\Models\ProdTamCor;
+use App\Models\Produto;
 use App\Models\Tamanho;
 
 class GeralRepositorie
@@ -19,8 +21,32 @@ class GeralRepositorie
         ];
     }
 
-    public function filtro_prod_tam_cor($colum, $ids)
+    public function filtro_prod_tam_cor($coluna, $ids)
     {
-        return ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque', 'imagens'])->whereIn($colum, $ids)->get()->groupBy('produto_id');
+        return ProdTamCor::with(['produto', 'tamanho', 'cor', 'estoque', 'imagens'])->whereIn($coluna, $ids)->get()->groupBy('produto_id');
+    }
+
+    public function filtro_prod_tam_cor_categoria($coluna, $ids)
+    {
+        return Produto::with(['prodTamCors' => function ($query) {
+            $query->with(['produto', 'tamanho', 'cor', 'estoque', 'imagens']);
+        }])->whereIn($coluna, $ids)->get()->map(function ($value) {
+            return $value->prodTamCors;
+        });
+    }
+
+    public function filtro_prod_tam_cor_qtd_estoque($coluna, $operador, $valor)
+    {
+        return Estoque::with(['prodTamCor' => function ($query) {
+            $query->with(['produto', 'tamanho', 'cor', 'estoque', 'imagens']);
+        }])->where($coluna, $operador, $valor)->get()->map(function ($value) {
+            return $value->prodTamCor;
+        })->groupBy('produto_id');
+    }
+
+    public function filtro_estoque_nome_produto($nome)
+    {
+        $produto = new Produto();
+        return $produto->get_produtos($nome);
     }
 }
