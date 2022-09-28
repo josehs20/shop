@@ -11,7 +11,7 @@ function alerta(icone, title, texto, confirmButton) {
   })
 }
 
-function alerta_simples(titulo) {
+function alerta_simples(icone,titulo) {
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
@@ -25,7 +25,7 @@ function alerta_simples(titulo) {
   })
 
   Toast.fire({
-    icon: 'success',
+    icon: icone,
     title: titulo
   })
 }
@@ -91,7 +91,7 @@ async function alert_editar_ptc(ptc) {
     stopKeydownPropagation: false,
     cancelButtonText:
       '<h5>Fechar</h5>',
-    confirmButtonText: !ptcId ? '<h5>Cadastrar</h5>' :'<h5>Editar</h5>',
+    confirmButtonText: !ptcId ? '<h5>Cadastrar</h5>' : '<h5>Editar</h5>',
     //MANIPULA DADOS DENTRO DO SWAL
     didOpen: (doc) => {
       calcula_lucro(doc)
@@ -143,5 +143,33 @@ async function alert_editar_ptc(ptc) {
   }
 }
 
-
+function confirmando_alteracao(id, funcao) {
+  Swal.fire({
+    title: '<h1>Digite sua senha</h1><h5>Informe a senha para confirmar a alteração.</h5>',
+    html: '<input id="inputSenha" name="password" class="form-control mx-auto w-50" type="password" />',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Confirmar',
+    showLoaderOnConfirm: true,
+    preConfirm: () => {
+      const senha = Swal.getPopup().querySelector('#inputSenha').value
+      if (!senha) {
+        Swal.showValidationMessage(
+          'Senha não informada!'
+        )
+      } else {
+        return { senha: senha }
+      }
+    },
+    allowOutsideClick: () => !Swal.isLoading(),
+    backdrop: true
+  }).then((result) => {
+    if (result.isConfirmed) {
+      funcao(id, result.value.senha)
+    }
+  })
+}
 
