@@ -20,7 +20,7 @@ class CoresController extends Controller
     }
     public function get_cores(Request $request)
     {
-        $cores = Cor::get();
+        $cores = Cor::where('nome','like', '%'.$request->nome.'%')->get();
         return response()->json($cores, 200);
     }
 
@@ -42,7 +42,7 @@ class CoresController extends Controller
      */
     public function store(Request $request)
     {
-        $cores = Cor::create($request->all());
+        $cores = Cor::create(['nome' => ucfirst(mb_strtolower(remove_espacos($request->nome))), 'codigo' => $request->codigo]);
         return response()->json('Cor ' . $cores->nome . ' cadastrada com sucesso!', 200);
     }
 

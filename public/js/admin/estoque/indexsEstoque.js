@@ -330,6 +330,7 @@ async function modal_alterar_estoque(element) {
                         data.push({ id: input.id.replace('input', ''), quantidade: inputTodos })
                     } else if (tipoMovimento == 'movimentacao') {
                         //ESSE MOVIMENTO DA MOVIMENTACAO É O MOVIMENTO DO SELECT
+                        //E NÃO O TIPO QUE VEM DO LOCAL STORAGE PARA IDENTICAR O TIPO DE MOVIMENTACAO
                         var movimento = document.getElementById('selectMovimentoTodos').value
                         data.push({
                             id: input.id.replace('input', ''),

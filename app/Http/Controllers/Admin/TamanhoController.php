@@ -19,7 +19,7 @@ class TamanhoController extends Controller
     }
     public function get_tamanhos(Request $request)
     {
-        $tamanhos = Tamanho::get();
+        $tamanhos = Tamanho::where('nome','like', '%'.$request->nome.'%')->get();
         return response()->json($tamanhos, 200);
     }
 
@@ -41,7 +41,7 @@ class TamanhoController extends Controller
      */
     public function store(Request $request)
     {
-        $tamanho = Tamanho::create($request->all());
+        $tamanho = Tamanho::create(['nome' => strtoupper(remove_espacos($request->nome))]);
         return response()->json('Tamanho '.$tamanho->nome.' cadastrado com sucesso!', 200);
     }
 
@@ -88,7 +88,7 @@ class TamanhoController extends Controller
     public function destroy($id)
     {
         $tamanho = Tamanho::find($id);
-        $tamanho->delete();
+       // $tamanho->delete();
         return response()->json('Tamanho '.$tamanho->nome.' excluído com sucesso!', 200);
     }
 }

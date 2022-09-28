@@ -75,5 +75,5 @@
  
         @include('admin.estoque.inc.view-base')
 
-        <script src="{{ asset('js/admin/estoque/principalEstoque.js') }}" defer></script>
+        <script src="{{ asset('js/admin/estoque/indexsEstoque.js') }}" defer></script>
     @endsection

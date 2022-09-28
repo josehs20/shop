@@ -121,6 +121,11 @@
 </style>
 @section('content')
     <!-- CADASTRO DE PRODUTOS -->
+    @if (!count($tamanhos) or !count($cores) or !count($categorias))
+    <div class="alert alert-warning" role="alert">
+        Para cadastrar produtos é necessário ter no mínimo uma categoria, tamanho e cor cadastrado,
+      </div>
+    @else
     <div class="card mb-3">
         <form id="formCadastroProduto" onsubmit="post_produto(); return false;" method="POST" enctype="multipart/form-data">
             @csrf
@@ -155,5 +160,6 @@
         <div class="card-footer">
         </div>
     </div>
+    @endif
     <script src="{{ asset('js/admin/produto/cadastroProduto.js') }}" defer></script>
 @endsection

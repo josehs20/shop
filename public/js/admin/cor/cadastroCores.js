@@ -43,6 +43,7 @@ get_cores()
 
 function monta_lista_cores(cores) {
     var count = 1
+    document.getElementById('divListaCores').innerHTML = `<table class="table table-hover"><thead><tr><th scope="col">#</th> <th scope="col">Cor</th><th scope="col">Nome</th><th scope="col"></th></tr></thead><tbody id="tabelaCor"></tbody></table>`
     var bodyTabela = document.getElementById('tabelaCor')
     linhaTabela = ''
     cores.forEach(cor => {
@@ -57,5 +58,6 @@ function monta_lista_cores(cores) {
     </tr>`
         count++
     });
+
     bodyTabela.innerHTML = linhaTabela
 }

@@ -24,22 +24,30 @@ function post_tamanhos() {
 }
 
 function get_tamanhos() {
-    axios.get('/get_tamanhos')
-        .then(response => {
-            if (response.data.length) {
-                monta_lista_tamanhos(response.data);
+    var nome = document.getElementById('inputPesquisarTamanho').value;
+    $.ajax({
+        url: "/get_tamanhos",
+        method: 'GET',
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        data: { nome: nome },
+        dataType: 'json',
+        success: function (resp) {
+            if (resp.length) {
+                monta_lista_tamanhos(resp);
             } else {
                 div_nao_contem_registro('divListaTamanhos', 'Nenhum tamanho encontrado.');
             }
-        })
-        .catch(response => {
-            alerta('error', 'Não foi possível buscar os tamanhos, tente novamente mais tarde.', '', false)
-        })
+        },
+        error: function (errors) {
+            console.log(errors);
+        }
+    })
 }
 get_tamanhos()
 
 function monta_lista_tamanhos(tamanhos) {
     var count = 1
+    document.getElementById('divListaTamanhos').innerHTML = `<table class="table table-hover"><thead><tr><th scope="col">#</th><th scope="col">Tamanho</th><th scope="col"></th></tr></thead><tbody id="tabelaTamanho"></tbody></table>`
     var bodyTabela = document.getElementById('tabelaTamanho')
     linhaTabela = ''
     tamanhos.forEach(tamanho => {
