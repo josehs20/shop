@@ -54,7 +54,7 @@ async function modal_filter_qtd_estoque() {
     const { value: values } = await Swal.fire({
         title: 'Filtrar por quantidade no estoque',
         html: `<div class="d-flex justify-content-center">
-        <select id="selectFiltro" class="form-select form-select-sm mx-1" aria-label=".form-select-sm example">
+        <select id="selectFiltro" class="form-select form-select-sm mx-3" aria-label=".form-select-sm example">
         <option value=">">Maior ></option>
         <option value="<">Menor <</option>
         <option value="=">Igual =</option>
@@ -87,23 +87,24 @@ async function modal_filter_qtd_estoque() {
 }
 //MODAL PARA FILTRAR EM COR E TAMANHO E CATEGORIA
 async function modal_filter_checkbox(itens, filtro) {
-    var inputs = `<form id="formFiltro" method="GET" class="d-flex justify-content-around">`;
+    var inputs = `<form id="formFiltro" method="GET" class="d-flex flex-column mx-auto" style="width: fit-content">`;
     itens.forEach(element => {
-        inputs += `<div class="form-check">
-            <input name='${filtro}' class="form-check-input" type="checkbox" value="${element.id}" id="flexCheckDefault">
+        inputs += `
+            <div class="form-check" style="text-align: left !important; width: fit-content; align-items: start">
+                <input name='${filtro}' class="form-check-input" type="checkbox" value="${element.id}" id="flexCheckDefault"/>
                 <label class="form-check-label" for="flexCheckDefault">${element.nome}</label>
             </div>`
     });
-    inputs += '</div>'
+    inputs += '</form>'
 
     const { value: values } = await Swal.fire({
         title: 'Filtrar por ' + filtro.replace('_id', ''),
         html: inputs,
         focusConfirm: true,
-        confirmButtonText: '<h5>filtrar</h5>',
+        confirmButtonText: 'Filtrar',
         showCancelButton: true,
         cancelButtonText:
-            '<h5>Fechar</h5>',
+            'Fechar',
         preConfirm: () => {
             var inputs = document.querySelectorAll(`input[name="${filtro}"]`);
             var ids = []
@@ -155,6 +156,86 @@ function get_produtos_filtro(coluna, values) {
 }
 
 //----------------MANIPULAÇÃO DOS CHECKEDS E INPUTS NO SWAL DE ATUALIZACAO------------////
+//----------PARTE DE ALTERAR ESTOQUE----------//
+async function modal_alterar_estoque(element) {
+    var tipoMovimento = JSON.parse(localStorage.getItem('tipoMovimento'))
+    switch (tipoMovimento) {
+        case 'balanco':
+            var html = monta_inputs_balanco(element.attrs);
+            var titulo = 'Balanço de estoque <br><h4>' + element.nome + '</h4><h6>O balanço altera o valor do estoque com o valor exato que você inserir.</h6>'
+            break;
+        case 'movimentacao':
+            var html = monta_inputs_movimento(element.attrs);
+            var titulo = 'Movimentação de estoque <br><h4>' + element.nome + '</h4><h6>O movimento é alterado de acordo com o tipo de movimento e quantidade informado.</h6>'
+            break;
+        case 'zeramento':
+            var html = monta_inputs_movimento(element.attrs);
+            var titulo = 'Balanço de estoque <br><h4>' + element.nome + '</h4>'
+            break;
+        default:
+            break;
+    }
+
+    const { value: formValues } = await Swal.fire({
+        title: titulo,
+        html: html,
+        showCancelButton: true,
+        confirmButtonText:
+            'Alterar',
+        cancelButtonText:
+            'Fechar',
+        focusConfirm: true,
+        stopKeydownPropagation: false,
+        didOpen: () => {
+            liberar_inputs(check, input);
+        },
+        preConfirm: () => {
+            var inputs = document.querySelectorAll('.checkboxInput')
+            var checkboxs = document.querySelectorAll('.checkboxs')
+            var inputTodos = document.querySelector('#inputTodos').value
+            var data = []
+            if (inputTodos) {
+                inputs.forEach(input => {
+                    if (tipoMovimento == 'balanco') {
+                        data.push({ id: input.id.replace('input', ''), quantidade: inputTodos })
+                    } else if (tipoMovimento == 'movimentacao') {
+                        var movimento = document.getElementById('selectMovimentoTodos').value
+                        data.push({
+                            id: input.id.replace('input', ''),
+                            quantidade: inputTodos,
+                            tipoMovimento: movimento
+                        })
+                    }
+                })
+            } else {
+                checkboxs.forEach(check => {
+                    inputs.forEach(input => {
+                        if (check.checked && check.value == input.id && !input.value) {
+                            Swal.showValidationMessage('Todos campos marcados, tem qeu ser preenchidos')
+                        } else if (check.checked && check.value == input.id && input.value) {
+                            if (tipoMovimento == 'balanco') {
+                                data.push({ id: input.id.replace('input', ''), quantidade: input.value })
+                            } else if (tipoMovimento == 'movimentacao') {
+                                var movimento = document.getElementById('selectMovimento' + input.id.replace('input', '')).value
+                                data.push({
+                                    id: input.id.replace('input', ''),
+                                    quantidade: input.value,
+                                    tipoMovimento: movimento
+                                })
+                            }
+                        }
+                    });
+                });
+            }
+            return data
+        }
+    })
+
+    if (formValues) {
+        update_estoque(formValues);
+    }
+}
+//----------------MANIPULAÇÃO DOS------------////
 function liberar_inputs(check, Idinput) {
     var checkbox = document.getElementById(check);
     var input = document.getElementById(Idinput);

@@ -11,6 +11,7 @@
     }
     .bmenu{
         visibility: hidden;
+        margin-right: 15px
     }
 
     @media(max-width: 860px){
@@ -22,7 +23,9 @@
 
 <nav>
     <div class="d-flex">
-        <i id="bmenu" class="fa fa-bars bmenu"></i>
+        @if(Request::segment(1) != 'config')
+            <i id="bmenu" class="fa fa-bars bmenu"></i>
+        @endif
         @if(Request::segment(1) != 'homeAdmin')
             <a class="d-flex" href="{{route('homeAdmin.index')}}"><i class="fa fa-home"></i> &nbsp;&nbsp; Dashboard</a>
         @endif

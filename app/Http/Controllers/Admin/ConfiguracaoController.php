@@ -47,6 +47,7 @@ class ConfiguracaoController extends Controller
             User::find(auth()->user()->id)->update(['password' => Hash::make($request->novaSenha)]);
             return response()->json(['valido' => true, 'msg' => 'Senha alterada com sucesso!'], 200);
         }else{
+            
             return response()->json([ 'valido' => false, 'msg' => 'A senha não confere!'], 200);
         }
     }
