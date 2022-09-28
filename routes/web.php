@@ -39,7 +39,6 @@ Route::get('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\Configuraca
 //ROTA QUE REALMENTE ALTERA A SENHA, QUE FAZ O UPDATE NO BANCO DE DADOS
 Route::put('/config/alterarsenha/{id}', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'alterar_senha_usuario']);
 
-
 //PRODUTOS
 Route::resource('/produto', ProdutoController::class);
 Route::get('/get_produtos', [\App\Http\Controllers\Admin\ProdutoController::class, 'get_produtos']);
