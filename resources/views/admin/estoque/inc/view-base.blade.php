@@ -7,10 +7,10 @@
             </h5>
             <div class="card-body">
                 <div id="cadastros">
-                    <a onclick="modal_get_itens_filtro('categoria_id')"><p class="opcoes">- &emsp;Categoria</p></a>
-                    <a onclick="modal_get_itens_filtro('tamanho_id')"><p class="opcoes">- &emsp;Tamanho</p></a>
-                    <a onclick="modal_get_itens_filtro('cor_id')"><p class="opcoes">- &emsp;Cor</p></a>
-                    <a onclick="modal_get_itens_filtro('quantidade')"><p class="opcoes">- &emsp;Quantidade no estoque</p></a>
+                    <a onclick="modal_get_itens_filtro('categoria_id')"><p class="opcoes d-flex"><i class="fa fa-flag"></i>&emsp;Categoria</p></a>
+                    <a onclick="modal_get_itens_filtro('tamanho_id')"><p class="opcoes d-flex"><i class="fa fa-text-height"></i>&emsp;Tamanho</p></a>
+                    <a onclick="modal_get_itens_filtro('cor_id')"><p class="opcoes d-flex"><i class="fa fa-pen-nib"></i>&emsp;Cor</p></a>
+                    <a onclick="modal_get_itens_filtro('quantidade')"><p class="opcoes d-flex"><i class="fa fa-sort-numeric-down"></i>&emsp;Quantidade no estoque</p></a>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
             <form onsubmit="modal_get_itens_filtro('nome'); return false;" id="formListaEstoque" method="GET">
                 @csrf
                 <div class="card-header search">
-                    <h5>Estoques</h5>
+                    <h5>Estoque</h5>
                     <div class="input-group mb-3">
                         <!-- INPUT PARA PESQUISAR CATEGORIAS -->
                         <input id="inputPesquisarEstoque" type="search" class="form-control"

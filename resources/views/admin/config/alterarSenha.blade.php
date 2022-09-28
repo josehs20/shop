@@ -3,7 +3,20 @@
 <style>
     .conteudo-alterar-senha {
         padding: 0 20px;
-        width: 100%;
+        width: 50%;
+        margin: 0 auto !important;
+    }
+    .larguraInput {
+        width: 40% !important;
+    }
+
+    @media(max-width: 860px) {
+        .larguraInput {
+            width: 90% !important;
+        }
+        .conteudo-alterar-senha {
+            width: 100% !important;
+        }
     }
 </style>
 
@@ -17,8 +30,8 @@
                 </div>
 
                 <div class="card-body d-flex flex-column align-items-center">
-                    <input id="novaSenha" required type="password" class="form-control mb-2 w-25" placeholder="Nova senha">
-                    <input id="confirmaNovaSenha" required type="password" class="form-control mb-2 w-25" placeholder="Confirme a senha">
+                    <input id="novaSenha" required type="password" class="form-control mb-2 larguraInput" placeholder="Nova senha">
+                    <input id="confirmaNovaSenha" required type="password" class="form-control mb-2 larguraInput" placeholder="Confirme a senha">
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <p></p> <!-- APENAS PARA OCUPAR ESPAÇO -->
@@ -32,4 +45,4 @@
         </div>
     </main>
 @endsection
-<script src="{{ asset('js/admin/alterarSenha.js') }}" defer></script>
+<script src="{{ asset('js/admin/configuracoes/alterarSenha.js') }}" defer></script>
