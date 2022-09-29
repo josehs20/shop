@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\EstoqueController;
 use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Admin\PedidosController;
+use App\Http\Controllers\Admin\RelatorioController;
 use App\Http\Controllers\Admin\TamanhoController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -58,6 +59,9 @@ Route::get('/get_produtos_filtro', [\App\Http\Controllers\Admin\EstoqueControlle
 Route::put('/update-estoques', [\App\Http\Controllers\Admin\EstoqueController::class, 'update_estoques']);
 //PEDIDOS
 Route::resource('/pedidos', PedidosController::class);
+
+//RELATORIOS
+Route::resource('/relatorios', RelatorioController::class);
 
 
 

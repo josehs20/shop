@@ -141,16 +141,25 @@
         <a href="{{ route('zeramento.index') }}">
             <p class="opcoes {{ $active == 'zeramento' ? 'active' : '' }}">- &nbsp;&nbsp;&nbsp; Zeramento</p>
         </a>
-  <hr>
+        <hr>
     </div>
- 
-    {{-- PEDIDOS --}}
 
+    <!-- PEDIDOS -->
     <div>
-        <a href="{{route('pedidos.index')}}" class="dashboard-opcao {{ $active == 'pedidos' ? 'active' : '' }}">
+        <a href="{{ route('pedidos.index') }}" class="dashboard-opcao {{ $active == 'pedidos' ? 'active' : '' }}">
             <div>
                 <i class="fa fa-shipping-fast"></i>
                 <h5>Pedidos</h5>
+            </div>
+        </a>
+    </div>
+
+    <!-- RELATÓRIOS -->
+    <div>
+        <a href="{{ route('relatorios.index') }}" class="dashboard-opcao {{ $active == 'relatorios' ? 'active' : '' }}">
+            <div>
+                <i class="fa fa-file-alt"></i>
+                <h5>Relatórios</h5>
             </div>
         </a>
     </div>
@@ -167,7 +176,9 @@
         </a>
     </div>
     <div class="collapse" id="config">
-        <a href="#produtos"><p class="opcoes">- &nbsp;&nbsp;&nbsp; Minha conta</p></a>
+        <a href="#produtos">
+            <p class="opcoes">- &nbsp;&nbsp;&nbsp; Minha conta</p>
+        </a>
         <hr>
     </div>
 
