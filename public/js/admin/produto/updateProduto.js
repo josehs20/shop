@@ -153,25 +153,25 @@ function update_produto(id) {
 }
 
 function update_ptc_produto(id, ptcId, data) {
-    data.ptcId = ptcId,
-        $.ajax({
-            url: '/update_ptc/' + id,
-            method: 'PUT',
-            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-            dataType: 'json',
-            data: data,
-            success: function (response) {
-                monta_lista_update_produto(computa_produtos([response.produto])[0])
-                alerta('success', response.msg, '', true)
-            },
-            error: function (errors) {
-                if (errors.status == 422) {
-                    alerta('error', JSON.parse(errors.responseText).msg, '', false);
-                } else {
-                    alerta('error', 'Algo deu errado', 'Atualize a página e tente novamente', false);
-                }
+    data.ptcId = ptcId
+    $.ajax({
+        url: '/update_ptc/' + id,
+        method: 'PUT',
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        dataType: 'json',
+        data: data,
+        success: function (response) {
+            monta_lista_update_produto(computa_produtos([response.produto])[0])
+            alerta('success', response.msg, '', true)
+        },
+        error: function (errors) {
+            if (errors.status == 422) {
+                alerta('error', JSON.parse(errors.responseText).msg, '', false);
+            } else {
+                alerta('error', 'Algo deu errado', 'Atualize a página e tente novamente', false);
             }
-        });
+        }
+    });
 }
 
 function post_produto_ptc(id, data) {
@@ -201,7 +201,7 @@ function monta_imagens_update(imagens) {
     var caminhos = JSON.parse(localStorage.getItem('imagensProduto'));
 
     if (!caminhos.map(function (e) { return e.prioridade }).filter((p) => p == true).length) {
-         //ATUALIZA PRIORIODADE DO CASO NÃO EXISTA NENHUMA IMAGEM COMO PRIORIDADE
+        //ATUALIZA PRIORIODADE DO CASO NÃO EXISTA NENHUMA IMAGEM COMO PRIORIDADE
         return prioridade_imagem(caminhos.shift().id)
     }
 
@@ -279,7 +279,7 @@ function prioridade_imagem(id) {
         success: function (response) {
 
             if (response.msg) {
-                alerta_simples(response.msg)
+                alerta_simples('success', response.msg)
             }
             monta_imagens_update(response.imagens);
 

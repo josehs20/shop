@@ -154,9 +154,14 @@ class ProdutoController extends Controller
         $ptc = $produtoPtc->prodTamCors()->where('cor_id', $request->cor_id)->where('tamanho_id', $request->tamanho_id)->first();
 
         if (!$ptc || $ptc->id == $request->ptcId) {
-
-            !$ptc ? ProdTamCor::find($request->ptcId)->update($request->except('ptcId', 'quantidade'))
-                : $ptc->update($request->except('ptcId', 'quantidade'));
+            $dataUpdate = [
+                'cor_id' => $request->cor_id,
+                'tamanho_id' => $request->tamanho_id,
+                'custo' => str_replace(',', '.', $request->custo),
+                'preco' => str_replace(',', '.', $request->preco)
+            ];
+            !$ptc ? ProdTamCor::find($request->ptcId)->update($dataUpdate)
+                : $ptc->update($dataUpdate);
 
             $consulta = new Produto();
             $produtoPtc = $consulta->get_produto_id($id);

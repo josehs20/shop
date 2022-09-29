@@ -62,4 +62,5 @@ function monta_html_list_group(dados, titulo) {
 function habilitainputs() {
     document.querySelector("select[name='categoria']").disabled = false;
     document.querySelector("#imagensProduto").disabled = false
+    document.querySelector("input[name='nome']").readOnly = false;
 }

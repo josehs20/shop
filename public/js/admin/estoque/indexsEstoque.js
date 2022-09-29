@@ -10,23 +10,27 @@ function monta_lista_estoque(produtos, tipoMovimento) {
     var divTabelaEstoque = document.getElementById('divTabelaEstoque');
     divTabelaEstoque.innerHTML = tabelaEstoque;
 
-    //DEPOIS DE MONTADA RECEBE TBODY DA TABELA PARA LISTAR OS PRODUTOS
-    var tbodyTabelaEstoque = divTabelaEstoque.querySelector('#tbodyTabelaEstoque');
-    var listEstoque = '';
-    var count = 1;
+    if (!produtos.length) {
+        div_nao_contem_registro('divTabelaEstoque', 'Nenhum produto registrado')
+    } else {
+        //DEPOIS DE MONTADA RECEBE TBODY DA TABELA PARA LISTAR OS PRODUTOS
+        var tbodyTabelaEstoque = divTabelaEstoque.querySelector('#tbodyTabelaEstoque');
+        var listEstoque = '';
+        var count = 1;
 
-    produtos.forEach(element => {
-        // <td><a href="/produto/${element.id}/edit"><i class="fa fa-edit"></i></a></td>
-        listEstoque += `<tr data-bs-toggle="collapse" href="#prod${element.id}"
+        produtos.forEach(element => {
+            // <td><a href="/produto/${element.id}/edit"><i class="fa fa-edit"></i></a></td>
+            listEstoque += `<tr data-bs-toggle="collapse" href="#prod${element.id}"
      role="button" aria-expanded="false" aria-controls="prod" onclick='modal_alterar_estoque(${JSON.stringify(element)})'>
      <td class="col-1">${count}</td>
      <td>${element.nome}</td>
      <td>${element.totalEstoque}</td>
      </tr>`;
-        count++;
-    });
+            count++;
+        });
 
-    tbodyTabelaEstoque.innerHTML = listEstoque;
+        tbodyTabelaEstoque.innerHTML = listEstoque;
+    }
 }
 
 function set_tam_cor_cat_storage(params) {

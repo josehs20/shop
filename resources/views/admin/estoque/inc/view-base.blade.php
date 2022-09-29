@@ -6,7 +6,7 @@
                 Buscar por:
             </h5>
             <div class="card-body">
-                <div id="cadastros">
+                <div id="filtrosEstoque">
                     <a onclick="modal_get_itens_filtro('categoria_id')"><p class="opcoes d-flex"><i class="fa fa-flag"></i>&emsp;Categoria</p></a>
                     <a onclick="modal_get_itens_filtro('tamanho_id')"><p class="opcoes d-flex"><i class="fa fa-text-height"></i>&emsp;Tamanho</p></a>
                     <a onclick="modal_get_itens_filtro('cor_id')"><p class="opcoes d-flex"><i class="fa fa-pen-nib"></i>&emsp;Cor</p></a>

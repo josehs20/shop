@@ -108,8 +108,8 @@ async function alert_editar_ptc(ptc) {
         return {
           cor_id: document.getElementById('cores').value,
           tamanho_id: document.getElementById('tamanhos').value,
-          custo: parseFloat(document.getElementById('custo').value),
-          preco: parseFloat(document.getElementById('preco').value),
+          custo: document.getElementById('custo').value,
+          preco: document.getElementById('preco').value,
           quantidade: document.getElementById('estoquePtc').value
         }
       }
@@ -133,7 +133,6 @@ async function alert_editar_ptc(ptc) {
   if (formValues) {
     var id = document.getElementById('formUpdateProduto').getAttribute('data-produtoId');
     //  var ptcId = document.getElementById('divPai').getAttribute('data-ptcId');
-
     if (!ptcId) {
       post_produto_ptc(id, formValues)
     } else {
