@@ -63,6 +63,7 @@ Route::resource('/pedidos', PedidosController::class);
 //RELATORIOS
 Route::resource('/relatorios', RelatorioController::class);
 
+Route::get('/get_pedidos', [\App\Http\Controllers\Admin\PedidosController::class, 'get_pedidos']);
 
 
 //CATEGORIAS

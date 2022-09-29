@@ -5,6 +5,8 @@ namespace App\Repositories;
 use App\Models\Categoria;
 use App\Models\Cor;
 use App\Models\Estoque;
+use App\Models\Pedido;
+use App\Models\PedidoItem;
 use App\Models\ProdTamCor;
 use App\Models\Produto;
 use App\Models\Tamanho;
@@ -48,5 +50,27 @@ class GeralRepositorie
     {
         $produto = new Produto();
         return $produto->get_produtos($nome);
+    }
+
+    //-----------------PEDIDOS----------------//
+
+    public function sum_pedido($pedido_id)
+    {
+        return PedidoItem::with('ptc')->where('pedido_id', $pedido_id)->get()->map(function ($v) {
+            return $v->quantidade * $v->ptc->preco;
+        })->sum();
+    }
+
+    public function get_pedidos_nome($nome = null)
+    {
+        $pedidos = Pedido::with(['pedido_itens' => function($query){
+            $query->with(['ptc' => function ($query){
+                $query->with(['produto', 'tamanho', 'cor', 'estoque']);
+            }]);
+        }, 'users'])->whereHas('users', function($query) use ($nome){
+            $query->where('name', 'like', "%$nome%");
+        })->where('status', 'in')->get();
+
+        return $pedidos;
     }
 }

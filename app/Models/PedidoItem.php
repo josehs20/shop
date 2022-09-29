@@ -10,7 +10,8 @@ class PedidoItem extends Model
     protected $table = 'pedido_itens';
     protected $fillable = [
         'pedido_id',
-        'ptc_id'
+        'ptc_id',
+        'quantidade'
     ];
 
     public function ptc()

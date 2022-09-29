@@ -104,7 +104,7 @@
                             </div>
                         </div>
         
-                        <div id="divTabelaEstoque" class="card-body">
+                        <div id="divTabelaPedido" class="card-body">
                             
                         </div>
                         <div class="card-footer">

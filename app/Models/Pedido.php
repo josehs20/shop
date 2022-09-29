@@ -10,6 +10,7 @@ class Pedido extends Model
     protected $table = 'pedidos';
     protected $fillable = [
         'valor_total',
+        'numero_pedido',
         'status',
         'data',
         'user_id',
@@ -19,5 +20,10 @@ class Pedido extends Model
     public function pedido_itens()
     {
         return $this->hasMany('App\Models\PedidoItem');
+    }
+
+    public function users()
+    {
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
 }

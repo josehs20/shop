@@ -18,6 +18,7 @@ class CreatePedidosTable extends Migration
 
             $table->decimal("valor_total", 10, 2);
             $table->string("status", 20);
+            $table->integer('numero_pedido');
             $table->datetime("data");
             $table->unsignedBigInteger("endereco_id")->nullable();
             $table->unsignedBigInteger('user_id');

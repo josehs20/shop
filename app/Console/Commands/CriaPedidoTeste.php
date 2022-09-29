@@ -6,6 +6,8 @@ use App\Models\Pedido;
 use App\Models\PedidoItem;
 use App\Models\ProdTamCor;
 use App\Models\User;
+use App\Repositories\GeralRepositorie;
+use App\Services\GeralServices;
 use Illuminate\Console\Command;
 
 class CriaPedidoTeste extends Command
@@ -29,9 +31,11 @@ class CriaPedidoTeste extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(GeralRepositorie $geralR, GeralServices $geralS)
     {
         parent::__construct();
+        $this->geralR = $geralR;
+        $this->geralS = $geralS;
     }
 
     /**
@@ -41,20 +45,20 @@ class CriaPedidoTeste extends Command
      */
     public function handle()
     {
-        $ptcs = ProdTamCor::take(5)->orderByRaw("RAND()")->get();
+        $ptcs = ProdTamCor::take(3)->orderByRaw("RAND()")->get();
         $user = User::with(['enderecos', 'pedidos'])->where('perfil', 'cliente')->first();
-
+dd($this->geralS->gera_numero_pedido());
         $pedido = $user->pedidos()->create([
             'valor_total' => 0,
             'status' => 'in',
-            'data' => now('America/Sao_Paulo')->format('Y-m-d H:i:m'),
+            'numero_pedido' =>  $this->geralS->gera_numero_pedido(),
+            'data' => now('America/Sao_Paulo')->format('Y-m-d H:i:s'),
             'endereco_id' => $user->enderecos[0]->id
         ]);
 
         foreach ($ptcs as $key => $v) {
-            $pedido->pedido_itens()->create(['ptc_id' => $v->id, 'quantidade' => rand(1, 5)]);
+            $pedido->pedido_itens()->create(['ptc_id' => $v->id, 'quantidade' => rand(1, 3)]);
         }
-        $itens = PedidoItem::with('ptc')->where('pedido_id', $pedido->id)->get();
-        echo $itens;
+        $pedido->update(['valor_total' => $this->geralR->sum_pedido($pedido->id)]);
     }
 }

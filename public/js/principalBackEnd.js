@@ -10,7 +10,7 @@ function excluir_elemento(elementoID, rota, funcaoGetElementos) {
         var texto = response.data.texto
         alerta_contem_produto_vinculado(html, title, texto)
       } else {
-       
+
         if (funcaoGetElementos == 'monta_imagens_update') {
           monta_imagens_update(response.data.imagens)
           alerta('success', response.data.msg)
@@ -71,10 +71,17 @@ function calcula_lucro(doc) {
   var custo = !doc ? document.querySelector('input[name="custo"]').value : doc.querySelector('input[name="custo"]').value
   var lucro = !doc ? document.querySelector('input[name="lucro"]') : doc.querySelector('input[name="lucro"]')
 
-  if (preco && custo) {  
-    preco = parseFloat(preco.replace(/[^\d]+/g,''));
-    custo = parseFloat(custo.replace(/[^\d]+/g,''));
+  if (preco && custo) {
+    preco = parseFloat(preco.replace(/[^\d]+/g, ''));
+    custo = parseFloat(custo.replace(/[^\d]+/g, ''));
     var valor = ((preco - custo) / preco) * 100;
     lucro.value = valor.toFixed(2);
   }
+}
+
+function format_data(dado) {
+  return dado.toLocaleDateString("pt-BR")
+}
+function format_dinheiro(dado) {
+  return dado.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
 }
