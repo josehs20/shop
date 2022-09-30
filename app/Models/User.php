@@ -42,6 +42,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function administrador()
+    {
+        return $this->perfil == 'administrador';
+    }
+
     public function enderecos()
     {
         return $this->hasMany('App\Models\Endereco');

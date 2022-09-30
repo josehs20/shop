@@ -79,6 +79,3 @@ Route::get('/get_categorias', [\App\Http\Controllers\Admin\CategoriaController::
 Route::get('/get_tamanhos', [\App\Http\Controllers\Admin\TamanhoController::class, 'get_tamanhos']);
 //PESQUISA DE CORES
 Route::get('/get_cores', [\App\Http\Controllers\Admin\CoresController::class, 'get_cores']);
-
-
-

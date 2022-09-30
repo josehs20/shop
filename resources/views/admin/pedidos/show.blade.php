@@ -206,10 +206,27 @@
                                 </tr>
                             @endforeach
                     </table>
+                    <div class="col-md-12">
+
+                        <div class="mt-4">
+                            <h4>Calcule o Frete</h4>
+                            <form onsubmit="calcula_frete(); return false;" method="GET" class="form-inline">
+                                <input
+                                placeholder="99999-999" 
+                                type="text" 
+                                class="zipcode form-control col-md-6 mr-3">
+                                <button type="submit" class="btn btn-outline-success">Calcular</button>
+                            </form>
+                        </div>
+                    
+                    </div>
                 </div>
             </div>
         </div>
+    
     </div>
 
     <script src="{{ asset('js/admin/pedidos/show.js') }}" defer></script>
+    <script src="{{ asset('js/servicos/correios.js') }}" defer></script>
+
 @endsection
