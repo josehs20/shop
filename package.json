@@ -21,6 +21,7 @@
         "sass-loader": "^11.0.1"
     },
     "dependencies": {
+        "animate.css": "^4.1.1",
         "jquery": "^3.6.1",
         "jquery-mask-plugin": "^1.14.16",
         "sweetalert2": "^11.4.32"
