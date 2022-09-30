@@ -1,0 +1,16 @@
+i{
+    font-size: 18px;
+    margin: 0 7px;
+}
+i:hover{
+    color: orangered;
+}
+
+a{
+    text-decoration: none;
+    color: #000;
+    font-size: 1rem;
+}
+a:hover{
+    color: orangered;
+}

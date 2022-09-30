@@ -1,4 +1,5 @@
 window._ = require('lodash');
+window.animate = require('animate.css')
 
 try {
     require('bootstrap');
