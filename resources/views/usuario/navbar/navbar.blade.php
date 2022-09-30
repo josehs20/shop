@@ -104,6 +104,7 @@
         </div>
         <!-- SE O USUARIO TIVER LOGADO MOSTRA O NOME DELE -->
         @if (auth()->user())
+        
             <div class="nav-item dropdown mx-2">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
