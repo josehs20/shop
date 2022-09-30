@@ -24,4 +24,5 @@ class Endereco extends Model
     {
        return $this->hasMany('App\Models\User');
     }
+    
 }

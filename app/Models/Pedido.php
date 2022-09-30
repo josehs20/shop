@@ -26,4 +26,8 @@ class Pedido extends Model
     {
         return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
+    public function endereco()
+    {
+        return $this->hasOne('App\Models\Endereco', 'id', 'endereco_id');
+    }
 }

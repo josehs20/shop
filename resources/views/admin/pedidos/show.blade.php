@@ -71,20 +71,16 @@
 
 @section('content') 
 
-              <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) PEDIDOS -->
+              <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) CATEGORIAS -->
               <div class="divPaiCL">
                 <!-- ESTOQUE -->
                 <div class="card mb-3 cadastrarCores">
                     <h5 class="card-header d-flex justify-content-between">
-                        Buscar por:
+                        Dados do cliente:
                     </h5>
                     <div class="card-body">
                         <div id="filtrosEstoque">
-                            <a onclick="modal_filtro_pedido('datas')"><p class="opcoes d-flex"><i class="fa fa-calendar-alt"></i>&emsp;Data de compra</p></a>
-                            <a onclick="modal_filtro_pedido('cidade')"><p class="opcoes d-flex"><i class="fa fa-map-marker-alt"></i></i>&emsp;Localidade</p></a>
-                            {{-- <a onclick=""><p class="opcoes d-flex"><i class="fa fa-dollar-sign"></i>&emsp;Valor</p></a> --}}
-                            <a onclick="get_pedidos({status:'age'})"><p class="opcoes d-flex"><i class="fa fa-stopwatch"></i>&emsp;Aguardando envio</p></a>
-                            <a onclick="get_pedidos({status:'acm'})"><p class="opcoes d-flex"><i class="fa fa-route"></i>&emsp;Enviados</p></a>
+                            dados
 
                         </div>
                     </div>
@@ -92,15 +88,13 @@
         
                 <!-- LISTA DE CATEGORIAS -->
                 <div class="card listarEstoque" >
-                    <form onsubmit="get_pedidos('nome'); return false;" id="formListaEstoque" method="GET">
+                    <form onsubmit="modal_get_itens_filtro('nome'); return false;" id="formListaEstoque" method="GET">
                         @csrf
                         <div class="card-header search">
                             <h5>Pedidos</h5>
                             <div class="input-group mb-3">
                                 <!-- INPUT PARA PESQUISAR CATEGORIAS -->
-                                <input id="inputPesquisarPedido" type="search" class="form-control"
-                                    placeholder="Consultar pedidos pelo nome do cliente" aria-label="Consultar estoque">
-                                <button class="input-group-text insearch" type="submit"><i class="fa fa-search"></i></button>
+                               
                             </div>
                         </div>
         
@@ -114,5 +108,5 @@
                 </div>
             </div>
 
-        <script src="{{ asset('js/admin/pedidos/index.js') }}" defer></script>
+        <script src="{{ asset('js/admin/pedidos/show.js') }}" defer></script>
     @endsection

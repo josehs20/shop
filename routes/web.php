@@ -60,6 +60,7 @@ Route::put('/update-estoques', [\App\Http\Controllers\Admin\EstoqueController::c
 //PEDIDOS
 Route::resource('/pedidos', PedidosController::class);
 
+
 //RELATORIOS
 Route::resource('/relatorios', RelatorioController::class);
 

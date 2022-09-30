@@ -10,9 +10,14 @@ use App\Models\PedidoItem;
 use App\Models\ProdTamCor;
 use App\Models\Produto;
 use App\Models\Tamanho;
+use Illuminate\Database\Eloquent\Model;
 
 class GeralRepositorie
 {
+    public function __construct(Model $model = null)
+    {
+        $this->model = $model;
+    }
     //pega todos os tamanhos, cores e categorias 
     public function get_tam_cor_cat()
     {
@@ -60,17 +65,71 @@ class GeralRepositorie
             return $v->quantidade * $v->ptc->preco;
         })->sum();
     }
+    //-----------QUERYS PEDIDO--------//
 
-    public function get_pedidos_nome($nome = null)
+    /*TODAS A QUERYS FEITAS TEM QUE SER ATUALIZADO O STATUS DO MODEL 
+    EX:this->model = query  (metodo get ultilizado por ultimo no controller)*/
+
+    //QUERY BASE "INICIAL"
+    public function query_base_pedido()
     {
-        $pedidos = Pedido::with(['pedido_itens' => function($query){
-            $query->with(['ptc' => function ($query){
+        $this->model = $this->model->with(['pedido_itens' => function ($query) {
+            $query->with(['ptc' => function ($query) {
                 $query->with(['produto', 'tamanho', 'cor', 'estoque']);
             }]);
-        }, 'users'])->whereHas('users', function($query) use ($nome){
-            $query->where('name', 'like', "%$nome%");
-        })->where('status', 'in')->get();
+        }, 'users', 'endereco']);
+    }
 
-        return $pedidos;
+    public function pedidos_nome_cliente($nome = null)
+    {
+        $this->model = $this->model->whereHas('users', function ($query) use ($nome) {
+                $query->where('name', 'like', "%$nome%");
+            })->whereIn('status', ['acm', 'age']);
+          //  return $this->model->get();
+        // return Pedido::with(['pedido_itens' => function ($query) {
+        //     $query->with(['ptc' => function ($query) {
+        //         $query->with(['produto', 'tamanho', 'cor', 'estoque']);
+        //     }]);
+        // }, 'users', 'endereco'])->whereHas('users', function ($query) use ($nome) {
+        //     $query->where('name', 'like', "%$nome%");
+        // })->whereIn('status', ['acm', 'age'])->get();
+    }
+
+    public function pedidos_datas($inicial, $final)
+    {
+        $this->model = $this->model->whereIn('status', ['acm', 'age'])
+        ->where('data', '>=', $inicial)->where('data', '<=', $final);
+        //return $this->model->get();
+        // return Pedido::with(['pedido_itens' => function ($query) {
+        //     $query->with(['ptc' => function ($query) {
+        //         $query->with(['produto', 'tamanho', 'cor', 'estoque']);
+        //     }]);
+        // }, 'users', 'endereco'])->whereIn('status', ['acm', 'age'])
+        //     ->where('data', '>=', $inicial)->where('data', '<=', $final)->get();
+    }
+
+    public function pedidos_cidade($cidade)
+    {
+        $this->model = $this->model->whereHas('endereco', function ($query) use ($cidade) {
+            $query->where('cidade', 'like', "%$cidade%");
+        })->whereIn('status', ['acm', 'age']);
+      //  return $this->model->get();
+        // return Pedido::with(['pedido_itens' => function ($query) {
+        //     $query->with(['ptc' => function ($query) {
+        //         $query->with(['produto', 'tamanho', 'cor', 'estoque']);
+        //     }]);
+        // }, 'users', 'endereco'])->whereHas('endereco', function ($query) use ($cidade) {
+        //     $query->where('cidade', 'like', "%$cidade%");
+        // })->whereIn('status', ['acm', 'age'])->get();
+    }
+    public function pedidos_status($status)
+    {
+        $this->model = $this->model->where('status', $status);
+      //  return $this->model->get();
+    }
+    public function get_resultado()
+    {
+       return $this->model->orderby('data', 'DESC')->get();
+      //  return $this->model->get();
     }
 }

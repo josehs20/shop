@@ -79,9 +79,32 @@ function calcula_lucro(doc) {
   }
 }
 
-function format_data(dado) {
+function formata_data(dado) {
   return dado.toLocaleDateString("pt-BR")
 }
-function format_dinheiro(dado) {
-  return dado.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
+function formata_dinheiro(dado) {
+  return parseFloat(dado).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+function formata_status(dado) {
+  switch (dado) {
+    case 'crr':
+      return 'Carrinho'
+    case 'agp':
+      return 'Aguardando pagamento'
+
+    case 'pgr':
+      return 'Pagamento realizado'
+
+    case 'age':
+      return 'Aguardando envio'
+
+    case 'acm':
+      return 'A caminho'
+
+    case 'etr':
+      return 'Entregue'
+
+    default:
+      break;
+  }
 }
