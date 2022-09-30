@@ -14,3 +14,4 @@ function get_pedidos(id) {
         }
     })
 }
+

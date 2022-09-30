@@ -29,7 +29,9 @@
             "Database\\Seeders\\": "database/seeders/"
         },
         "files": [
-            "app/Helpers/RemoveEspacosHelper.php"
+            "app/Helpers/RemoveEspacosHelper.php",
+            "app/Helpers/FormataStatusHelper.php",
+            "app/Helpers/FormataDinheiro.php"
         ]
 
     },

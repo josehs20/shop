@@ -70,7 +70,6 @@
 </style>
 
 @section('content') 
-
               <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) PEDIDOS -->
               <div class="divPaiCL">
                 <!-- ESTOQUE -->

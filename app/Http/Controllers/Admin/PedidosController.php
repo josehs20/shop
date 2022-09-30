@@ -38,9 +38,8 @@ class PedidosController extends Controller
         }
         if ($request->status) {
 
-            $pedidos->pedidos_status($request->status);
+            $pedidos->where_comum('status', $request->status);
         } else {
-
             $pedidos->pedidos_nome_cliente();
         }
 
@@ -49,6 +48,14 @@ class PedidosController extends Controller
 
     public function show($id)
     {
-        return view('admin.pedidos.show');
+        $status = ['age', 'acm', 'etr'];
+        $pedido = new GeralRepositorie($this->pedido);
+        $pedido->query_base_pedido();
+        $pedido->where_comum('id', $id);
+        $pedido = $pedido->get_resultado()[0];
+
+        unset($status[array_search($pedido->status, $status)]);
+        
+        return view('admin.pedidos.show', ['pedido' => $pedido, 'status' => $status]);
     }
 }

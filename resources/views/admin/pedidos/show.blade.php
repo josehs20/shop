@@ -21,7 +21,7 @@
         width: 70%
     }
 
-    .opcoes{
+    .opcoes {
         cursor: pointer;
     }
 
@@ -67,46 +67,149 @@
             width: 100% !important
         }
     }
+
+    /* .tabelaPedido{
+        border: 1px solid black !important;
+        border-radius: 20px !important;
+
+    } */
 </style>
 
-@section('content') 
+@section('content')
+    <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) CATEGORIAS -->
+    <div class="divPaiCL">
+        <div>
+            <div class="card mb-3 cadastrarCores">
 
-              <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) CATEGORIAS -->
-              <div class="divPaiCL">
-                <!-- ESTOQUE -->
-                <div class="card mb-3 cadastrarCores">
-                    <h5 class="card-header d-flex justify-content-between">
-                        Dados do cliente:
-                    </h5>
-                    <div class="card-body">
-                        <div id="filtrosEstoque">
-                            dados
-
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- LISTA DE CATEGORIAS -->
-                <div class="card listarEstoque" >
-                    <form onsubmit="modal_get_itens_filtro('nome'); return false;" id="formListaEstoque" method="GET">
-                        @csrf
-                        <div class="card-header search">
-                            <h5>Pedidos</h5>
-                            <div class="input-group mb-3">
-                                <!-- INPUT PARA PESQUISAR CATEGORIAS -->
-                               
-                            </div>
-                        </div>
-        
-                        <div id="divTabelaPedido" class="card-body">
-                            
-                        </div>
-                        <div class="card-footer">
-                        </div>
-        
-                    </form>
+                <h5 class="card-header d-flex justify-content-between">
+                    Status do pedido:
+                </h5>
+                <div class="card-body">
+                    <select class="form-select mb-3" aria-label="Default select example">
+                        <option selected>{{ formata_status($pedido->status) }}</option>
+                        @foreach ($status as $s)
+                            <option value="1">{{ formata_status($s) }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
-        <script src="{{ asset('js/admin/pedidos/show.js') }}" defer></script>
-    @endsection
+            <div class="card mb-3 cadastrarCores">
+
+                <h5 class="card-header d-flex justify-content-between">
+                    Endereço de entrega:
+                </h5>
+                <div class="card-body">
+                    <ul class="list-group">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Rua:
+                            <h6 class="">{{ $pedido->endereco->rua }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Numero:
+                            <h6 class="">{{ $pedido->endereco->numero ? $pedido->endereco->numero : 'S/N' }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Bairro:
+                            <h6 class="">{{ $pedido->endereco->bairro }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Cidade:
+                            <h6 class="">{{ $pedido->endereco->cidade }} / {{ $pedido->endereco->estado }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Complemento:
+                            <h6 class="">{{ $pedido->endereco->complemento }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Referência:
+                            <h6 class="">{{ $pedido->endereco->referencia }}</h6>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Cep:
+                            <h6 class="">{{ $pedido->endereco->cep }}</h6>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- LISTA DE CATEGORIAS -->
+        <div class="card listarEstoque">
+            <div>
+                @csrf
+                <div class="card-header d-flex justify-content-between search">
+                    <h5>Pedido: Nº {{ $pedido->numero_pedido }}</h5>
+                    {{-- <h5>{{ $pedido->users->name }}</h5> --}}
+                </div>
+
+
+
+                <div class="d-flex justify-content-between mx-3 my-4" style="flex-wrap:wrap">
+                    <div class="list-group mx-auto mt-2">
+                        <a class="list-group-item list-group-item-action" aria-current="true">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Cliente:</h5>
+                                <h6>{{ $pedido->users->name }}</h6>
+                            </div>
+                            <div class="d-flex w-100 justify-content-between mt-2">
+                                <h5 class="mb-1">Telefone: </h5>
+                                <h6>{{ $pedido->users->telefone }}</h6>
+                            </div>
+                            <div class="d-flex w-100 justify-content-between mt-2">
+                                <h5 class="mb-1">Tipo de pagamento: </h5>
+                                <h6>pix,cartao,etc...</h6>
+                            </div>
+
+                        </a>
+                    </div>
+
+                    <div class="list-group mx-auto mt-2" style="height: fit-content !important;">
+                        <a class="list-group-item list-group-item-action" aria-current="true">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Data de compra</h5>
+                                <h6>{{ date('d/m/Y', strtotime($pedido->data)) }}</h6>
+                            </div>
+                            <div class="d-flex w-100 justify-content-between mt-2">
+                                <h5 class="mb-1">Valor Total: </h5>
+                                <h6>{{ 'R$ ' . reais($pedido->valor_total) }}</h6>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+
+                <div id="divTabelaPedido" class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">Produto</th>
+                                <th scope="col">Tamanho</th>
+                                <th scope="col">Cor</th>
+                                <th scope="col">Quantidade</th>
+                                <th scope="col">Preco unitário</th>
+                                <th scope="col">Preço</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach ($pedido->pedido_itens as $item)
+                                <tr>
+                                    {{-- <th scope="row">1</th> --}}
+                                    <td>{{ $item->ptc->produto->nome }}</td>
+                                    <td>{{ $item->ptc->tamanho->nome }}</td>
+                                    <td>{{ $item->ptc->cor->nome }}</td>
+                                    <td>{{ $item->quantidade }}</td>
+                                    <td>{{ 'R$ ' . reais($item->ptc->preco) }}</td>
+                                    <td>{{ 'R$ ' . reais($item->ptc->preco * $item->quantidade) }}</td>
+                                </tr>
+                            @endforeach
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ asset('js/admin/pedidos/show.js') }}" defer></script>
+@endsection

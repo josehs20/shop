@@ -122,14 +122,12 @@ class GeralRepositorie
         //     $query->where('cidade', 'like', "%$cidade%");
         // })->whereIn('status', ['acm', 'age'])->get();
     }
-    public function pedidos_status($status)
+    public function where_comum($coluna, $dadoBusca)
     {
-        $this->model = $this->model->where('status', $status);
-      //  return $this->model->get();
+        $this->model = $this->model->where($coluna, $dadoBusca);
     }
     public function get_resultado()
     {
        return $this->model->orderby('data', 'DESC')->get();
-      //  return $this->model->get();
     }
 }

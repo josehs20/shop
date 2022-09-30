@@ -50,3 +50,8 @@ i {
 i:hover {
     color: orangered;
 }
+.card{
+    overflow: auto !important;
+
+
+}
