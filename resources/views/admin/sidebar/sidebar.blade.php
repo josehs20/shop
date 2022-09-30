@@ -154,16 +154,6 @@
         </a>
     </div>
 
-    <!-- RELATÓRIOS -->
-    <div>
-        <a href="{{ route('relatorios.index') }}" class="dashboard-opcao {{ $active == 'relatorios' ? 'active' : '' }}">
-            <div>
-                <i class="fa fa-file-alt"></i>
-                <h5>Relatórios</h5>
-            </div>
-        </a>
-    </div>
-
     <!-- CONFIGURAÇÕES -->
     <div>
         <a class="dashboard-opcao" data-bs-toggle="collapse" href="#config" role="button" aria-expanded="false"
