@@ -21,11 +21,68 @@
 
 </head>
 
+<style>
+    .secao {
+        display: flex;
+        padding: 0 40px
+    }
+
+    .filtro {
+        width: 260px;
+        min-height: 80vh;
+    }
+
+    .filtro ul {
+        list-style: none;
+        padding: 0;
+        width: 100% !important
+    }
+
+    .filtro>ul>li>a {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 10px;
+        width: 100% !important;
+    }
+
+    .conteudo {
+        width: 100%;
+        padding-left: 20px
+    }
+</style>
+
 <body>
     @include('usuario.navbar.navbar')
-    <main>
-        
-    </main>
+    <section class="secao">
+        <aside class="filtro">
+            <h3>Filtros</h3>
+            <hr style="border-color: #000 !important; background: #000; height: 2px">
+            <ul>
+                <li>
+                    
+                        <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+                            aria-controls="collapseExample">
+                            Categorias <i class="fa fa-caret-down"></i>
+                        </a>
+                    
+
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <ul>
+                                @foreach ($categorias as $categoria)
+                                    <li><a href="#">{{ $categoria->nome }}</a></li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+            </ul>
+        </aside>
+        <main class="conteudo">
+            <h1>CONTEUDO</h1>
+        </main>
+    </section>
 </body>
 
 </html>
