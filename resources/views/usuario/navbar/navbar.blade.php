@@ -80,7 +80,19 @@
     <!-- PARA WEB -->
     <ul class="itens-menu">
         <li><a href="/home">Ínicio</a></li>
-        <li><a href="">Sobre</a></li>
+        <li>
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Categorias
+                </a>
+              
+                <ul class="dropdown-menu">
+                    @foreach ($categorias as $categoria)
+                        <li><a class="dropdown-item" href="#">{{$categoria->nome}}</a></li>
+                    @endforeach
+                </ul>
+              </div>
+        </li>
         <li><a href="">Contato</a></li>
     </ul>
     <!-- PARA MOBILE -->
