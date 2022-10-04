@@ -62,20 +62,22 @@
         position: fixed;
         bottom: 20px;
         right: 20px;
+        z-index: 1001;
     }
 
     .mobile-itens {
         position: fixed;
+        z-index: 1000;
         bottom: 60px;
         left: 0;
-        border: 1px solid #CCC;
+        border: 1px solid #FFF;
         width: 90%;
         transform: translateX(110%);
         transition: 1s;
         list-style: none;
         margin: 0 20px !important;
         padding: 10px 20px !important;
-
+        background-color: #FFF;
     }
 
     .mostrar {

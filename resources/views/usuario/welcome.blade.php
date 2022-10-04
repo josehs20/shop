@@ -27,58 +27,63 @@
         padding: 0 40px
     }
 
-    .filtro {
-        width: 260px;
-        min-height: 80vh;
-    }
-
-    .filtro ul {
-        list-style: none;
-        padding: 0;
-        width: 100% !important
-    }
-
-    .filtro>ul>li>a {
-        display: flex;
-        justify-content: space-between;
-        padding: 0 10px;
-        width: 100% !important;
-    }
-
     .conteudo {
         width: 100%;
-        padding-left: 20px
+        padding-left: 20px;
+    }
+
+    .btn-filtro {
+        display: none;
+        margin-bottom: 20px;
+    }
+
+    .div-filtro {
+        display: block;
+        width: 260px !important;
+    }
+
+    .collapse-mobile {
+        display: none
+    }
+
+    @media(max-width: 860px) {
+        .secao {
+            flex-direction: column
+        }
+
+        .div-filtro {
+            display: none
+        }
+
+        .btn-filtro {
+            display: block;
+        }
+
+        .conteudo {
+            margin-top: 20px;
+        }
+
+        .collapse-mobile {
+            display: block
+        }
     }
 </style>
 
 <body>
     @include('usuario.navbar.navbar')
     <section class="secao">
-        <aside class="filtro">
-            <h3>Filtros</h3>
-            <hr style="border-color: #000 !important; background: #000; height: 2px">
-            <ul>
-                <li>
-                    
-                        <a data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-                            aria-controls="collapseExample">
-                            Categorias <i class="fa fa-caret-down"></i>
-                        </a>
-                    
-
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            <ul>
-                                @foreach ($categorias as $categoria)
-                                    <li><a href="#">{{ $categoria->nome }}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <hr>
-                </li>
-            </ul>
-        </aside>
+        <button class="btn btn-outline-success btn-filtro" data-bs-toggle="collapse" href="#collapseExampleMobile"
+            role="button" aria-expanded="false" aria-controls="collapseExampleMobile">
+            <i class="fa fa-filter"></i>Filtros
+        </button>
+        <div class="collapse collapse-mobile" id="collapseExampleMobile">
+            <div class="card card-body">
+                @include('usuario.filtro.filtro')
+            </div>
+        </div>
+        <div class="div-filtro">
+            @include('usuario.filtro.filtro')
+        </div>
         <main class="conteudo">
             <h1>CONTEUDO</h1>
         </main>
