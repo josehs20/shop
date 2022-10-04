@@ -1,6 +1,6 @@
 <style>
     .filtro {
-        width: 260px;
+        width: 200px;
         min-height: 80vh;
     }
 

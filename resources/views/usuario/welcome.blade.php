@@ -39,7 +39,7 @@
 
     .div-filtro {
         display: block;
-        width: 260px !important;
+        width: 200px !important;
     }
 
     .collapse-mobile {
@@ -72,6 +72,7 @@
 <body>
     @include('usuario.navbar.navbar')
     <section class="secao">
+        {{-- FILTRO NO MOBILE É NO COLAPSE --}}
         <button class="btn btn-outline-success btn-filtro" data-bs-toggle="collapse" href="#collapseExampleMobile"
             role="button" aria-expanded="false" aria-controls="collapseExampleMobile">
             <i class="fa fa-filter"></i>Filtros
@@ -81,11 +82,13 @@
                 @include('usuario.filtro.filtro')
             </div>
         </div>
+        {{-- FILTRO NO WEB --}}
         <div class="div-filtro">
             @include('usuario.filtro.filtro')
         </div>
+        {{-- CONTEUDO --}}
         <main class="conteudo">
-            <h1>CONTEUDO</h1>
+            @include('usuario.produto.variosProdutos', ['produtos'])
         </main>
     </section>
 </body>
