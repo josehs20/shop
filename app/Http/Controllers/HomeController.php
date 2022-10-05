@@ -33,7 +33,7 @@ class HomeController extends Controller
             Session::flash('msgAlerta', ['success', 'Bem vindo, ' . auth()->user()->name . '!']);
             return redirect()->route('homeAdmin.index');
         } else {
-            return view('usuario.welcome', compact('categorias', 'produtos'));
+            return redirect()->route('inicio');
         }
     }
 }
