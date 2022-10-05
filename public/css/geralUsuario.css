@@ -1,5 +1,5 @@
 i{
-    font-size: 18px;
+    font-size: 18px !important;
     margin: 0 7px;
 }
 i:hover{
@@ -13,4 +13,8 @@ a{
 }
 a:hover{
     color: orangered;
+}
+
+li{
+    font-size: 1rem;
 }
