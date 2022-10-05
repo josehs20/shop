@@ -13,10 +13,14 @@ class InicioController extends Controller
 {
     public function index(){
         $categorias = Categoria::all();
-        $produtos = Produto::with('prodTamCors')->get()->map(function($value){
+        $produtos = Produto::with(['prodTamCors' => function($query){
+            $query->with(['imagens' => function($query){
+                $query->where('prioridade', 1)->get();
+            }]);
+        }])->get()->map(function($value){
             $maior = $value->prodTamCors()->orderBy('preco', 'desc')->first()->preco;
             $menor = $value->prodTamCors()->orderBy('preco', 'asc')->first()->preco;
-            $mm = ['precoMaior' => $maior, 'precoMenor' => $menor, 'nome' => $value->nome];
+            $mm = ['precoMaior' => $maior, 'precoMenor' => $menor, 'nome' => $value->nome, 'imagem' => $value->prodTamCors[0]->imagens];
             return $mm;
         });
 

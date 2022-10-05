@@ -7,7 +7,7 @@
         width: 100%;
     }
 
-    .ver-produto{        
+    .ver-produto {
         position: absolute;
         width: 100%;
         bottom: 0;
@@ -20,33 +20,36 @@
         transition: 0.5s;
         color: #FFF;
     }
-    .produto{
+
+    .produto {
         position: relative;
     }
-    .produto:hover .ver-produto{
+
+    .produto:hover .ver-produto {
         padding: 4px;
         height: 30% !important;
     }
 </style>
 
 <section class="varios-produtos">
-    @foreach ($produtos as $produto)    
-            <div class="card me-2 mb-3 produto" style="width: 16rem;">
-                <div class="ver-produto">VER PRODUTO</div>
-                <img src="https://img.elo7.com.br/product/main/2B34062/blusa-de-frio-moletom-personalizada-nike-tamanho-m-blusa-de-frio-moletom-personalizada-nike.jpg"
-                    class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title d-flex justify-content-center">{{ $produto['nome'] }}</h5>
-                    <p class="card-text d-flex justify-content-center">
-                        @if ($produto['precoMenor'] == $produto['precoMaior'])
-                            R$ {{$produto['precoMenor']}}
-                        @else
-                            R$ {{$produto['precoMenor']}} - 
-                            R$ {{$produto['precoMaior']}}
-                        @endif
-                    </p>
-                </div>
+    @foreach ($produtos as $produto)
+        <div class="card me-2 mb-3 produto" style="width: 16rem;">
+            <div class="ver-produto">VER PRODUTO</div>
+            @if (count($produto['imagem']))
+                <img src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top" alt="Imagem do produto">
+            @endif
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-center">{{ $produto['nome'] }}</h5>
+                <p class="card-text d-flex justify-content-center">
+                    @if ($produto['precoMenor'] == $produto['precoMaior'])
+                        R$ {{ $produto['precoMenor'] }}
+                    @else
+                        R$ {{ $produto['precoMenor'] }} -
+                        R$ {{ $produto['precoMaior'] }}
+                    @endif
+                </p>
             </div>
+        </div>
     @endforeach
 
 </section>
