@@ -24,7 +24,7 @@
 <style>
     .secao {
         display: flex;
-        padding: 0 40px
+        padding: 0 30px
     }
 
     .conteudo {
