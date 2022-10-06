@@ -79,36 +79,17 @@
                 alt="Imagem do produto">
         </div> --}}
 
-        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel" style="width: 400px !important; height: 450px !important;">
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    {{-- {{dd('storage'.$produtoIndividual->first()->imagens->where('prioridade', 1)->first()->nome)}} --}}
+                <div class="carousel-item active">                    
                     <img src="{{asset('storage/'.$produtoIndividual->first()->imagens->where('prioridade', 1)->first()->nome)}}" class="d-block w-100" alt="...">
-              
                 </div>
+
                 @foreach ($produtoIndividual->first()->imagens->where('prioridade','!=', 1) as $img)
-                <div class="carousel-item active">
-                    {{-- {{dd('storage'.$produtoIndividual->first()->imagens->where('prioridade', 1)->first()->nome)}} --}}
-                    <img src="{{asset('storage/'.$img->nome)}}" class="d-block w-100" alt="...">
-              
-                </div>
+                    <div class="carousel-item">
+                        <img src="{{asset('storage/'.$img->nome)}}" class="d-block w-100" alt="...">
+                    </div>
                 @endforeach
-
-                @if (!$produtoIndividual->first()->imagens->where('prioridade', 1)->first())
-                    
-                @endif
-                {{-- @foreach ($produtoIndividual->imagens as $imagem)
-                    
-               // <img src="{{asset($produtoIndividual[0]->imagens->where('prioridade', 1)->first()->nome'')}}" class="d-block w-100" alt="...">
-
-                        
-                @endforeach --}}
-                {{-- <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="..." class="d-block w-100" alt="...">
-                </div> --}}
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
                 data-bs-slide="prev">
