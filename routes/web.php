@@ -22,9 +22,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('usuario.welcome');
-});
+Route::get('/', [\App\Http\Controllers\InicioController::class, 'index'])->name('inicio');
+Route::get('/produtoIndividual/{produto?}', [\App\Http\Controllers\InicioController::class, 'index'])->name('unicoProduto');
 
 Auth::routes();
 
