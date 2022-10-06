@@ -88,7 +88,7 @@
         </div>
         {{-- CONTEUDO --}}
         <main class="conteudo">
-            @include('usuario.produto.variosProdutos', ['produtos'])
+            @include('usuario.produto.variosProdutos', ['produtos' => $produtos])
         </main>
     </section>
 </body>

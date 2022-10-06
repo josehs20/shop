@@ -24,7 +24,6 @@ class InicioController extends Controller
             return $mm;
         });
 
-        // dd($produtos);
         return view('usuario.welcome', compact('categorias', 'produtos'));
     }
 }

@@ -35,7 +35,7 @@ class CriaPedidoTeste extends Command
     {
         parent::__construct();
         // $this->geralR = $geralR;
-        // $this->geralS = $geralS;
+         $this->geralS = $geralS;
     }
 
     /**
@@ -66,7 +66,8 @@ class CriaPedidoTeste extends Command
             ]);
     
             foreach ($ptcs as $key => $v) {
-                $pedido->pedido_itens()->create(['ptc_id' => $v->id, 'quantidade' => rand(1, 3)]);
+                $pedido->pedido_itens()->create(['ptc_id' => $v->id, 'quantidade' => rand(1, 5)]);
+                echo "pedido item criado". $pedido->id ."\n";
             }
             $geralR = new GeralRepositorie();
             $pedido->update(['valor_total' => $geralR->sum_pedido($pedido->id)]);//$this->geralR->sum_pedido($pedido->id)]);

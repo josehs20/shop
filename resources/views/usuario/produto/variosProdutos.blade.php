@@ -35,6 +35,7 @@
     @foreach ($produtos as $produto)
         <div class="card me-2 mb-3 produto" style="width: 16rem;">
             <div class="ver-produto">VER PRODUTO</div>
+            
             @if (count($produto['imagem']))
                 <img style="height: 220px" src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top" alt="Imagem do produto">
             @endif

@@ -165,9 +165,9 @@
             <i class="fa fa-sort-down mb-2"></i>
         </a>
     </div>
-    <div class="collapse" id="config">
-        <a href="#produtos">
-            <p class="opcoes">- &nbsp;&nbsp;&nbsp; Minha conta</p>
+    <div class="collapse {{ $show == 'confEnvio' ? 'show' : '' }}" id="config">
+        <a href="{{route('configEnvio')}}">
+            <p class="opcoes {{ $active == 'confEnvio' ? 'active' : '' }}" href="">- &nbsp;&nbsp; Configuração de envio</p>
         </a>
         <hr>
     </div>

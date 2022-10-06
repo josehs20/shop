@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Pedido;
 use App\Repositories\GeralRepositorie;
+use App\Services\Correios;
+use Whoops\Run;
 
 class PedidosController extends Controller
 {
@@ -49,11 +51,12 @@ class PedidosController extends Controller
     public function show($id)
     {
         $status = ['age', 'acm', 'etr'];
+        //MANDA PARA O CONTRUTOR, ESSE CONTRUTOR DE GERALEPOSITORIE PODE RECEBER QUALQUER MODEL
         $pedido = new GeralRepositorie($this->pedido);
         $pedido->query_base_pedido();
         $pedido->where_comum('id', $id);
         $pedido = $pedido->get_resultado()[0];
-
+    
         unset($status[array_search($pedido->status, $status)]);
         
         return view('admin.pedidos.show', ['pedido' => $pedido, 'status' => $status]);

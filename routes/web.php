@@ -34,6 +34,10 @@ Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->nam
 Route::middleware('admin')->group(function () {
 
     Route::resource('/homeAdmin', HomeAdminController::class);
+    //CONFIGURACOES DE ENVIO '/configuracao/envio' SE FOR /config/envio ENTRA EM SEGMENSTS DE CONFIG
+    Route::get('/configuracao/envio', [\App\Http\Controllers\Admin\ConfiguracaoController::class, 'index_config_envio'])->name('configEnvio');
+    Route::post('/post-medida-envio', [ \App\Http\Controllers\Admin\ConfiguracaoController::class, 'post_medidas_envio']);
+    Route::post('/post-cep-envio', [ \App\Http\Controllers\Admin\ConfiguracaoController::class, 'post_cep_envio']);
     //CONFIGURAÇÕES
     Route::resource('/config', ConfiguracaoController::class);
     //ROTA PARA ALTERAR OS DADOS DO USUARIO

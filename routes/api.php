@@ -1,8 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ServicosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +17,4 @@ use App\Http\Controllers\ServicosController;
 //     return $request->user();
 // });
 
-Route::get('/calcula-frete', [\App\Http\Controllers\ServicosController::class, 'calculo_frete']);
+Route::post('/calcula-frete', [\App\Http\Controllers\ServicosController::class, 'calculo_frete']);
