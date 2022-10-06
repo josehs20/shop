@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Cor;
 use App\Models\Imagem;
 use App\Models\ProdTamCor;
 use App\Models\Produto;
+use App\Models\Tamanho;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -18,6 +20,9 @@ class InicioController extends Controller
         $produtoIndividual = [];
 
         $categorias = Categoria::all();
+        $tamanhoall = Tamanho::all();
+        $corall = Cor::all();
+
         if (!$produto) {
             $produtos = Produto::with(['prodTamCors' => function ($query) {
                 $query->with(['imagens' => function ($query) {
@@ -42,7 +47,7 @@ class InicioController extends Controller
             $ptc = $produtoIndividual->map(function ($value) {
                 return [
                     'tamanhos' => $value->tamanho->nome,
-                    'cores' => $value->cor->nome,
+                    'cores' => $value->cor,
                     'precos' => $value->preco
                 ];
             })->toArray();
@@ -53,8 +58,7 @@ class InicioController extends Controller
             $tamanhos = array_unique($tamanhos);
             $cores = array_unique($cores);  
         }
-
-
-        return view('usuario.welcome', compact('categorias', 'produtos'));
+    
+        return view('usuarios.welcome', compact('categorias', 'produtos', 'produtoIndividual', 'tamanhos', 'cores', 'corall', 'tamanhoall'));
     }
 }

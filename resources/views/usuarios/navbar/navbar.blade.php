@@ -22,16 +22,31 @@
         width: 100%;
     }
 
+    .div-items-menu{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        background-color: #797979
+    }
+
     .itens-menu {
         list-style: none;
         display: flex;
-        margin: 10px 0 0 0 !important;
-        padding: 0 !important
+        margin: 10px !important;
+        padding: 0 !important;
     }
 
     .itens-menu li {
         letter-spacing: 2px;
         margin: 0 15px;
+    }
+
+    .itens-menu li a{
+        color: #FFF !important;
+    }
+
+    .dm .dropdown-item{
+        color: #000 !important;
     }
 
     .search-nav {
@@ -101,7 +116,7 @@
             left: 0;
         }
 
-        .nb{
+        .nb {
             margin-bottom: 57px
         }
     }
@@ -159,24 +174,26 @@
     </div>
 
     <!-- MENU PARA WEB -->
-    <ul class="itens-menu">
-        <li><a href="/">Ínicio</a></li>
-        <li>
-            <div class="dropdown">
-                <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categorias
-                </a>
+    <div class="div-items-menu">
+        <ul class="itens-menu">
+            <li><a href="/">Ínicio</a></li>
+            <li>
+                <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Categorias
+                    </a>
 
-                <ul class="dropdown-menu">
-                    @foreach ($categorias as $categoria)
-                        <li><a class="dropdown-item" href="#">{{ $categoria->nome }}</a></li>
-                    @endforeach
-                </ul>
-            </div>
-        </li>
-        <li><a href="">Contato</a></li>
-    </ul>
+                    <ul class="dropdown-menu dm">
+                        @foreach ($categorias as $categoria)
+                            <li><a class="dropdown-item" href="#">{{ $categoria->nome }}</a></li>
+                        @endforeach
+                    </ul>
+                </div>
+            </li>
+            <li><a href="">Contato</a></li>
+        </ul>
+    </div>
 
     <!-- MENU PARA MOBILE -->
     <ul id="mobile-itens" class="mobile-itens">
@@ -202,7 +219,7 @@
     </div>
 
 </nav>
-<hr>
+<br>
 
 <script>
     // m = mobile

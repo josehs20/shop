@@ -38,7 +38,7 @@
             <div class="ver-produto">VER PRODUTO</div>
             
             @if (count($produto['imagem']))
-                <img style="height: 220px" src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top"
+                <img class="mx-auto mt-2" style="width: 220px; height: 230px;" src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top"
                     alt="Imagem do produto">
             @endif
             <div class="card-body">

@@ -35,7 +35,7 @@ class Imagem extends Model
 
             //recupera imagem para redimencionar
             $img = Image::make('storage/imageProduto/' . $produto->id . '/' . $nameImage);
-            $img->resize(150, 200)->save('storage/imageProduto/' . $produto->id . '/' . $nameImage, null, 'jpg');
+            $img->resize(220, 230)->save('storage/imageProduto/' . $produto->id . '/' . $nameImage, null, 'jpg');
             // $img->resize(200, 200, function ($constraint) {
             //     $constraint->aspectRatio();
             //     $constraint->upsize();
