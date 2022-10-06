@@ -90,19 +90,7 @@
         </div>
         {{-- CONTEUDO --}}
         <main class="conteudo">
-            @if (count($produtoIndividual))
-            <style>
-                .div-filtro{
-                    display: none !important;
-                }
-                .btn-filtro{
-                    display: none !important;
-                }
-            </style>
-                @include('usuarios.produtos.unicoProduto', ['produtoIndividual'])            
-            @else                
-                @include('usuarios.produtos.variosProdutos', ['produtos' => $produtos])            
-            @endif
+            @include('usuario.produto.variosProdutos', ['produtos' => $produtos])
         </main>
     </section>
 </body>

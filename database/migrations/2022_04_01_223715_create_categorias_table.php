@@ -15,8 +15,11 @@ class CreateCategoriasTable extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-
             $table->string("nome")->unique();
+            $table->decimal("largura", 8, 2)->nullable();
+            $table->decimal("altura", 8, 2)->nullable();
+            $table->decimal("comprimento", 8, 2)->nullable();
+            $table->decimal("peso", 8, 2)->nullable();
             
             $table->timestamps();
         });

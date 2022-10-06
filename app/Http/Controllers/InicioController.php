@@ -55,7 +55,6 @@ class InicioController extends Controller
         }
 
 
-        // dd($produtoIndividual);
-        return view('usuarios.welcome', compact('categorias', 'produtos', 'produtoIndividual', 'tamanhos', 'cores'));
+        return view('usuario.welcome', compact('categorias', 'produtos'));
     }
 }

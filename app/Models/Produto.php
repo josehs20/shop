@@ -13,6 +13,11 @@ class Produto extends Model
         'categoria_id',
     ];
 
+    public function categoriaProduto()
+    {
+        return $this->belongsTo('App\Models\Categoria', 'categoria_id', 'id');
+    }
+
     public function prodTamCors()
     {
         return $this->hasmany('App\Models\ProdTamCor');

@@ -75,7 +75,9 @@ class GeralRepositorie
     {
         $this->model = $this->model->with(['pedido_itens' => function ($query) {
             $query->with(['ptc' => function ($query) {
-                $query->with(['produto', 'tamanho', 'cor', 'estoque']);
+                $query->with(['produto' => function ($query){
+                    $query->with('categoriaProduto');
+                }, 'tamanho', 'cor', 'estoque']);
             }]);
         }, 'users', 'endereco']);
     }

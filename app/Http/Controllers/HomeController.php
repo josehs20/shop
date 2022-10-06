@@ -27,13 +27,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $categorias = Categoria::all();
-        $produtos = Produto::all();
+
         if (auth()->user()->perfil == 'administrador') {
             Session::flash('msgAlerta', ['success', 'Bem vindo, ' . auth()->user()->name . '!']);
             return redirect()->route('homeAdmin.index');
         } else {
-            return redirect()->route('inicio');
+            $categorias = Categoria::all();
+            $produtos = Produto::all();
+
+            return view('usuario.welcome', compact('categorias', 'produtos'));
         }
     }
 }
