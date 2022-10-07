@@ -8,12 +8,11 @@ use Illuminate\Support\Fluent;
 
 class Correios
 {
-
+    //------------------CONSULTA FRETE----------------------//
     const SERVICO_SEDEX = '40010';
     const SERVICO_PAC = '41106';
     const CAIXA_PACOTE = '1';
-
-    const URL_BASE = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?';
+    const URL_BASE_CALCULO_FRETE = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.aspx?';
 
     /**
      * @param array $codServicos
@@ -24,10 +23,9 @@ class Correios
      * @param integer $valorDeclarado
      * @param integer $avisoRecebimento
      * @return object
-
      */
 
-    static function calcular_frete($pedido)
+    public static function calcular_frete_pedidos($pedido)
     {
         $cepOrigem = User::find(1)->enderecos()->first()->cep;
         $parans = self::parans_calculo_frete($pedido);
@@ -58,7 +56,7 @@ class Correios
         //faz a consulta para pc e sedex
         foreach ($paransUrl as $key => $parans) {
             //FORMATA URL
-            $url = self::URL_BASE . http_build_query($parans);
+            $url = self::URL_BASE_CALCULO_FRETE . http_build_query($parans);
             //CONFIGURA O CURL
             curl_setopt_array($curl, [
                 CURLOPT_URL => $url,
@@ -71,6 +69,7 @@ class Correios
         }
         //FECHA A CONEXAO DOC URL
         curl_close($curl);
+        // dd($response);
         return $response;
     }
 
@@ -98,5 +97,26 @@ class Correios
             'cepDestino' => $cepDestino,
             'medidas' => $medidas
         ];
+    }
+
+    //------------------------RASTREIO DE PEDIDO-------------------------//
+
+    const URL_BASE_RASTREIO = 'https://proxyapp.correios.com.br/v1/sro-rastro';
+
+    public static function rastreio($codigo)
+    {
+        //INICIA CURL
+        $curl = curl_init();
+        //CONFIGURA REQUISIÇÃO CURL
+        curl_setopt_array($curl, [
+            CURLOPT_URL => self::URL_BASE_RASTREIO .'/'. strtoupper($codigo),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_CUSTOMREQUEST => 'GET'
+        ]);
+        //RESPOSTA
+        $response = curl_exec($curl);
+        //FECHA A CONEXÃO
+        curl_close($curl);
+        return json_decode($response, true);
     }
 }

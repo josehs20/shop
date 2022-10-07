@@ -97,10 +97,10 @@
                         <div title="De onde a mercadoria está saindo" class="input-group mt-2">
                         <span class="input-group-text">Endereco de onrigem</span>
                         <input placeholder="99999-999" type="text" onkeyup="buscaCep('inputCep', 'inputCidade', 'inputUf')"
-                        id="inputCep" class="form-control col-md-6 mr-3" value="{{$enderecoOrigem->cep ? substr_replace($enderecoOrigem->cep, '-', 5, 0) : ''}}">
-                        <input placeholder="cidade" type="text" readonly value="{{$enderecoOrigem->cidade ? $enderecoOrigem->cidade : ''}}"
+                        id="inputCep" class="form-control col-md-6 mr-3" value="{{$enderecoOrigem && $enderecoOrigem->cep ? substr_replace($enderecoOrigem->cep, '-', 5, 0) : ''}}">
+                        <input placeholder="cidade" type="text" readonly value="{{$enderecoOrigem && $enderecoOrigem->cidade ? $enderecoOrigem->cidade : ''}}"
                         id="inputCidade" class="form-control col-md-6 mr-3">
-                        <input placeholder="UF" type="text" readonly value="{{$enderecoOrigem->estado ? $enderecoOrigem->estado : ''}}"
+                        <input placeholder="UF" type="text" readonly value="{{$enderecoOrigem && $enderecoOrigem->estado ? $enderecoOrigem->estado : ''}}"
                         id="inputUf" class="form-control col-md-6 mr-3">
                         <button disabled id="botaoConfirmCep" type="button" onclick="post_cep()"
                         class="btn btn-outline-primary">Confirmar cep</button>

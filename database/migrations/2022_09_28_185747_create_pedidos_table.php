@@ -22,6 +22,7 @@ class CreatePedidosTable extends Migration
             $table->datetime("data");
             $table->unsignedBigInteger("endereco_id")->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->string("codRastreio", 15)->nullable();
             $table->timestamps();
 
             $table->foreign("endereco_id")->references("id")->on("enderecos")->onDelete("cascade");

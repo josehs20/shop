@@ -15,6 +15,7 @@ class Pedido extends Model
         'data',
         'user_id',
         'endereco_id',
+        'codRastreio'
     ];
 
     public function pedido_itens()

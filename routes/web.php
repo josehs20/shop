@@ -82,4 +82,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/get_tamanhos', [\App\Http\Controllers\Admin\TamanhoController::class, 'get_tamanhos']);
     //PESQUISA DE CORES
     Route::get('/get_cores', [\App\Http\Controllers\Admin\CoresController::class, 'get_cores']);
+
+    //CORREIO ROTAS INTERNAS
+    Route::post('/post-codigo-rastreio', [\App\Http\Controllers\Admin\PedidosController::class, 'post_codigo_rastreio']);
 });

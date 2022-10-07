@@ -78,7 +78,7 @@
 @section('content')
     <!-- DIV PAI PARA DIV FILHA DE CADASTRAR(E) E LISTAR(L) CATEGORIAS -->
 
-    <body onload='calcula_frete(null,<?php echo $pedido->id ?>)' >
+    <body onload='total_frete_subtotal_calculo(null, <?php echo $pedido->id ?>)' >
     <div class="divPaiCL">
         <div>
             <div class="card mb-3 cadastrarCores">
@@ -93,7 +93,22 @@
                             <option value="1">{{ formata_status($s) }}</option>
                         @endforeach
                     </select>
-                </div>
+                    <h6>Codigo de rastreio</h6>
+                    @if (!$pedido->codRastreio)        
+                    <form onsubmit="post_codigo_rastreio(<?php echo $pedido->id ?>); return false;" method="POST" class="input-group mb-3"> 
+                        @csrf
+                        <input required type="text" class="form-control" id="inputCodRastreio" placeholder="codigo de rastreio" aria-label="Username" aria-describedby="basic-addon1">
+                        <button type="submit" id="buttonRastreio" class="btn btn-outline-primary">Cadastrar</button>
+                    </form> 
+                        
+                    @else
+                    <div class="input-group mb-3">
+                    <input disbled required type="text" value="{{$pedido->codRastreio}}" class="form-control" id="inputCodRastreio" placeholder="codigo de rastreio" aria-label="Username" aria-describedby="basic-addon1">
+                    <button disabled type="submit" id="buttonRastreio" class="btn btn-outline-primary">Consultar</button>
+                    </div>
+                    @endif
+                  
+                </div>    
             </div>
 
             <div class="card mb-3 cadastrarCores">
@@ -173,9 +188,17 @@
                                 <h5 class="mb-1">Data de compra</h5>
                                 <h6>{{ date('d/m/Y', strtotime($pedido->data)) }}</h6>
                             </div>
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Frete: </h5>
+                                <h6 id="freteElement">Carregando...</h6>
+                            </div>
                             <div class="d-flex w-100 justify-content-between mt-2">
-                                <h5 class="mb-1">Valor Total: </h5>
-                                <h6>{{ 'R$ ' . reais($pedido->valor_total) }}</h6>
+                                <h5 class="mb-1">Subtotal: </h5>
+                                <h6 id="subTotal">{{ 'R$ ' . reais($pedido->valor_total) }}</h6>
+                            </div>
+                            <div class="d-flex w-100 justify-content-between mt-2">
+                                <h5 class="mb-1">Total: </h5>
+                                <h6 id="totalValor">Carregando...</h6>
                             </div>
                         </a>
                     </div>
@@ -208,7 +231,7 @@
                                 </tr>
                             @endforeach
                     </table>
-                    <div class="col-md-12">
+                    {{-- <div class="col-md-12">
 
                         <div class="mt-4">
                             <h4>Calcule o Frete</h4>
@@ -220,7 +243,7 @@
                             <label class="d-none avisoCep" for="">Cep contem 9 digitos</label>
                         </div>
 
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

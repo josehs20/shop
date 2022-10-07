@@ -41,7 +41,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 28300000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
         DB::table('enderecos')->insert([
@@ -52,7 +52,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 28300000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
         DB::table('enderecos')->insert([
@@ -63,7 +63,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 28300000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
         DB::table('enderecos')->insert([
@@ -74,7 +74,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 29580000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
         DB::table('enderecos')->insert([
@@ -85,7 +85,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 29580000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
         DB::table('enderecos')->insert([
@@ -96,7 +96,7 @@ class UsuarioAdmin extends Seeder
             'complemento' => 'Casa',
             'referencia' => 'Perto do valão',
             'estado' => 'RJ',
-            'cep' => 29300000,
+            'cep' => 29580000,
             'user_id' => DB::table('users')->where('perfil', 'cliente')->first()->id,
         ]);
     }

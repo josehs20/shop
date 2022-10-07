@@ -56,9 +56,26 @@ class PedidosController extends Controller
         $pedido->query_base_pedido();
         $pedido->where_comum('id', $id);
         $pedido = $pedido->get_resultado()[0];
-    
+
         unset($status[array_search($pedido->status, $status)]);
-        
+
         return view('admin.pedidos.show', ['pedido' => $pedido, 'status' => $status]);
+    }
+
+    public function post_codigo_rastreio(Request $request)
+    {
+        $response = Correios::rastreio($request->codigo);
+
+
+        if (array_key_exists('eventos', $response['objetos'][0])) {
+
+            $valido = $response['objetos'][0]['codObjeto'];
+            Pedido::find($request->id_pedido)->update(['codRastreio' => $valido]);
+    
+            return response()->json(['valido' => true,'msg' => 'Codigo '. $valido .' registrado com sucesso', $response['objetos']]);
+        } else {
+            $valido = explode(':', $response['objetos'][0]['mensagem']);
+            return response()->json(['valido' => false ,'msg' => $valido[1] . ' ou ainda não consta na base de dados dos correios']);
+        }
     }
 }
