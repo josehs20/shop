@@ -65,7 +65,7 @@
             <a data-bs-toggle="collapse" href="#collapseCores" role="button" aria-expanded="false"
                 aria-controls="collapseCores" onclick="alterarIcone('iconeCores')">
                 <h5>Cores</h5>
-                <i id="iconeCores" class="fa fa-minus"></i>
+                <i id='iconeCores' class="fa fa-minus"></i>
             </a>
             <div class="collapse" id="collapseCores">
                 <ul style="margin-top: 5px">
@@ -80,17 +80,21 @@
 </aside>
 
 <script>
-
     //esta funcionando mas nao altera o icone, nao faço ideia porque
     function alterarIcone(idicone) {
+        // var btnIcone = document.getElementById(idicone)
+        // btnIcone.classList.toggle('fa-plus')
+        // console.log('funcionando')
+        // console.log(btnIcone.classList)
+
         var icone = document.getElementById(idicone)
 
         if (icone.classList.contains('fa-minus')) {
-            icone.classList.remove('fa fa-minus')
-            icone.classList.add('fa fa-plus')
+            icone.classList.remove('fa-minus')
+            icone.classList.add('fa-plus')
         } else {
-            icone.classList.remove('fa fa-plus')
-            icone.classList.add('fa fa-minus')
+            icone.classList.remove('fa-plus')
+            icone.classList.add('fa-minus')
         }
     }
 </script>

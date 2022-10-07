@@ -144,10 +144,12 @@
         <!-- DIV DO CANTO DIREITO ONDE FICA OS ICONES -->
         <div class="d-flex">
             <!-- DIV COM ICONE DE CARRINHO PARA PODER MOSTRAR A QUANTIDADE JUNTO -->
-            <div class="carrinho">
-                <i class="fa fa-shopping-cart"></i>
-                <span class="quantidade">0</span>
-            </div>
+            <a onclick="abrirFecharCarrinho()">
+                <div class="carrinho">
+                    <i class="fa fa-shopping-cart"></i>
+                    <span class="quantidade">0</span>
+                </div>
+            </a>
             <!-- SE O USUARIO TIVER LOGADO MOSTRA O NOME DELE -->
             @if (auth()->user())
                 <div class="nav-item dropdown mx-2">
@@ -183,7 +185,7 @@
                         aria-expanded="false">
                         Categorias
                     </a>
-
+                    
                     <ul class="dropdown-menu dm">
                         @foreach ($categorias as $categoria)
                             <li><a class="dropdown-item" href="#">{{ $categoria->nome }}</a></li>

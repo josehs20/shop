@@ -33,26 +33,27 @@
 
 <section class="varios-produtos">
     @foreach ($produtos as $produto)
-    <a href="{{route('unicoProduto', $produto['idProduto'])}}">
-        <div class="card me-2 mb-3 produto" style="width: 16rem;">
-            <div class="ver-produto">VER PRODUTO</div>
-            
-            @if (count($produto['imagem']))
-                <img class="mx-auto mt-2" style="width: 220px; height: 230px;" src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top"
-                    alt="Imagem do produto">
-            @endif
-            <div class="card-body">
-                <h5 class="card-title d-flex justify-content-center">{{ $produto['nome'] }}</h5>
-                <p class="card-text d-flex justify-content-center">
-                    @if ($produto['precoMenor'] == $produto['precoMaior'])
-                        R$ {{ $produto['precoMenor'] }}
-                    @else
-                        R$ {{ $produto['precoMenor'] }} -
-                        R$ {{ $produto['precoMaior'] }}
-                    @endif
-                </p>
+        <a href="{{ route('unicoProduto', $produto['idProduto']) }}">
+            <div class="card me-2 mb-3 produto" style="width: 16rem;">
+                <div class="ver-produto">VER PRODUTO</div>
+
+                @if (count($produto['imagem']))
+                    <img class="mx-auto mt-2" style="width: 220px; height: 230px;"
+                        src="{{ asset('storage/' . $produto['imagem'][0]->nome) }}" class="card-img-top"
+                        alt="Imagem do produto">
+                @endif
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-center">{{ $produto['nome'] }}</h5>
+                    <p class="card-text d-flex justify-content-center">
+                        @if ($produto['precoMenor'] == $produto['precoMaior'])
+                            R$ {{ $produto['precoMenor'] }}
+                        @else
+                            R$ {{ $produto['precoMenor'] }} -
+                            R$ {{ $produto['precoMaior'] }}
+                        @endif
+                    </p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
     @endforeach
 </section>

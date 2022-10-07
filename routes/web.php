@@ -24,8 +24,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\InicioController::class, 'index'])->name('inicio');
 Route::get('/produtoIndividual/{produto?}', [\App\Http\Controllers\InicioController::class, 'index'])->name('unicoProduto');
+// Route::resource('/carrinho', \App\Http\Controllers\Usuario\PedidosController::class);
 
 Auth::routes();
+
+Route::middleware('cliente')->group(function () {
+});
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

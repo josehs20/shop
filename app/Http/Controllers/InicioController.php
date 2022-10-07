@@ -8,6 +8,7 @@ use App\Models\Imagem;
 use App\Models\ProdTamCor;
 use App\Models\Produto;
 use App\Models\Tamanho;
+use App\Repositories\GeralRepositorie;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -15,13 +16,17 @@ class InicioController extends Controller
 {
     public function index($produto = null)
     {
-        $tamanhos = [];
-        $cores = [];
+        $geralR = new GeralRepositorie();
+        $ctc = $geralR->get_tam_cor_cat();
+
+        $tamanhoall = $ctc['tamanho_id'];
+        $corall = $ctc['cor_id'];
+        $categorias = $ctc['categoria_id'];
         $produtoIndividual = [];
 
-        $categorias = Categoria::all();
-        $tamanhoall = Tamanho::all();
-        $corall = Cor::all();
+        // $categorias = Categoria::all();
+        // $tamanhoall = Tamanho::all();
+        // $corall = Cor::all();
 
         if (!$produto) {
             $produtos = Produto::with(['prodTamCors' => function ($query) {
@@ -40,13 +45,15 @@ class InicioController extends Controller
                 ];
                 return $mm;
             });
+            $tamanhos = [];
+            $cores = [];
         } else {
             $produtos = [];
             $prod = new Produto();
             $produtoIndividual = $prod->get_produto_id($produto);
             $ptc = $produtoIndividual->map(function ($value) {
                 return [
-                    'tamanhos' => $value->tamanho->nome,
+                    'tamanhos' => $value->tamanho,
                     'cores' => $value->cor,
                     'precos' => $value->preco
                 ];
@@ -56,8 +63,9 @@ class InicioController extends Controller
                 $cores[] = $value['cores'];
             }
             $tamanhos = array_unique($tamanhos);
-            $cores = array_unique($cores);  
+            $cores = array_unique($cores);  ;
         }
+        
     
         return view('usuarios.welcome', compact('categorias', 'produtos', 'produtoIndividual', 'tamanhos', 'cores', 'corall', 'tamanhoall'));
     }
