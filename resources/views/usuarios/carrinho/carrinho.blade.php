@@ -51,20 +51,20 @@
     <div class="item-do-carrinho">
         <div class="item-carrinho">
             {{-- NOME DO PRODUTO --}}
-            <h3>Nome do produto</h3>
+            <h3 id="carrinhoNomeProduto">Nome do produto</h3>
             {{-- TAMANHO --}}
             <div class="d-flex align-items-center">
-                <h6>Tamanho: &emsp;</h6>
+                <h6 id="carrinhoTamanhoProduto">Tamanho: &emsp;</h6>
                 <h5> M </h5>
             </div>
             {{-- CORES --}}
             <div class="d-flex align-items-center">
-                <h6>Cor: &emsp;</h6>
+                <h6 id="carrinhoCorProduto">Cor: &emsp;</h6>
                 <input type="color" value="#000">
             </div>
             {{-- QUANTIDADE --}}
             <div class="d-flex align-items-center">
-                <h6>Quantidade: &emsp;</h6>
+                <h6 id="carrinhoQuantidadeProduto">Quantidade: &emsp;</h6>
                 <h5>2</h5>
             </div>
         </div>

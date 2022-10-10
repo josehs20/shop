@@ -7,18 +7,22 @@
         width: 100%;
     }
 
+    .varios-produtos a,h5,p{
+        color: #000 !important;
+    }
+
     .ver-produto {
         position: absolute;
         width: 100%;
-        bottom: 0;
+        bottom: 100px;
         text-align: center;
-        font-weight: bold;
-        background-color: #797979;
+        background-color: #d4d4d4;
         letter-spacing: 2px;
         height: 0 !important;
         overflow: hidden;
         transition: 0.5s;
-        color: #FFF;
+        color: #000;
+        opacity: .8;
     }
 
     .produto {
@@ -27,7 +31,14 @@
 
     .produto:hover .ver-produto {
         padding: 4px;
-        height: 30% !important;
+        height: 20% !important;
+    }
+
+    .divider{
+        width: 30px;
+        height: 1px;
+        background-color: #000;
+        margin: 5px 0 15px 0
     }
 </style>
 
@@ -43,7 +54,8 @@
                         alt="Imagem do produto">
                 @endif
                 <div class="card-body">
-                    <h5 class="card-title d-flex justify-content-center">{{ $produto['nome'] }}</h5>
+                    <h5 class="card-title d-flex justify-content-center" style="margin-bottom: 0 !important">{{ $produto['nome'] }}</h5>
+                    <div class="divider mx-auto"></div>
                     <p class="card-text d-flex justify-content-center">
                         @if ($produto['precoMenor'] == $produto['precoMaior'])
                             R$ {{ $produto['precoMenor'] }}

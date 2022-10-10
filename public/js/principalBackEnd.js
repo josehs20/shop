@@ -109,12 +109,35 @@ function formata_status(dado) {
   }
 }
 
-function adicionarAoCarrinho(id){    
+function exibirDadosNoCarrinho(){
+  var dados = localStorage.getItem('ptcProduto') ? 
+    JSON.parse(localStorage.getItem('ptcProduto')) : ''
 
+  // var nome  = document.getElementById('carrinhoNomeProduto')
+  // var tamanho  = document.getElementById('carrinhoTamanhoProduto')
+  // var cor  = document.getElementById('carrinhoCorProduto')
+  // var quantidade  = document.getElementById('carrinhoQuantidadeProduto')
+
+
+  
+
+  // dados.forEach( (e) => {
+  //   var splitTamanhos = e.tamanho.split('-')
+  //   var splitCores = e.cor.split('-')
+  //   console.log(splitTamanhos[1]);
+  //   console.log(splitCores[1]);
+  // })
+}
+
+function adicionarAoCarrinho(id){    
+  exibirDadosNoCarrinho()
+  //OBTEM OS DADOS DO LOCALSTORAGE CASO TENHA ALGUM, SE NÃO, CRIA UM ARRAY VAZIO
   var ptcProduto = localStorage.getItem('ptcProduto') ?
          JSON.parse(localStorage.getItem('ptcProduto')) : [] 
   
+  //CRIA UM OBJETO PARA ADICIONAR OS ELEMENTOS NELE
   var dados = {}
+  dados.produtoID = id
 
   document.getElementById('ip-descricao').querySelectorAll('input').forEach((e) => {
     if(e.type == 'radio' && e.checked){
@@ -130,6 +153,8 @@ function adicionarAoCarrinho(id){
     }
   })
 
+  // ADICIONA O OBJETO NO ARRAY, DESSA FORMA NÃO IRÁ SUBSTITUIR OS VALORES QUANDO INSERIR UM NOVO PRODUTO
   ptcProduto.push(dados)
+  // ADICIONA O ARRAY NO STORAGE
   localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto));
 }

@@ -38,7 +38,14 @@
             <div class="collapse show" id="collapseCategoria">
                 <ul style="margin-top: 5px">
                     @foreach ($categorias as $categoria)
-                        <li><a href="#">{{ $categoria->nome }}</a></li>
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $categoria->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -54,7 +61,14 @@
             <div class="collapse" id="collapseTamanhos">
                 <ul style="margin-top: 5px">
                     @foreach ($tamanhoall as $tamanho)
-                        <li><a href="#">{{ $tamanho->nome }}</a></li>
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $tamanho->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -69,8 +83,15 @@
             </a>
             <div class="collapse" id="collapseCores">
                 <ul style="margin-top: 5px">
-                    @foreach ($corall as $cores)
-                        <li><a href="#">{{ $cores->nome }}</a></li>
+                    @foreach ($corall as $cor)
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $cor->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>

@@ -40,6 +40,13 @@
         border: 1px solid orangered;
     }
 
+    .inputCores{
+        border-radius: 30px;
+        border: 1px solid black;
+        width: 30px;
+        height: 30px;
+    }
+
     @media(max-width: 860px) {
         .individual-produto {
             flex-direction: column;
@@ -97,11 +104,12 @@
             <h5>Tamanhos: &nbsp;&nbsp;</h5>
             <div class="d-flex">
                 @foreach ($tamanhos as $item)
-                    <div class="form-check">
+                    <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="flexRadioTamanho" id="{{'flexRadioTamanho-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioTamanho'.$item->id}}">
-                            <h4 id="{{ 't_' . $item->id }}" class="item">
-                                {{ $item->nome }}</h4>
+                            <h4 id="{{ 't_' . $item->id }}" class="item" style="margin-left: 2px !important; padding: 0 !important">
+                                {{ $item->nome }}
+                            </h4>
                         </label>
                     </div>
                 @endforeach
@@ -116,7 +124,8 @@
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="flexRadioCores" id="{{'flexRadioCore-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioCores'.$item->id}}">
-                            <input id="{{ 'c_' . $item->id }}" class="ms-3" type="color" value="{{ $item->codigo }}" disabled>
+                            <div style='border-radius: 27px; width: 30px; height: 30px; background-color:{{$item->codigo}}; border: 1px solid black'></div>
+                            {{-- <input id="{{ 'c_' . $item->id }}" class="ms-3 inputCores" type="color" value="{{ $item->codigo }}" disabled> --}}
                         </label>
                     </div>
                 @endforeach
