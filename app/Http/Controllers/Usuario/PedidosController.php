@@ -29,6 +29,10 @@ class PedidosController extends Controller
         return view('usuarios.carrinho.carrinho', compact('categorias', 'tamanhoall', 'corall', 'produtoIndividual', 'produtos'));
     }
 
+    public function finalizar_pedido(){
+        return view('usuarios.finalizarPedido.finalizarPedido');
+    }
+
     /**
      * Show the form for creating a new resource.
      *

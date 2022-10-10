@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [\App\Http\Controllers\InicioController::class, 'index'])->name('inicio');
 Route::get('/produtoIndividual/{produto?}', [\App\Http\Controllers\InicioController::class, 'index'])->name('unicoProduto');
-// Route::resource('/carrinho', \App\Http\Controllers\Usuario\PedidosController::class);
+Route::get('/finalizarPedido', [\App\Http\Controllers\Usuario\PedidosController::class, 'finalizar_pedido'])->name('finalizarPedido');
 
 Auth::routes();
 

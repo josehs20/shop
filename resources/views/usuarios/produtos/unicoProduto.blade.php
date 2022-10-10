@@ -97,7 +97,7 @@
     
     {{-- DESCRICAO DO PRODUTO NOME, TAMANHO, COR, QUANTIDADE E PRECO --}}
     <div id="ip-descricao" class="ip-descricao">
-        <h2>{{ $produtoIndividual[0]->produto->nome }}</h2>
+        <h2 style="font-weight: bold">{{ $produtoIndividual[0]->produto->nome }}</h2>
         <br>
         {{-- TAMANHO --}}
         <div>
@@ -107,7 +107,7 @@
                     <div class="form-check me-3">
                         <input class="form-check-input" type="radio" name="flexRadioTamanho" id="{{'flexRadioTamanho-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioTamanho'.$item->id}}">
-                            <h4 id="{{ 't_' . $item->id }}" class="item" style="margin-left: 2px !important; padding: 0 !important">
+                            <h4 id="{{ 't_' . $item->id }}" class="item" style="margin-left: 2px !important; padding: 0 !important;">
                                 {{ $item->nome }}
                             </h4>
                         </label>
@@ -140,7 +140,7 @@
         </div>
         <br>
         <br>
-        <div class="d-flex justify-content-center">
+        <div>
             <button onclick="adicionarAoCarrinho(<?php echo $produtoIndividual[0]->produto->id?>)" id="buttonCarrinho" class="btn btn-outline-success w-75"><i
                     class="fa fa-cart-plus"></i> &nbsp; Adicionar ao
                 carrinho</button>
