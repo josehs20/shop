@@ -109,26 +109,27 @@ function formata_status(dado) {
   }
 }
 
-function adicionarAoCarrinho(id){
+function adicionarAoCarrinho(id){    
 
   var ptcProduto = localStorage.getItem('ptcProduto') ?
-         JSON.parse(localStorage.getItem('ptcProduto')) : {}
+         JSON.parse(localStorage.getItem('ptcProduto')) : [] 
   
-  console.log(ptcProduto)
+  var dados = {}
 
   document.getElementById('ip-descricao').querySelectorAll('input').forEach((e) => {
     if(e.type == 'radio' && e.checked){
       if(e.name == 'flexRadioTamanho'){
-        ptcProduto.flexRadioTamanho = e.id
+        dados.tamanho = e.id
       }
       if(e.name == 'flexRadioCores'){
-        ptcProduto.flexRadioCores = e.id
+        dados.cor = e.id
       }
     }
     if(e.type == 'text' && e.id == 'quantidade'){
-      ptcProduto.quants = e.value
+      dados.quatidade = e.value
     }
   })
 
+  ptcProduto.push(dados)
   localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto));
 }

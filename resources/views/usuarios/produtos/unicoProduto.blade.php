@@ -98,7 +98,7 @@
             <div class="d-flex">
                 @foreach ($tamanhos as $item)
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioTamanho" id="{{'flexRadioTamanho'.$item->id}}">
+                        <input class="form-check-input" type="radio" name="flexRadioTamanho" id="{{'flexRadioTamanho-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioTamanho'.$item->id}}">
                             <h4 id="{{ 't_' . $item->id }}" class="item">
                                 {{ $item->nome }}</h4>
@@ -114,7 +114,7 @@
             <div class="d-flex">
                 @foreach ($cores as $item)
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioCores" id="{{'flexRadioCores'.$item->id}}">
+                        <input class="form-check-input" type="radio" name="flexRadioCores" id="{{'flexRadioCore-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioCores'.$item->id}}">
                             <input id="{{ 'c_' . $item->id }}" class="ms-3" type="color" value="{{ $item->codigo }}" disabled>
                         </label>
