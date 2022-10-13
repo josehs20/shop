@@ -38,7 +38,14 @@
             <div class="collapse show" id="collapseCategoria">
                 <ul style="margin-top: 5px">
                     @foreach ($categorias as $categoria)
-                        <li><a href="#">{{ $categoria->nome }}</a></li>
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $categoria->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -54,7 +61,14 @@
             <div class="collapse" id="collapseTamanhos">
                 <ul style="margin-top: 5px">
                     @foreach ($tamanhoall as $tamanho)
-                        <li><a href="#">{{ $tamanho->nome }}</a></li>
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $tamanho->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -65,12 +79,19 @@
             <a data-bs-toggle="collapse" href="#collapseCores" role="button" aria-expanded="false"
                 aria-controls="collapseCores" onclick="alterarIcone('iconeCores')">
                 <h5>Cores</h5>
-                <i id="iconeCores" class="fa fa-minus"></i>
+                <i id='iconeCores' class="fa fa-minus"></i>
             </a>
             <div class="collapse" id="collapseCores">
                 <ul style="margin-top: 5px">
-                    @foreach ($corall as $cores)
-                        <li><a href="#">{{ $cores->nome }}</a></li>
+                    @foreach ($corall as $cor)
+                    <li>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                {{ $cor->nome }}
+                            </label>
+                          </div>
+                    </li>
                     @endforeach
                 </ul>
             </div>
@@ -80,17 +101,21 @@
 </aside>
 
 <script>
-
     //esta funcionando mas nao altera o icone, nao faço ideia porque
     function alterarIcone(idicone) {
+        // var btnIcone = document.getElementById(idicone)
+        // btnIcone.classList.toggle('fa-plus')
+        // console.log('funcionando')
+        // console.log(btnIcone.classList)
+
         var icone = document.getElementById(idicone)
 
         if (icone.classList.contains('fa-minus')) {
-            icone.classList.remove('fa fa-minus')
-            icone.classList.add('fa fa-plus')
+            icone.classList.remove('fa-minus')
+            icone.classList.add('fa-plus')
         } else {
-            icone.classList.remove('fa fa-plus')
-            icone.classList.add('fa fa-minus')
+            icone.classList.remove('fa-plus')
+            icone.classList.add('fa-minus')
         }
     }
 </script>

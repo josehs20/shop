@@ -48,6 +48,30 @@
         display: none
     }
 
+    .viewcarrinho {
+        display: flex;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 998;
+        width: 0 !important;
+        height: 100%;
+        overflow: hidden !important;
+        overflow-y: scroll;
+        transition: 0.5s;
+    }
+
+    .viewcarrinho .fundo {
+        background-color: #414141;
+        opacity: .7;
+        height: 100%;
+        width: 60%;
+    }
+
+    .mostraViewCarrinho {
+        width: 100% !important;
+    }
+
     @media(max-width: 860px) {
         .secao {
             flex-direction: column
@@ -67,6 +91,10 @@
 
         .collapse-mobile {
             display: block
+        }
+
+        .viewcarrinho .fundo {
+            width: 10%;
         }
     }
 </style>
@@ -92,19 +120,33 @@
         <main class="conteudo">
             @if (count($produtoIndividual))
                 <style>
-                    .div-filtro{
+                    .div-filtro {
                         display: none;
                     }
-                    .btn-filtro{
+
+                    .btn-filtro {
                         display: none;
                     }
                 </style>
-                @include('usuarios.produtos.unicoProduto')    
+                @include('usuarios.produtos.unicoProduto')
             @else
                 @include('usuarios.produtos.variosProdutos', ['produtos' => $produtos])
             @endif
+
+            {{-- PAGINA DO CARRINHO  --}}
+            <div id="viewcarrinho" class="viewcarrinho">
+                <div class="fundo"></div>
+                @include('usuarios.carrinho.carrinho')
+            </div>
         </main>
     </section>
 </body>
+
+<script>
+    function abrirFecharCarrinho() {
+        var viewCarrinho = document.getElementById('viewcarrinho')
+        viewCarrinho.classList.toggle('mostraViewCarrinho')
+    }
+</script>
 
 </html>

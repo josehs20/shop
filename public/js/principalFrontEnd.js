@@ -44,16 +44,16 @@ function monta_html_list_group(dados, titulo) {
       </tr>
     </thead>
     <tbody>`
- var count = 1;
+    var count = 1;
     //NECESSÁRIO PASSAR UM ARRAY MESMO QUE CONTENHA UM OBJETO SÓ PARA FUNCAO computa_produtos FUNCIONAR
-    computa_produtos(dados).forEach(element => {     
+    computa_produtos(dados).forEach(element => {
         html += `
             <tr>
               <th scope="row">${count}</th>
               <td colspan="2">${element.nome}</td>
               <td >${element.totalEstoque}</td>
             </tr>`
-            count++
+        count++
     });
     html += `</tbody></table>`
     return html;
@@ -63,4 +63,25 @@ function habilitainputs() {
     document.querySelector("select[name='categoria']").disabled = false;
     document.querySelector("#imagensProduto").disabled = false
     document.querySelector("input[name='nome']").readOnly = false;
+}
+
+function selecionar(elemento) {
+    // var itemm = elemento.id.split('_')
+
+    // elemento.classList.toggle('marcar')
+    // var produto = document.getElementById('buttonCarrinho').getAttribute('data-produto')
+    // console.log(produto);
+    // var produtoStorage = localStorage.getItem('ptcUnicoProduto') ?
+    //     JSON.parse(localStorage.getItem('ptcUnicoProduto')) : [{}]
+
+    // if (itemm[0] == 't') {
+    //     produtoStorage.tamanhoID = itemm[1]
+    // } else if (itemm[0] == 'c') {
+    //     ptcUnicoProduto.corID = itemm[1]
+    //     ptcUnicoProduto.corValue = elemento.value
+    // }
+
+    // localStorage.setItem('ptcUnicoProduto', JSON.stringify(ptcUnicoProduto));
+
+
 }

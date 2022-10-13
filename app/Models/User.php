@@ -47,6 +47,11 @@ class User extends Authenticatable
         return $this->perfil == 'administrador';
     }
 
+    public function cliente()
+    {
+        return $this->perfil == 'cliente';
+    }
+
     public function enderecos()
     {
         return $this->hasMany('App\Models\Endereco');
