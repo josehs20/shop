@@ -17,6 +17,7 @@ class AddColunsToUsers extends Migration
             $table->string("perfil")->nullable();
             $table->string("cpf", 11)->unique()->nullable();
             $table->string("telefone")->nullable();
+            $table->string("access_token")->nullable();
         });
     }
 

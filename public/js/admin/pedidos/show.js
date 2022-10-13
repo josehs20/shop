@@ -56,7 +56,7 @@ $(function () {
     var inputRastreio = document.getElementById('inputCodRastreio').value ? 'inputCodRastreio' : false
 
     if (inputRastreio) {
-       console.log(inputRastreio);
+     //  console.log(inputRastreio);
     }
 })
 

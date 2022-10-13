@@ -46,4 +46,9 @@ class ServicosController extends Controller
         }
       
     }
+
+    public function mercado_pago(Request $request)
+    {
+       dd($request->all());
+    }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Pedido;
+use App\Services\Correios;
 use Illuminate\Console\Command;
 
 class AtualizaStatusCorreioCommand extends Command
@@ -37,6 +39,13 @@ class AtualizaStatusCorreioCommand extends Command
      */
     public function handle()
     {
+        Pedido::whereNotNull('codRastreio')->get()->map(function ($p){
+            $response = Correios::rastreio($p->codRastreio);
+            print_r($response['objetos'][0]);
+            if (count($response['objetos'][0]['eventos']) > 0) {
+               $p->update(['status'=> 'acm']);
+            }
+        });
        
     }
 }

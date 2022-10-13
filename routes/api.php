@@ -20,3 +20,6 @@ use Illuminate\Support\Facades\Route;
 Route::post('/calcula-frete', [\App\Http\Controllers\ServicosController::class, 'calculo_frete']);
 Route::post('/rastreio-pedido', [\App\Http\Controllers\ServicosController::class, 'rastreio_pedido']);
 
+//-------MERCADO PAGO ------//
+
+Route::post('/process_payment', [\App\Http\Controllers\ServicosController::class, 'mercado_pago']);
