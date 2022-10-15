@@ -40,7 +40,7 @@
         border: 1px solid orangered;
     }
 
-    .inputCores{
+    .inputCores {
         border-radius: 30px;
         border: 1px solid black;
         width: 30px;
@@ -94,57 +94,93 @@
             </button>
         </div>
     </div>
-    
+
     {{-- DESCRICAO DO PRODUTO NOME, TAMANHO, COR, QUANTIDADE E PRECO --}}
     <div id="ip-descricao" class="ip-descricao">
         <h2 style="font-weight: bold">{{ $produtoIndividual[0]->produto->nome }}</h2>
         <br>
         {{-- TAMANHO --}}
         <div>
+            <div class="d-flex justify-content-around">
             <h5>Tamanhos: &nbsp;&nbsp;</h5>
+            <h5>Cores: &nbsp;&nbsp;</h5>
+            </div>
             <div class="d-flex">
-                @foreach ($tamanhos as $item)
+                <select id="selectTamanhos" name="flexRadioTamanho" onchange="get_ptc_relacao_tamanho_cor(<?php echo $produtoIndividual[0]->produto->id; ?>, this.value, 'tam_cor');" class="form-select" aria-label="Default select example">
+                    @foreach ($tamanhos as $item)
+                        <option value="{{ $item->id }}">{{ $item->nome }}</option>
+                    @endforeach
+                </select>
+               
+                <select id="selectCores" onchange="get_ptc_relacao_tamanho_cor(<?php echo $produtoIndividual[0]->produto->id; ?>, this.value, '');" name="flexRadioCores" class="form-select mx-2" aria-label="Default select example">
+                    @foreach ($cores as $item)
+                    @if ($item->codigo == '#000000' || $item->nome == 'preto')
+                    <option style="background-color: {{ $item->codigo }}; color: white;" value="{{ $item->id }}">
+                        {{ $item->nome }}
+                    </option>
+                    @else
+                    <option style="background-color: {{ $item->codigo }}" value="{{ $item->id }}">
+                        {{ $item->nome }}
+                    </option>
+                    @endif
+                    
+                    @endforeach
+                </select>
+                {{-- @foreach ($tamanhos as $item)
                     <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioTamanho" id="{{'flexRadioTamanho-'.$item->id}}">
+                        <input class="form-check-input" type="radio" value="{{$item->id}}" name="flexRadioTamanho" id="{{'flexRadioTamanho-'.$item->id}}">
                         <label class="form-check-label" for="{{'flexRadioTamanho'.$item->id}}">
                             <h4 id="{{ 't_' . $item->id }}" class="item" style="margin-left: 2px !important; padding: 0 !important;">
                                 {{ $item->nome }}
                             </h4>
                         </label>
                     </div>
-                @endforeach
+                @endforeach --}}
+            </div>
+            <div class="d-flex col-md-10">
+                <h6 class="d-none" id="alertTamanho" style="color: red;">Selecione o tamanho</h6>
             </div>
         </div>
         <br>
         {{-- CORES --}}
         <div>
-            <h5>Cores: &nbsp;&nbsp;</h5>
-            <div class="d-flex">
-                @foreach ($cores as $item)
-                    <div class="form-check me-3">
-                        <input class="form-check-input" type="radio" name="flexRadioCores" id="{{'flexRadioCore-'.$item->id}}">
-                        <label class="form-check-label" for="{{'flexRadioCores'.$item->id}}">
-                            <div style='border-radius: 27px; width: 30px; height: 30px; background-color:{{$item->codigo}}; border: 1px solid black'></div>
-                            {{-- <input id="{{ 'c_' . $item->id }}" class="ms-3 inputCores" type="color" value="{{ $item->codigo }}" disabled> --}}
-                        </label>
-                    </div>
-                @endforeach
-            </div>
            
+            <div class="d-flex">
+             
+                {{-- @foreach ($cores as $item)
+                    <div class="form-check me-3">
+                        <input class="form-check-input" value="{{ $item->id }}" type="radio" name="flexRadioCores"
+                            id="{{ 'flexRadioCore-' . $item->id }}">
+                        <label class="form-check-label" for="{{ 'flexRadioCores' . $item->id }}">
+                            <div
+                                style='border-radius: 27px; width: 30px; height: 30px; background-color:{{ $item->codigo }}; border: 1px solid black'>
+                            </div>
+                            {{-- <input id="{{ 'c_' . $item->id }}" class="ms-3 inputCores" type="color" value="{{ $item->codigo }}" disabled> --}}
+                {{-- </label>
+                    </div>
+                @endforeach  --}}
+            </div>
+            <div class="d-flex col-md-10">
+                <h6 class="d-none" id="alertCor" style="color: red;">Selecione a cor</h6>
+            </div>
         </div>
         <br>
         <div class="d-flex align-items-center">
             <h5>Quantidade: &nbsp;&nbsp;</h5>
-            <input id="quantidade" type="text" class="form-control text-center w-25 ms-3" placeholder="0"
-                aria-label="Quantidade">
+            <input id="quantidade" type="number" onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"
+                class="form-control text-center w-25 ms-3" placeholder="0" aria-label="Quantidade">
+            <br>
+        </div>
+        <div class="d-flex justify-content-center col-md-10">
+            <h6 class="d-none" id="alertQuantidade" style="color: red;">Quantidade inválida</h6>
         </div>
         <br>
         <br>
         <div>
-            <button onclick="adicionarAoCarrinho(<?php echo $produtoIndividual[0]->produto->id?>)" id="buttonCarrinho" class="btn btn-outline-success w-75"><i
-                    class="fa fa-cart-plus"></i> &nbsp; Adicionar ao
+            <button onclick="adicionarAoCarrinho(<?php echo $produtoIndividual[0]->produto->id; ?>)" id="buttonCarrinho"
+                class="btn btn-outline-success w-75"><i class="fa fa-cart-plus"></i> &nbsp; Adicionar ao
                 carrinho</button>
         </div>
     </div>
 </main>
-<script src="{{asset('js/principalBackEnd.js')}}"></script>
+

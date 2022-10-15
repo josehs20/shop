@@ -147,7 +147,7 @@
             <a onclick="abrirFecharCarrinho()">
                 <div class="carrinho">
                     <i class="fa fa-shopping-cart"></i>
-                    <span class="quantidade">0</span>
+                    <span id="quantidadeCarrinho" class="quantidade">0</span>
                 </div>
             </a>
             <!-- SE O USUARIO TIVER LOGADO MOSTRA O NOME DELE -->

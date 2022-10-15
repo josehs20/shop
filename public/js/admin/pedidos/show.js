@@ -22,7 +22,10 @@ async function total_frete_subtotal_calculo(cep, id_pedido) {
     document.getElementById('freteElement').innerHTML = formata_dinheiro(parseFloat(response.pac.Valor.replace('.', '').replace(',', '.')))
     var subTotal = parseFloat($('#subTotal').text().replace('R$', '').replace('.', '').replace(',', '.'));
     var frete = parseFloat(response.pac.Valor.replace('.', '').replace(',', '.'))
-    document.getElementById('totalValor').innerHTML = formata_dinheiro(frete + subTotal)
+    var valor_total = frete + subTotal;
+    document.getElementById('totalValor').innerHTML = formata_dinheiro(valor_total)
+
+    mercado_pago(valor_total);
 }
 
 function post_codigo_rastreio(id_pedido) {

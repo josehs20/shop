@@ -22,7 +22,7 @@ class ServicosController extends Controller
             $pedido = new GeralRepositorie($model);
             $pedido->query_base_pedido();
             $pedido->where_comum('id', $request->id_pedido);
-            $pedido = $pedido->get_resultado()[0];
+            $pedido = $pedido->get_resultado_order_data()[0];
             
             return response()->json([
                 'data' => Correios::calcular_frete_pedidos($pedido),
@@ -49,6 +49,6 @@ class ServicosController extends Controller
 
     public function mercado_pago(Request $request)
     {
-       dd($request->all());
+       
     }
 }

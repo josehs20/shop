@@ -21,10 +21,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', [\App\Http\Controllers\InicioController::class, 'index'])->name('inicio');
-Route::get('/produtoIndividual/{produto?}', [\App\Http\Controllers\InicioController::class, 'index'])->name('unicoProduto');
+Route::get('/produtoIndividual/{produto?}/', [\App\Http\Controllers\InicioController::class, 'index'])->name('unicoProduto');
 Route::get('/finalizarPedido', [\App\Http\Controllers\Usuario\PedidosController::class, 'finalizar_pedido'])->name('finalizarPedido');
+
+Route::get('/get-pedidos-ptc', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_pedidos_ptc']);
+Route::get('/get-ptc-relacao-tamanho-cor', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_ptc_relacao_tamanho_cor']);
 
 Auth::routes();
 

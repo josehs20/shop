@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Usuario;
 use App\Http\Controllers\Controller;
 use App\Models\Categoria;
 use App\Models\Cor;
+use App\Models\ProdTamCor;
 use App\Models\Tamanho;
 use App\Repositories\GeralRepositorie;
 use Illuminate\Http\Request;
@@ -25,12 +26,45 @@ class PedidosController extends Controller
         $categorias = $ctc['categoria_id'];
         $produtoIndividual = [];
         $produtos = [];
-        
+
         return view('usuarios.carrinho.carrinho', compact('categorias', 'tamanhoall', 'corall', 'produtoIndividual', 'produtos'));
     }
 
-    public function finalizar_pedido(){
+    public function finalizar_pedido()
+    {
         return view('usuarios.finalizarPedido.finalizarPedido');
+    }
+
+    public function get_pedidos_ptc(Request $request, ProdTamCor $prodTamCor)
+    {
+        $pedidos = [];
+        if (count($request->ptcProduto) > 0) {
+            foreach ($request->ptcProduto as $key => $ptcs) {
+                $geralR = new GeralRepositorie($prodTamCor);
+                $geralR->query_base_pedido_storage();
+                $produto_id = $ptcs['produto_id'];
+                foreach ($ptcs as $coluna => $value) {
+                    if ($coluna != 'quantidade') {
+                        $geralR->where_comum($coluna, $value);
+                    }
+                }
+                $pedidos[$produto_id][] = $geralR->first_comum();
+            }
+        }
+   
+        return response()->json([$pedidos]);
+    }
+
+    public function get_ptc_relacao_tamanho_cor(Request $request, ProdTamCor $prodTamCor)
+    {
+        $geralR = new GeralRepositorie($prodTamCor);
+        $geralR->query_base_pedido_storage();
+        foreach ($request->all() as $coluna => $value) {
+            $geralR->where_comum($coluna, $value);
+        }
+        $relacao = $geralR->get_comum();
+
+        return response()->json($relacao);
     }
 
     /**

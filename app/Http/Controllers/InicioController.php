@@ -63,7 +63,7 @@ class InicioController extends Controller
                 $cores[] = $value['cores'];
             }
             $tamanhos = array_unique($tamanhos);
-            $cores = array_unique($cores);  ;
+            $cores = array_unique($cores);
         }
         
     

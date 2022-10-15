@@ -11,12 +11,13 @@ function alerta(icone, title, texto, confirmButton) {
   })
 }
 
-function alerta_simples(icone,titulo) {
+function alerta_simples(icone,titulo, tempo) {
+  var tempo = tempo ? tempo : 3000;
   const Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 3000,
+    timer: tempo,
     timerProgressBar: true,
     didOpen: (toast) => {
       toast.addEventListener('mouseenter', Swal.stopTimer)

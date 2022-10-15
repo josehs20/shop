@@ -70,24 +70,30 @@ class GeralRepositorie
     /*TODAS A QUERYS FEITAS TEM QUE SER ATUALIZADO O STATUS DO MODEL 
     EX:this->model = query  (metodo get ultilizado por ultimo no controller)*/
 
-    //QUERY BASE "INICIAL"
+    //QUERY BASE "INICIAL" PARA PEDIDOS NO BANCO DE DADOS
     public function query_base_pedido()
     {
         $this->model = $this->model->with(['pedido_itens' => function ($query) {
             $query->with(['ptc' => function ($query) {
-                $query->with(['produto' => function ($query){
+                $query->with(['produto' => function ($query) {
                     $query->with('categoriaProduto');
                 }, 'tamanho', 'cor', 'estoque']);
             }]);
         }, 'users', 'endereco']);
     }
 
+    //QUERY BASE "INICIAL" PARA PEDIDOS NA STORAGE NO CLIENTE
+    public function query_base_pedido_storage()
+    {
+        $this->model = $this->model->with(['produto', 'tamanho', 'cor', 'estoque', 'imagens']);
+    }
+
     public function pedidos_nome_cliente($nome = null)
     {
         $this->model = $this->model->whereHas('users', function ($query) use ($nome) {
-                $query->where('name', 'like', "%$nome%");
-            })->whereIn('status', ['acm', 'age']);
-          //  return $this->model->get();
+            $query->where('name', 'like', "%$nome%");
+        })->whereIn('status', ['acm', 'age']);
+        //  return $this->model->get();
         // return Pedido::with(['pedido_itens' => function ($query) {
         //     $query->with(['ptc' => function ($query) {
         //         $query->with(['produto', 'tamanho', 'cor', 'estoque']);
@@ -100,7 +106,7 @@ class GeralRepositorie
     public function pedidos_datas($inicial, $final)
     {
         $this->model = $this->model->whereIn('status', ['acm', 'age'])
-        ->where('data', '>=', $inicial)->where('data', '<=', $final);
+            ->where('data', '>=', $inicial)->where('data', '<=', $final);
         //return $this->model->get();
         // return Pedido::with(['pedido_itens' => function ($query) {
         //     $query->with(['ptc' => function ($query) {
@@ -115,7 +121,7 @@ class GeralRepositorie
         $this->model = $this->model->whereHas('endereco', function ($query) use ($cidade) {
             $query->where('cidade', 'like', "%$cidade%");
         })->whereIn('status', ['acm', 'age']);
-      //  return $this->model->get();
+        //  return $this->model->get();
         // return Pedido::with(['pedido_itens' => function ($query) {
         //     $query->with(['ptc' => function ($query) {
         //         $query->with(['produto', 'tamanho', 'cor', 'estoque']);
@@ -128,8 +134,18 @@ class GeralRepositorie
     {
         $this->model = $this->model->where($coluna, $dadoBusca);
     }
-    public function get_resultado()
+
+    public function get_resultado_order_data()
     {
-       return $this->model->orderby('data', 'DESC')->get();
+        return $this->model->orderby('data', 'DESC')->get();
+    }
+
+    public function first_comum()
+    {
+        return $this->model->first();
+    }
+    public function get_comum()
+    {
+        return $this->model->get();
     }
 }

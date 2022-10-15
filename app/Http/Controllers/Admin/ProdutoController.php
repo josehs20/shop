@@ -72,7 +72,7 @@ class ProdutoController extends Controller
             if (!$ptc->produto->imagens()->count()) {
                 $image = new Imagem();
                 $image->upload_imagem_produto($request, $ptc->produto);
-                $ptc->produto->imagens()->first()->update(['prioridade', true]);
+                $ptc->produto->imagens()->first()->update(['prioridade' => true]);
             }
 
             return response()->json(['msg' => 'Produto ' . $ptc->produto->nome . ', do tamanho ' . $ptc->tamanho->nome . ' e cor ' . $ptc->cor->nome . ', criado com sucesso!'], 200);

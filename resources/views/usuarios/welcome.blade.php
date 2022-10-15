@@ -148,5 +148,8 @@
         viewCarrinho.classList.toggle('mostraViewCarrinho')
     }
 </script>
-
+<script src="{{ asset('js/principalFrontEnd.js') }}"></script>
+<script src="{{ asset('js/usuario/unicoProduto.js') }}"></script>
+<script src="{{ asset('js/principalBackEnd.js') }}"></script>
+<script src="{{ asset('js/alertas.js') }}" defer></script>
 </html>

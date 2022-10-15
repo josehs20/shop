@@ -1,107 +1,108 @@
-var p_k_p;
-document.cookie.split(';').forEach(element => {
-    if (element.split('=')[0] == 'p_k_p') {
-        p_k_p = element.split('=')[1];
-    }else{
-        //funcao para get public token user
-    }
-});
-console.log(p_k_p);
-const mp = new MercadoPago(p_k_p);
+function mercado_pago(valor) {
+    var p_k_p;
+    console.log(valor.toFixed(2));
+    document.cookie.split(';').forEach(element => {
+        if (element.split('=')[0] == 'p_k_p') {
+            p_k_p = element.split('=')[1];
+        } 
+    });
+    console.log(p_k_p);
+    const mp = new MercadoPago(p_k_p);
 
-const cardForm = mp.cardForm({
-    amount: "100.5",
-    iframe: true,
-    form: {
-        id: "form-checkout",
-        cardNumber: {
-            id: "form-checkout__cardNumber",
-            placeholder: "Número do cartão",
+    const cardForm = mp.cardForm({
+        amount: valor.toFixed(2),
+        iframe: true,
+        form: {
+            id: "form-checkout",
+            cardNumber: {
+                id: "form-checkout__cardNumber",
+                placeholder: "Número do cartão",
+            },
+            expirationDate: {
+                id: "form-checkout__expirationDate",
+                placeholder: "MM/YY",
+            },
+            securityCode: {
+                id: "form-checkout__securityCode",
+                placeholder: "Código de segurança",
+            },
+            cardholderName: {
+                id: "form-checkout__cardholderName",
+                placeholder: "Titular do cartão",
+            },
+            issuer: {
+                id: "form-checkout__issuer",
+                placeholder: "Banco emissor",
+            },
+            installments: {
+                id: "form-checkout__installments",
+                placeholder: "Parcelas",
+            },
+            identificationType: {
+                id: "form-checkout__identificationType",
+                placeholder: "Tipo de documento",
+            },
+            identificationNumber: {
+                id: "form-checkout__identificationNumber",
+                placeholder: "Número do documento",
+            },
+            cardholderEmail: {
+                id: "form-checkout__cardholderEmail",
+                placeholder: "E-mail",
+            },
         },
-        expirationDate: {
-            id: "form-checkout__expirationDate",
-            placeholder: "MM/YY",
-        },
-        securityCode: {
-            id: "form-checkout__securityCode",
-            placeholder: "Código de segurança",
-        },
-        cardholderName: {
-            id: "form-checkout__cardholderName",
-            placeholder: "Titular do cartão",
-        },
-        issuer: {
-            id: "form-checkout__issuer",
-            placeholder: "Banco emissor",
-        },
-        installments: {
-            id: "form-checkout__installments",
-            placeholder: "Parcelas",
-        },
-        identificationType: {
-            id: "form-checkout__identificationType",
-            placeholder: "Tipo de documento",
-        },
-        identificationNumber: {
-            id: "form-checkout__identificationNumber",
-            placeholder: "Número do documento",
-        },
-        cardholderEmail: {
-            id: "form-checkout__cardholderEmail",
-            placeholder: "E-mail",
-        },
-    },
-    callbacks: {
-        onFormMounted: error => {
-            if (error) return console.warn("Form Mounted handling error: ", error);
-            console.log("Form mounted");
-        },
-        onSubmit: event => {
-            event.preventDefault();
+        callbacks: {
+            onFormMounted: error => {
+                if (error) return console.warn("Form Mounted handling error: ", error);
+                console.log("Form mounted");
+            },
+            onSubmit: event => {
+                event.preventDefault();
 
-            const {
-                paymentMethodId: payment_method_id,
-                issuerId: issuer_id,
-                cardholderEmail: email,
-                amount,
-                token,
-                installments,
-                identificationNumber,
-                identificationType,
-            } = cardForm.getCardFormData();
-
-            fetch("/api/process_payment", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
+                const {
+                    paymentMethodId: payment_method_id,
+                    issuerId: issuer_id,
+                    cardholderEmail: email,
+                    amount,
                     token,
-                    issuer_id,
-                    payment_method_id,
-                    transaction_amount: Number(amount),
-                    installments: Number(installments),
-                    description: "Descrição do produto",
-                    payer: {
-                        email,
-                        identification: {
-                            type: identificationType,
-                            number: identificationNumber,
-                        },
+                    installments,
+                    identificationNumber,
+                    identificationType,
+                } = cardForm.getCardFormData();
+
+                fetch("/api/process_payment", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
                     },
-                }),
-            });
+                    body: JSON.stringify({
+                        token,
+                        issuer_id,
+                        payment_method_id,
+                        transaction_amount: Number(amount),
+                        installments: Number(installments),
+                        description: "Descrição do produto",
+                        payer: {
+                            email,
+                            identification: {
+                                type: identificationType,
+                                number: identificationNumber,
+                            },
+                        },
+                    }),
+                });
+            },
+            onFetching: (resource) => {
+                console.log("Fetching resource: ", resource);
+
+                // Animate progress bar
+                const progressBar = document.querySelector(".progress-bar");
+                progressBar.removeAttribute("value");
+
+                return () => {
+                    progressBar.setAttribute("value", "0");
+                };
+            }
         },
-        onFetching: (resource) => {
-            console.log("Fetching resource: ", resource);
-
-            // Animate progress bar
-            const progressBar = document.querySelector(".progress-bar");
-            progressBar.removeAttribute("value");
-
-            return () => {
-                progressBar.setAttribute("value", "0");
-            };
-        }
-    },
-});
+    });
+}

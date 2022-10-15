@@ -33,6 +33,7 @@ NECESSÁRIO SEMPRE RECEBER UM ARRAY DE OBJ
 MESMO CONTENDO SÓ UM ELEMENTO PARA QUE FUNCIONE CORRETAMENTE*/
 function computa_produtos(data) {
   var produtos = [];
+
   Object.keys(data).forEach((key) => {
     //declara o objeto a ser preenchido a cada produto
     var elementList = {
@@ -109,8 +110,8 @@ function formata_status(dado) {
   }
 }
 
-function exibirDadosNoCarrinho(){
-  var dados = localStorage.getItem('ptcProduto') ? 
+function exibirDadosNoCarrinho() {
+  var dados = localStorage.getItem('ptcProduto') ?
     JSON.parse(localStorage.getItem('ptcProduto')) : ''
 
   // var nome  = document.getElementById('carrinhoNomeProduto')
@@ -119,7 +120,7 @@ function exibirDadosNoCarrinho(){
   // var quantidade  = document.getElementById('carrinhoQuantidadeProduto')
 
 
-  
+
 
   // dados.forEach( (e) => {
   //   var splitTamanhos = e.tamanho.split('-')
@@ -129,32 +130,80 @@ function exibirDadosNoCarrinho(){
   // })
 }
 
-function adicionarAoCarrinho(id){    
-  exibirDadosNoCarrinho()
-  //OBTEM OS DADOS DO LOCALSTORAGE CASO TENHA ALGUM, SE NÃO, CRIA UM ARRAY VAZIO
+get_pedidos_ptc()
+
+function get_pedidos_ptc() {
   var ptcProduto = localStorage.getItem('ptcProduto') ?
-         JSON.parse(localStorage.getItem('ptcProduto')) : [] 
-  
-  //CRIA UM OBJETO PARA ADICIONAR OS ELEMENTOS NELE
-  var dados = {}
-  dados.produtoID = id
+    JSON.parse(localStorage.getItem('ptcProduto')) : []
 
-  document.getElementById('ip-descricao').querySelectorAll('input').forEach((e) => {
-    if(e.type == 'radio' && e.checked){
-      if(e.name == 'flexRadioTamanho'){
-        dados.tamanho = e.id
+  if (!ptcProduto.length) {
+    div_nao_contem_registro('divPaiCarrinhoItens', 'Nenhum item no carrinho')
+    document.getElementById('finalizarPedidoButton').classList.add('d-none')
+  } else {
+    $.ajax({
+      url: '/get-pedidos-ptc',
+      method: 'GET',
+      data: { ptcProduto },
+      dataType: 'json',
+      success: function (resp) {
+        document.getElementById('finalizarPedidoButton').classList.remove('d-none')
+        list_carrinho(resp, ptcProduto)
+      },
+      error: function (erros) {
+        console.log(erros);
       }
-      if(e.name == 'flexRadioCores'){
-        dados.cor = e.id
-      }
-    }
-    if(e.type == 'text' && e.id == 'quantidade'){
-      dados.quatidade = e.value
-    }
-  })
+    });
+  }
+}
 
-  // ADICIONA O OBJETO NO ARRAY, DESSA FORMA NÃO IRÁ SUBSTITUIR OS VALORES QUANDO INSERIR UM NOVO PRODUTO
-  ptcProduto.push(dados)
-  // ADICIONA O ARRAY NO STORAGE
-  localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto));
+function list_carrinho(dados, ptcProduto) {
+  var divCarrinho = document.getElementById('divPaiCarrinhoItens');
+  var itens = '';
+  var qtdItens = 0;
+  console.log(ptcProduto);
+  dados.forEach(produto => {
+    Object.keys(produto).map((id) => {
+      qtdItens++
+      var imagem = produto[id][0].imagens.filter((e) => { return e.prioridade == 1 })[0].nome;
+
+      produto[id].forEach(item => {
+        var quantidade = ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
+   
+        itens += ` <div class="item-do-carrinho">
+        <div class="item-carrinho">
+            
+            <h3 id="carrinhoNomeProduto">${item.produto.nome}</h3>
+          
+            <div class="d-flex align-items-center">
+                <h6 id="carrinhoTamanhoProduto">Tamanho: &emsp;</h6>
+                <h5> ${item.tamanho.nome} </h5>
+            </div>
+           
+            <div class="d-flex align-items-center">
+                <h6 id="carrinhoCorProduto">Cor: &emsp;</h6>
+                <div
+                    style='border-radius: 27px; width: 20px; height: 20px; background-color:${item.cor.codigo}; border: 1px solid black'>
+                </div>
+            </div>
+          
+            <div class="d-flex align-items-center">
+                <h6 id="carrinhoQuantidadeProduto">Quantidade: &emsp;</h6>
+                <h5>${quantidade}</h5>
+            </div>
+            <div class="d-flex align-items-center">
+            <h6 id="carrinhoQuantidadeProduto">Valor: &emsp;</h6>
+            <h5>${formata_dinheiro(quantidade * item.preco)}</h5>
+        </div>
+        </div>
+        
+        <div class="imagem-do-item d-flex align-items-center">
+            <img src="${'/storage/' + imagem}"
+                class="d-block" alt="Imagem do produto">
+        </div>
+    </div>`
+      })
+    })
+  });
+  document.getElementById('quantidadeCarrinho').innerHTML = qtdItens;
+  divCarrinho.innerHTML = itens;
 }

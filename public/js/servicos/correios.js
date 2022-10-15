@@ -1,7 +1,7 @@
-async function calcula_frete(cep, id_pedido) {
+function calcula_frete(cep, id_pedido) {
     var data = { cep, id_pedido }
     var response = ''
-  await  $.ajax({
+    $.ajax({
         url: '/api/calcula-frete',
         method: 'POST',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
@@ -28,7 +28,7 @@ function rastreia_pedido(id_input) {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         dataType: 'json',
         async: false,
-        data: {codigo: codigo},
+        data: { codigo: codigo },
         success: function (resp) {
             console.log('asdas');
             console.log(resp);

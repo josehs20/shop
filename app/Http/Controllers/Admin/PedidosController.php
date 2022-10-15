@@ -45,7 +45,7 @@ class PedidosController extends Controller
             $pedidos->pedidos_nome_cliente();
         }
 
-        return response()->json($pedidos->get_resultado());
+        return response()->json($pedidos->get_resultado_order_data());
     }
 
     public function show($id)
@@ -55,7 +55,7 @@ class PedidosController extends Controller
         $pedido = new GeralRepositorie($this->pedido);
         $pedido->query_base_pedido();
         $pedido->where_comum('id', $id);
-        $pedido = $pedido->get_resultado()[0];
+        $pedido = $pedido->get_resultado_order_data()[0];
 
         unset($status[array_search($pedido->status, $status)]);
 
