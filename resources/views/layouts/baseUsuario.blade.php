@@ -119,7 +119,7 @@
         {{-- CONTEUDO --}}
         <main class="conteudo">
             @yield('conteudo')
-            @if (count($produtoIndividual))
+            {{-- @if (count($produtoIndividual))
                 <style>
                     .div-filtro {
                         display: none;
@@ -132,7 +132,7 @@
                 @include('usuarios.produtos.unicoProduto')
             @else
                 @include('usuarios.produtos.variosProdutos', ['produtos' => $produtos])
-            @endif
+            @endif --}}
 
             {{-- PAGINA DO CARRINHO  --}}
             <div id="viewcarrinho" class="viewcarrinho">

@@ -37,7 +37,7 @@
             </a>
             <div class="collapse show" id="collapseCategoria">
                 <ul style="margin-top: 5px">
-                    @foreach ($categorias as $categoria)
+                    @foreach ($ctc['categoria_id'] as $categoria)
                     <li>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -60,7 +60,7 @@
             </a>
             <div class="collapse" id="collapseTamanhos">
                 <ul style="margin-top: 5px">
-                    @foreach ($tamanhoall as $tamanho)
+                    @foreach ($ctc['tamanho_id'] as $tamanho)
                     <li>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
@@ -83,7 +83,7 @@
             </a>
             <div class="collapse" id="collapseCores">
                 <ul style="margin-top: 5px">
-                    @foreach ($corall as $cor)
+                    @foreach ($ctc['cor_id'] as $cor)
                     <li>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">

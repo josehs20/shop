@@ -1,3 +1,5 @@
+@extends('layouts.baseUsuario')
+@section('conteudo')
 <style>
     .varios-produtos {
         display: flex;
@@ -69,3 +71,4 @@
         </a>
     @endforeach
 </section>
+@endsection

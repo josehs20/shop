@@ -144,7 +144,7 @@
         <!-- DIV DO CANTO DIREITO ONDE FICA OS ICONES -->
         <div class="d-flex">
             <!-- DIV COM ICONE DE CARRINHO PARA PODER MOSTRAR A QUANTIDADE JUNTO -->
-            <a onclick="abrirFecharCarrinho()">
+            <a style="cursor: pointer;" onclick="abrirFecharCarrinho()">
                 <div class="carrinho">
                     <i class="fa fa-shopping-cart"></i>
                     <span id="quantidadeCarrinho" class="quantidade">0</span>
@@ -187,7 +187,7 @@
                     </a>
                     
                     <ul class="dropdown-menu dm">
-                        @foreach ($categorias as $categoria)
+                        @foreach ($ctc['categoria_id'] as $categoria)
                             <li><a class="dropdown-item" href="#">{{ $categoria->nome }}</a></li>
                         @endforeach
                     </ul>
@@ -208,7 +208,7 @@
                 </a>
 
                 <ul class="dropdown-menu">
-                    @foreach ($categorias as $categoria)
+                    @foreach ($ctc['categoria_id'] as $categoria)
                         <li><a class="dropdown-item" href="#">{{ $categoria->nome }}</a></li>
                     @endforeach
                 </ul>

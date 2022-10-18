@@ -148,6 +148,12 @@ function get_pedidos_ptc() {
       success: function (resp) {
         document.getElementById('finalizarPedidoButton').classList.remove('d-none')
         list_carrinho(resp, ptcProduto)
+        var carViewFinalizaPedido = document.getElementById('carViewFinalizaPedido');
+        if (carViewFinalizaPedido) {
+          list_itens_carrinho_finalizar_venda(resp, ptcProduto)
+        }
+
+
       },
       error: function (erros) {
         console.log(erros);
@@ -160,15 +166,16 @@ function list_carrinho(dados, ptcProduto) {
   var divCarrinho = document.getElementById('divPaiCarrinhoItens');
   var itens = '';
   var qtdItens = 0;
-  console.log(ptcProduto);
+
   dados.forEach(produto => {
     Object.keys(produto).map((id) => {
-      qtdItens++
+
       var imagem = produto[id][0].imagens.filter((e) => { return e.prioridade == 1 })[0].nome;
 
       produto[id].forEach(item => {
+        qtdItens++
         var quantidade = ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
-   
+
         itens += ` <div class="item-do-carrinho">
         <div class="item-carrinho">
             

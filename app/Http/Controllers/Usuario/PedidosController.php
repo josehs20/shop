@@ -32,7 +32,13 @@ class PedidosController extends Controller
 
     public function finalizar_pedido()
     {
-        return view('usuarios.finalizarPedido.finalizarPedido');
+        $geralR = new GeralRepositorie();
+        $ctc = $geralR->get_tam_cor_cat();
+
+        // $tamanhoall = $ctc['tamanho_id'];
+        // $corall = $ctc['cor_id'];
+        // $categorias = $ctc['categoria_id'];
+        return view('usuarios.finalizarPedido.finalizarPedido', compact('ctc'));
     }
 
     public function get_pedidos_ptc(Request $request, ProdTamCor $prodTamCor)

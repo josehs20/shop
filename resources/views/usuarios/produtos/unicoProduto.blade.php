@@ -1,3 +1,5 @@
+@extends('layouts.baseUsuario')
+@section('conteudo')
 <style>
     .individual-produto {
         display: flex;
@@ -107,13 +109,13 @@
             </div>
             <div class="d-flex">
                 <select id="selectTamanhos" name="flexRadioTamanho" onchange="get_ptc_relacao_tamanho_cor(<?php echo $produtoIndividual[0]->produto->id; ?>, this.value, 'tam_cor');" class="form-select" aria-label="Default select example">
-                    @foreach ($tamanhos as $item)
+                    @foreach ($ctc['tamanho_id'] as $item)
                         <option value="{{ $item->id }}">{{ $item->nome }}</option>
                     @endforeach
                 </select>
                
                 <select id="selectCores" onchange="get_ptc_relacao_tamanho_cor(<?php echo $produtoIndividual[0]->produto->id; ?>, this.value, '');" name="flexRadioCores" class="form-select mx-2" aria-label="Default select example">
-                    @foreach ($cores as $item)
+                    @foreach ($ctc['cor_id'] as $item)
                     @if ($item->codigo == '#000000' || $item->nome == 'preto')
                     <option style="background-color: {{ $item->codigo }}; color: white;" value="{{ $item->id }}">
                         {{ $item->nome }}
@@ -183,4 +185,5 @@
         </div>
     </div>
 </main>
+@endsection
 
