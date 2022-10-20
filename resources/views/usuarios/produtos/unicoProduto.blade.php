@@ -179,7 +179,7 @@
         <br>
         <br>
         <div>
-            <button onclick="adicionarAoCarrinho(<?php echo $produtoIndividual[0]->produto->id; ?>)" id="buttonCarrinho"
+            <button onclick="adicionarAoCarrinho(<?php echo $produtoIndividual[0]->produto->id; ?>, <?php echo auth()->user()->id ?>)" id="buttonCarrinho"
                 class="btn btn-outline-success w-75"><i class="fa fa-cart-plus"></i> &nbsp; Adicionar ao
                 carrinho</button>
         </div>

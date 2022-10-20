@@ -1,13 +1,19 @@
-function list_itens_carrinho_finalizar_venda(dados, ptcProduto) {
+function list_itens_carrinho_finalizar_venda(dados, ptcProduto, alterPedidoBd) {
     var divPai = document.getElementById('carViewFinalizaPedido')
     var itens = ''
+    var qtdItens = 0;
+    var vTotal = 0;
     dados.forEach(produto => {
         Object.keys(produto).map((id) => {
 
             var imagem = produto[id][0].imagens.filter((e) => { return e.prioridade == 1 })[0].nome;
 
             produto[id].forEach(item => {
-                var quantidade = ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
+                //caso ptcProduto for falso, quer dizer que esta puxando do banco de dados caso true puxa da storage
+                var quantidade = !ptcProduto ? item.quantidade : ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
+                qtdItens += parseInt(quantidade);
+                vTotal += quantidade * item.preco;
+
                 itens += `<div class="d-flex card-body" id="carViewFinalizaPedido${item.id}">
                 <div class="d-flex card-body">
                 <div class="card mb-3 col-8" style="max-height: 150x;">
@@ -49,11 +55,11 @@ function list_itens_carrinho_finalizar_venda(dados, ptcProduto) {
                         <h5>Quantidade: &emsp;</h5>
 
                         <div class="input-group mb-3 mx-2">
-                            <button class="btn btn-outline-secondary" type="button" onclick='adiciona_diminui_quantidade_carrinho("+", "carrinhoQuantidadeProduto${item.id}", carViewFinalizaPedido${item.id}, ${JSON.stringify(item)})'>+</button>
+                            <button class="btn btn-outline-secondary" type="button" onclick='adiciona_diminui_quantidade_carrinho("+", "carrinhoQuantidadeProduto${item.id}", carViewFinalizaPedido${item.id}, ${JSON.stringify(item)}, ${!ptcProduto ? true : false})'>+</button>
                             
                             <input id="carrinhoQuantidadeProduto${item.id}" class="col-3" readonly type="text" value="${quantidade}" class="form-control" placeholder=""
                                 aria-label="Example text with two button addons">
-                                <button class="btn btn-outline-secondary" type="button" onclick='adiciona_diminui_quantidade_carrinho("-", "carrinhoQuantidadeProduto${item.id}", carViewFinalizaPedido${item.id}, ${JSON.stringify(item)})'>-</button>
+                                <button class="btn btn-outline-secondary" type="button" onclick='adiciona_diminui_quantidade_carrinho("-", "carrinhoQuantidadeProduto${item.id}", carViewFinalizaPedido${item.id}, ${JSON.stringify(item)}, ${!ptcProduto ? true : false})'>-</button>
                         </div>
                     </div>
                 </div>
@@ -63,61 +69,114 @@ function list_itens_carrinho_finalizar_venda(dados, ptcProduto) {
             })
         })
     })
+    document.getElementById('vTotal').innerHTML = 'Valor total : ' + formata_dinheiro(vTotal);
+    document.getElementById('qtdItens').innerHTML = 'Quantidade de itens : ' + qtdItens;
     divPai.innerHTML = itens;
 }
 
-function adiciona_diminui_quantidade_carrinho(operador, id, idCard, item) {
+function adiciona_diminui_quantidade_carrinho(operador, id, idCard, item, alteraBancoOuStorage) {
     var element = document.getElementById(id);
     var ptcProduto = JSON.parse(localStorage.getItem('ptcProduto'));
     var idCard = idCard;
 
-    if (operador == '+') {
-        element.value = parseInt(element.value) + 1
-        for (let i = 0; i < ptcProduto.length; i++) {
-            const ptc = ptcProduto[i];
-            if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
-                ptcProduto[i].quantidade = element.value
-            }
+    if (alteraBancoOuStorage) {
 
-        }
-        localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
-    } else if (operador == '-') {
-        if (parseInt(element.value) == 0) {
-            //retorna para não ficar com valor negativo
-            return
-        }
-        element.value = parseInt(element.value) - 1
-        for (let i = 0; i < ptcProduto.length; i++) {
-            const ptc = ptcProduto[i];
-            if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
-                ptcProduto[i].quantidade = element.value
-            }
-        }
-        localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
-    }
-    if (parseInt(element.value) == 0) {
-
-        Swal.fire({
-            title: 'Seu item esta com a quantidade 0, deseja excluir?',
-            showDenyButton: true,
-            showCancelButton: false,
-            confirmButtonText: 'Sim',
-            denyButtonText: `Não`,
-        }).then((result) => {
-            /* Read more about isConfirmed, isDenied below */
-            if (result.isConfirmed) {
-                for (let i = 0; i < ptcProduto.length; i++) {
-                    const ptc = ptcProduto[i];
-                    if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
-                        ptcProduto.splice(i, 1)
-                        idCard.remove()
-                    }
-
+        $.ajax({
+            url: '/altera-quantidade-item',
+            method: 'PUT',
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: 'json',
+            data: { operador: operador, item: item },
+            success: function (resp) {
+                //caso item seja com a quantidade 0
+                if (resp.zerado) {
+                    Swal.fire({
+                        title: 'Este item esta com a quantidade 0, deseja excluir??',
+                        showDenyButton: true,
+                        showCancelButton: false,
+                        confirmButtonText: 'Sim',
+                        denyButtonText: `Não`,
+                    }).then((result) => {
+                        /* Read more about isConfirmed, isDenied below */
+                        if (result.isConfirmed) {
+                            $.ajax({
+                                url: '/deleta-item',
+                                method: 'DELETE',
+                                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                                dataType: 'json',
+                                data: { item: item },
+                                success: function (resp) {
+                                    alerta_simples('success', 'Item excluido com sucesso')
+                                    get_pedidos_ptc(true)
+                                }
+                            })
+                        } else if (result.isDenied) {
+                            adiciona_diminui_quantidade_carrinho('+', id, idCard, item, true);
+                        }
+                    })
+                    //se quantidade for maior que 0
+                } else {
+                    get_pedidos_ptc(true)
                 }
-                localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
-            } else if (result.isDenied) {
-                element.value = 1
+            },
+            error: function (errors) {
+                console.log(errors);
             }
-        })
+
+        });
+
+    } else {
+
+
+        if (operador == '+') {
+            element.value = parseInt(element.value) + 1
+            for (let i = 0; i < ptcProduto.length; i++) {
+                const ptc = ptcProduto[i];
+                if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
+                    ptcProduto[i].quantidade = element.value
+                }
+
+            }
+            localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
+        } else if (operador == '-') {
+            if (parseInt(element.value) == 0) {
+                //retorna para não ficar com valor negativo
+                return
+            }
+            element.value = parseInt(element.value) - 1
+            for (let i = 0; i < ptcProduto.length; i++) {
+                const ptc = ptcProduto[i];
+                if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
+                    ptcProduto[i].quantidade = element.value
+                }
+            }
+            localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
+        }
+
+        if (parseInt(element.value) == 0) {
+
+            Swal.fire({
+                title: 'Este item esta com a quantidade 0, deseja excluir?',
+                showDenyButton: true,
+                showCancelButton: false,
+                confirmButtonText: 'Sim',
+                denyButtonText: `Não`,
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    for (let i = 0; i < ptcProduto.length; i++) {
+                        const ptc = ptcProduto[i];
+                        if (ptc.produto_id == item.produto_id && ptc.cor_id == item.cor_id && ptc.tamanho_id == item.tamanho_id) {
+                            ptcProduto.splice(i, 1)
+                            idCard.remove()
+                        }
+
+                    }
+                    localStorage.setItem('ptcProduto', JSON.stringify(ptcProduto))
+                } else if (result.isDenied) {
+                    element.value = 1
+                }
+            })
+        }
     }
 }

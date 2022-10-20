@@ -56,8 +56,8 @@ function get_ptc_relacao_tamanho_cor(id, valor, relacao) {
     });
 }
 
-function adicionarAoCarrinho(id) {
-    exibirDadosNoCarrinho()
+function adicionarAoCarrinho(id, usuarioLogado) {
+    // exibirDadosNoCarrinho()
     //OBTEM OS DADOS DO LOCALSTORAGE CASO TENHA ALGUM, SE NÃO, CRIA UM ARRAY VAZIO
     var ptcProduto = localStorage.getItem('ptcProduto') ?
         JSON.parse(localStorage.getItem('ptcProduto')) : []
@@ -69,6 +69,22 @@ function adicionarAoCarrinho(id) {
     var dados = { produto_id: id, cor_id: cor_id, tamanho_id: tamanho_id, quantidade: quantidade };
 
     if (valida_quantidade(quantidade)) {
+        if (usuarioLogado) {
+            $.ajax({
+                url: '/set-item',
+                method: 'POST',
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                dataType: 'json',
+                data: { item: dados },
+                success: function (resp) {
+
+                    alerta_simples(resp.icon, resp.msg)
+                }
+            })
+            return
+        }
+
+
         var verificaCarrinho = ptcProduto.filter((e) => { return e.produto_id == dados.produto_id })
 
         //verifica e cria caso for outro produto

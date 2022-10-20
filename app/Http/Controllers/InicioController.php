@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categoria;
-use App\Models\Cor;
-use App\Models\Imagem;
-use App\Models\ProdTamCor;
 use App\Models\Produto;
-use App\Models\Tamanho;
 use App\Repositories\GeralRepositorie;
-use Illuminate\Http\Request;
-use PhpParser\Node\Expr\FuncCall;
+use Illuminate\Support\Facades\Session;
 
 class InicioController extends Controller
 {
@@ -37,7 +31,7 @@ class InicioController extends Controller
         });
         $tamanhos = [];
         $cores = [];
-     
+       
         return view('usuarios.produtos.variosProdutos', compact('produtos', 'ctc'));
     }
 

@@ -110,31 +110,34 @@ function formata_status(dado) {
   }
 }
 
-function exibirDadosNoCarrinho() {
-  var dados = localStorage.getItem('ptcProduto') ?
-    JSON.parse(localStorage.getItem('ptcProduto')) : ''
-
-  // var nome  = document.getElementById('carrinhoNomeProduto')
-  // var tamanho  = document.getElementById('carrinhoTamanhoProduto')
-  // var cor  = document.getElementById('carrinhoCorProduto')
-  // var quantidade  = document.getElementById('carrinhoQuantidadeProduto')
-
-
-
-
-  // dados.forEach( (e) => {
-  //   var splitTamanhos = e.tamanho.split('-')
-  //   var splitCores = e.cor.split('-')
-  //   console.log(splitTamanhos[1]);
-  //   console.log(splitCores[1]);
-  // })
-}
-
-get_pedidos_ptc()
-
-function get_pedidos_ptc() {
+function get_pedidos_ptc(getPedidoBd) {
   var ptcProduto = localStorage.getItem('ptcProduto') ?
     JSON.parse(localStorage.getItem('ptcProduto')) : []
+
+  if (getPedidoBd) {
+    $.ajax({
+      url: '/get-pedidos-ptc',
+      method: 'GET',
+      data: { getPedidoBd: true },
+      dataType: 'json',
+      success: function (resp) {
+       
+        document.getElementById('finalizarPedidoButton').classList.remove('d-none')
+        list_carrinho(resp)
+        var carViewFinalizaPedido = document.getElementById('carViewFinalizaPedido');
+
+        if (carViewFinalizaPedido) {
+          list_itens_carrinho_finalizar_venda(resp)
+        }
+
+
+      },
+      error: function (erros) {
+        console.log(erros);
+      }
+    });
+    return
+  }
 
   if (!ptcProduto.length) {
     div_nao_contem_registro('divPaiCarrinhoItens', 'Nenhum item no carrinho')
@@ -149,6 +152,7 @@ function get_pedidos_ptc() {
         document.getElementById('finalizarPedidoButton').classList.remove('d-none')
         list_carrinho(resp, ptcProduto)
         var carViewFinalizaPedido = document.getElementById('carViewFinalizaPedido');
+
         if (carViewFinalizaPedido) {
           list_itens_carrinho_finalizar_venda(resp, ptcProduto)
         }
@@ -174,7 +178,8 @@ function list_carrinho(dados, ptcProduto) {
 
       produto[id].forEach(item => {
         qtdItens++
-        var quantidade = ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
+        //caso ptcProduto for falso, quer dizer que esta puxando do banco de dados caso true puxa da storage
+        var quantidade = !ptcProduto ? item.quantidade :  ptcProduto.filter((element) => { return element.produto_id == item.produto_id && item.tamanho_id == element.tamanho_id && item.cor_id == element.cor_id })[0].quantidade;
 
         itens += ` <div class="item-do-carrinho">
         <div class="item-carrinho">
@@ -214,3 +219,27 @@ function list_carrinho(dados, ptcProduto) {
   document.getElementById('quantidadeCarrinho').innerHTML = qtdItens;
   divCarrinho.innerHTML = itens;
 }
+
+function create_pedido() {
+  var ptcProduto = localStorage.getItem('ptcProduto') ?
+    JSON.parse(localStorage.getItem('ptcProduto')) : []
+
+  $.ajax({
+    url: '/set-pedidos-itens',
+    method: 'POST',
+    data: { localStorage: ptcProduto },
+    headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+    dataType: 'json',
+    success: function (resp) {
+      cookieStore.delete('redirectUserCarrinho');
+
+      //get pedidos recebendo true quer dizer que a consulta vai ser feita no banco e não na storage mais
+      get_pedidos_ptc(true)
+
+    },
+    error: function (erros) {
+      console.log(erros);
+    }
+  });
+}
+

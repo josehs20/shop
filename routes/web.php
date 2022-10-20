@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ProdutoController;
 use App\Http\Controllers\Admin\HomeAdminController;
 use App\Http\Controllers\Admin\PedidosController;
 use App\Http\Controllers\Admin\TamanhoController;
+use App\Http\Controllers\Usuario\PedidosController as UsuarioPedidosController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +31,16 @@ Route::get('/get-ptc-relacao-tamanho-cor', [\App\Http\Controllers\Usuario\Pedido
 
 Auth::routes();
 
-Route::middleware('cliente')->group(function () {
+
+Route::middleware('cliente')->group(function () {   
+    //adiciona itens da storage no banco
+    Route::post('/set-pedidos-itens', [\App\Http\Controllers\Usuario\PedidosController::class, 'set_pedidos_itens']);
+    Route::put('/altera-quantidade-item', [\App\Http\Controllers\Usuario\PedidosController::class, 'altera_quantidade_item']);
+    Route::delete('/deleta-item', [\App\Http\Controllers\Usuario\PedidosController::class, 'deleta_item']);
+    //adiciona item no banco caso usuario esteja logado
+    Route::post('/set-item', [\App\Http\Controllers\Usuario\PedidosController::class, 'set_item']);
+
+
 });
 
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
