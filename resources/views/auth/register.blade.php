@@ -69,7 +69,7 @@
     <main class="entrar">
         <div class="div-imagem"></div>
         <div class="div-form">
-            <form method="POST" action="{{ route('login') }}">
+            <form method="POST" action="{{ route('register') }}">
                 <h1>Cadastrar</h1>
                 @csrf
                 <!-- NOME -->
@@ -195,3 +195,4 @@
     </div>
 </div> --}}
 @endsection
+

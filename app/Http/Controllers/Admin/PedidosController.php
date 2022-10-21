@@ -66,7 +66,6 @@ class PedidosController extends Controller
     {
         $response = Correios::rastreio($request->codigo);
 
-
         if (array_key_exists('eventos', $response['objetos'][0])) {
 
             $valido = $response['objetos'][0]['codObjeto'];

@@ -19,4 +19,9 @@ class PedidoItem extends Model
         return $this->hasOne('App\Models\ProdTamCor','id', 'ptc_id');
     }
 
+    public function prodTamCors()
+    {
+        return $this->hasOne('App\Models\ProdTamCor', 'id', 'ptc_id');
+    }
+
 }

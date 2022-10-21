@@ -35,10 +35,23 @@ class HomeController extends Controller
             return redirect()->route('homeAdmin.index');
         } else {
             setcookie('p_k_p', User::find(1)->public_key);
-            $categorias = Categoria::all();
-            $produtos = Produto::all();
 
-            return view('usuario.welcome', compact('categorias', 'produtos'));
+             //verifica cookie para fazer o redict caso usuario for se registrar e estiver no carrinho   
+            $redirect = array_key_exists('redirectUserCarrinho', $_COOKIE) ? $_COOKIE['redirectUserCarrinho'] : null;
+           
+            if (!$redirect) {
+    
+                return redirect()->route('inicio');
+            } else {
+       
+                unset($_COOKIE['redirectUserCarrinho']);
+    
+                Session::flash('success', 'Usuario cadastrado com sucesso');
+                Session::flash('setPedidosItens', true);
+
+               
+               return redirect()->route('finalizarPedido');
+            }
         }
     }
 }

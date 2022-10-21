@@ -172,4 +172,7 @@ function confirmando_alteracao(id, funcao) {
     }
   })
 }
+function verificaStorage() {
+  var ptcProduto = local
+}
 

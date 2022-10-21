@@ -8,7 +8,7 @@
 
 
     <title>Laravel</title>
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
@@ -102,6 +102,25 @@
 
 <body>
     @include('usuarios.navbar.navbar')
+
+    @if (Session::get('success'))
+
+        <body onload="alerta('success', '<?php echo Session::get('success'); ?>', '', '') ">
+    @endif
+
+    @if (Session::get('setPedidosItens'))
+
+        <body onload="create_pedido()">
+    @endif
+
+    @if (auth()->user())
+
+        <body onload="get_pedidos_ptc(true)">
+        @else
+
+            <body onload="get_pedidos_ptc()">
+    @endif
+
     <section class="secao">
         {{-- FILTRO NO MOBILE É NO COLAPSE --}}
         <button class="btn btn-outline-success btn-filtro" data-bs-toggle="collapse" href="#collapseExampleMobile"
@@ -154,4 +173,5 @@
 <script src="{{ asset('js/usuario/unicoProduto.js') }}"></script>
 <script src="{{ asset('js/principalBackEnd.js') }}"></script>
 <script src="{{ asset('js/alertas.js') }}" defer></script>
+
 </html>

@@ -31,4 +31,5 @@ class Pedido extends Model
     {
         return $this->hasOne('App\Models\Endereco', 'id', 'endereco_id');
     }
+
 }
