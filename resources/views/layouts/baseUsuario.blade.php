@@ -31,7 +31,7 @@
 
     .conteudo {
         width: 100%;
-        padding-left: 20px;
+        padding-left: 20px !important;
     }
 
     .btn-filtro {
@@ -87,6 +87,7 @@
 
         .conteudo {
             margin-top: 20px;
+            padding-left:  0 !important
         }
 
         .collapse-mobile {
