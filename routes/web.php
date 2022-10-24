@@ -28,6 +28,8 @@ Route::get('/finalizarPedido', [\App\Http\Controllers\Usuario\PedidosController:
 
 Route::get('/get-pedidos-ptc', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_pedidos_ptc']);
 Route::get('/get-ptc-relacao-tamanho-cor', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_ptc_relacao_tamanho_cor']);
+Route::get('/configUsuario/meusDados/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'index'])->name('meusDadosUsuario');
+Route::put('/configUsuario/alterarMeusDados/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'alterar_meus_dados']);
 
 Auth::routes();
 
