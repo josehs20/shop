@@ -6,8 +6,8 @@
             aria-current="true">
             Meus dados usuario
         </a>
-        <a href="{{route('alterarsenha', auth()->user()->id)}}" class="list-group-item list-group-item-action
-            @if (Request::segment(2) == 'alterarSenha') active @endif">Alterar senha</a>
+        <a href="{{route('alterarSenha', auth()->user()->id)}}" class="list-group-item list-group-item-action
+            @if (Request::segment(2) == 'alterarsenha') active @endif">Alterar senha</a>
         {{-- <a href="#" class="list-group-item list-group-item-action">A third link item</a> --}}
         {{-- <a href="#" class="list-group-item list-group-item-action">A fourth link item</a> --}}
     </div>

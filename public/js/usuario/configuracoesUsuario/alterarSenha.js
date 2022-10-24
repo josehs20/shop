@@ -1,4 +1,4 @@
-function atualizarSenhaUsuario(id, senhaAtual) {
+function atualizarSenhaUsuarioComum(id, senhaAtual) {
     var senhas = {
         novaSenha: document.getElementById('novaSenha').value,
         password: senhaAtual

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Repositories\GeralRepositorie;
 use App\Services\GeralServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ConfiguracaoUsuarioController extends Controller
 {
@@ -16,7 +17,8 @@ class ConfiguracaoUsuarioController extends Controller
         $this->service = $service;
     }
 
-    public function index($id){
+    public function index($id)
+    {
         $geralR = new GeralRepositorie();
         $ctc = $geralR->get_tam_cor_cat();
         return view('usuarios.configUsuario.meusDados', compact('id', 'ctc'));
@@ -31,6 +33,25 @@ class ConfiguracaoUsuarioController extends Controller
             User::find(auth()->user()->id)->update(['name' => $request->name, 'email' => $request->email]);
             return response()->json(['valido' => true, 'msg' => 'Dados alterados com sucesso!', 'nomeUsuario' => $request->name], 200);
         } else {
+            return response()->json(['valido' => false, 'msg' => 'A senha não confere!'], 200);
+        }
+    }
+
+    public function alterar_senha($id)
+    {
+        $geralR = new GeralRepositorie();
+        $ctc = $geralR->get_tam_cor_cat();
+        return view('usuarios.configUsuario.alterarSenha', compact('id', 'ctc'));
+    }
+
+    //ALTERAR SENHA DO USUARIO
+    public function alterar_senha_usuario_comum(Request $request)
+    {
+        if ($this->service->confirmar_com_senha($request->password)) {
+            User::find(auth()->user()->id)->update(['password' => Hash::make($request->novaSenha)]);
+            return response()->json(['valido' => true, 'msg' => 'Senha alterada com sucesso!'], 200);
+        } else {
+
             return response()->json(['valido' => false, 'msg' => 'A senha não confere!'], 200);
         }
     }
