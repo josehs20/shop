@@ -9,6 +9,10 @@
         display: none !important;
     }
 
+    .conteudo-principal {
+        margin-left: 0;
+    }
+
     .conteudo-meus-dados {
         padding: 0 20px;
         width: 50% !important;

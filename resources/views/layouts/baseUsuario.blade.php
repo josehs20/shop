@@ -26,7 +26,7 @@
 <style>
     .secao {
         display: flex;
-        padding: 0 30px
+        padding: 0 30px;
     }
 
     .conteudo {
@@ -73,13 +73,6 @@
     }
 
 
-
-
-
-  
-  
-  
-  
     /* ---------------------------------- */
 
     .main-config {
@@ -90,26 +83,11 @@
         display: flex;
     }
 
-    .conteudo-sidebar {
-        position: fixed;
-        width: 260px;
-        height: 100vh;
-        overflow: auto;
-        transition: 1s;
-        top: 0;
-        left: 0;
-        z-index: 15000;
-    }
-
     .conteudo-principal {
         margin-left: 260px;
         width: 100%;
         height: 100%;
         padding: 20px;
-    }
-
-    .mostrarSidebar {
-        width: 260px !important;
     }
 
     .active {
@@ -125,6 +103,8 @@
         border-color: #CCC !important
     }
 
+    /* ---------------------------------- */
+
     @media(max-width: 860px) {
         .main-config {
             flex-direction: column;
@@ -132,25 +112,10 @@
             align-items: center
         }
 
-        .conteudo-sidebar {
-            width: 0;
-        }
-
         .conteudo-principal {
             margin-left: unset !important
         }
-    }
 
-
-
-
-
-  /* ---------------------------------- */ 
-
-
-
-
-    @media(max-width: 860px) {
         .secao {
             flex-direction: column
         }
@@ -165,7 +130,7 @@
 
         .conteudo {
             margin-top: 20px;
-            padding-left:  0 !important
+            padding-left: 0 !important
         }
 
         .collapse-mobile {
@@ -216,28 +181,29 @@
         </div>
         {{-- CONTEUDO --}}
         <main class="conteudo">
-            <div>
-                @if (auth()->user())
-                    <div class="conteudo-completo">
-                        @if (Request::segment(1) == 'configUsuario')
-                            <!-- CONTEUDO EM CONFIG -->
-                            <div class="conteudo-principal" style="margin:0 !important">
-                                <div class="main-config">
-                                    @include('usuarios.configUsuario.menuConfig') <!--MENU DAS CONFIGURAÇÕES DE MINHA CONTA-->
-                                    @yield('conteudo')
-                                </div>
-                            </div>
-                        @else
-                            <!-- CONTEUDO -->
-                            <div class="conteudo-principal">
+
+            @if (auth()->user())
+                <div class="conteudo-completo">
+                    @if (Request::segment(1) == 'configUsuario')
+                        <!-- CONTEUDO EM CONFIG -->
+                        <div class="conteudo-principal" style="margin:0 !important">
+                            <div class="main-config">
+                                @include('usuarios.configUsuario.menuConfig')
+                                <!--MENU DAS CONFIGURAÇÕES DE MINHA CONTA-->
                                 @yield('conteudo')
                             </div>
-                        @endif
-                    </div>
-                @else
-                    @yield('conteudo')
-                @endif
-            </div>
+                        </div>
+                    @else
+                        <!-- CONTEUDO -->
+                        <div class="conteudo-principal">
+                            @yield('conteudo')
+                        </div>
+                    @endif
+                </div>
+            @else
+                @yield('conteudo')
+            @endif
+
             {{-- @if (count($produtoIndividual))
                 <style>
                     .div-filtro {

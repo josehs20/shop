@@ -9,6 +9,10 @@
         width: 100%;
     }
 
+    .conteudo-principal {
+        margin-left: 0;
+    }
+
     .varios-produtos a,h5,p{
         color: #000 !important;
     }

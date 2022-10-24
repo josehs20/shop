@@ -8,6 +8,9 @@
     .btn-filtro {
         display: none !important;
     }
+    .conteudo-principal {
+        margin-left: 0;
+    }
     .conteudo-alterar-senha {
         padding: 0 20px;
         width: 50%;
