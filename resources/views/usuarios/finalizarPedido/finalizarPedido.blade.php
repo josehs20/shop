@@ -10,12 +10,16 @@
             display: none;
         }
 
+        .conteudo-principal {
+            margin-left: 0;
+        }
+
         .cards-lado-esquerdo {
             width: 66% !important;
         }
 
         .card-lado-direito {
-            margin-top: 0 !important; 
+            margin-top: 0 !important;
             width: 33% !important;
         }
 
@@ -49,7 +53,7 @@
             }
 
             .card-lado-direito {
-                margin-top: 10px !important; 
+                margin-top: 10px !important;
                 width: 100% !important;
             }
 
@@ -70,7 +74,8 @@
                 <div class="card-body">
                     <div class="d-flex">
                         <div class="form-check">
-                            <input checked class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <input checked class="form-check-input" type="radio" name="flexRadioDefault"
+                                id="flexRadioDefault1">
                             <label class="form-check-label" for="flexRadioDefault1">
                                 Cartão
                             </label>

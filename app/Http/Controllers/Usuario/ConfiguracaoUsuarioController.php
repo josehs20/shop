@@ -55,4 +55,11 @@ class ConfiguracaoUsuarioController extends Controller
             return response()->json(['valido' => false, 'msg' => 'A senha não confere!'], 200);
         }
     }
+
+    //ENDERECOS
+    public function enderecos($id){
+        $geralR = new GeralRepositorie();
+        $ctc = $geralR->get_tam_cor_cat();
+        return view('usuarios.configUsuario.enderecos', compact('id', 'ctc'));
+    }
 }

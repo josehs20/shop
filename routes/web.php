@@ -39,6 +39,9 @@ Route::get('/configUsuario/alterarsenha/{id}', [\App\Http\Controllers\Usuario\Co
 //ROTA QUE REALMENTE ALTERA A SENHA, QUE FAZ O UPDATE NO BANCO DE DADOS
 Route::put('/configUsuario/alterarSenha/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'alterar_senha_usuario_comum']);
 
+//ENDERECOS
+Route::get('/configUsuario/enderecos/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'enderecos'])->name('enderecos');
+
 Auth::routes();
 
 
