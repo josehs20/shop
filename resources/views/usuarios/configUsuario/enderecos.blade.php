@@ -28,7 +28,38 @@
         width: 30% !important;
     }
 
+    .numero-bairro-cep{
+        width: 100%;
+        display: flex;
+        height: fit-content;
+    }
+    .numero-bairro{
+        display: flex;
+        width: 100%
+    }
+    .numero-bairro-cep > input{
+        height: fit-content;
+    }
+    .numero{
+        width: 120px !important
+    }
+    .bairro{
+        width: 100% !important
+    }
+    .cep{
+        width: 140px !important
+    }
+
     @media(max-width: 860px) {
+        .numero-bairro-cep{
+            flex-wrap: wrap
+        }
+        .numero{
+            width: 80px !important;
+        }
+        .cep{
+            width: 100% !important;
+        }
         .meus-enderecos {
             width: 100% !important;
         }
@@ -43,7 +74,7 @@
             margin-bottom: 20px
         }
 
-        .endereco-tipo{
+        .endereco-tipo {
             margin-bottom: 15px !important
         }
     }
@@ -84,17 +115,22 @@
                 <div class="card-body d-flex flex-column align-items-center">
                     <input id="" name="rua" type="search" class="form-control mb-2 larguraInput"
                         placeholder="Rua front end" value="" />
-                    <input id="" name="numero" type="search" class="form-control mb-2 larguraInput"
-                        placeholder="137" value="" />
-                    <input id="" name="bairro" type="search" class="form-control mb-2 larguraInput"
-                        placeholder="Centro" value="" />
-                    <input id="" name="cep" type="search" class="form-control mb-2 larguraInput"
-                        placeholder="28300-000" value="" />
-                    <input id="" name="cidade" type="search" class="form-control mb-2 larguraInput"
-                        placeholder="Itaperuna" value="" />
-                    <input id="" name="UF" type="search" class="form-control mb-2 larguraInput"
-                        placeholder="RJ" value="" />
-
+                    <div class="numero-bairro-cep">
+                        <div class="numero-bairro">
+                            <input id="" name="numero" type="search" class="form-control mb-2 larguraInput numero"
+                                placeholder="137" value="" />
+                            <input id="" name="bairro" type="search" class="form-control mb-2 mx-2 larguraInput bairro"
+                                placeholder="Centro" value="" />
+                        </div>
+                        <input id="" name="cep" type="search" class="form-control mb-2 larguraInput cep"
+                                placeholder="28300-000" value="" />
+                    </div>
+                    <div class="d-flex w-100">
+                        <input id="" name="cidade" type="search" class="form-control mb-2 me-2 larguraInput w-75"
+                            placeholder="Itaperuna" value="" />
+                        <input id="" name="UF" type="search" class="form-control mb-2 larguraInput w-25"
+                            placeholder="RJ" value="" />
+                    </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <p></p> <!-- APENAS PARA OCUPAR ESPAÇO -->
