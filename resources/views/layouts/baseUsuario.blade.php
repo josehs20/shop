@@ -26,12 +26,12 @@
 <style>
     .secao {
         display: flex;
-        padding: 0 30px
+        padding: 0 30px;
     }
 
     .conteudo {
         width: 100%;
-        padding-left: 20px;
+        padding-left: 20px !important;
     }
 
     .btn-filtro {
@@ -72,7 +72,50 @@
         width: 100% !important;
     }
 
+
+    /* ---------------------------------- */
+
+    .main-config {
+        display: flex;
+    }
+
+    .conteudo-completo {
+        display: flex;
+    }
+
+    .conteudo-principal {
+        margin-left: 260px;
+        width: 100%;
+        height: 100%;
+        padding: 20px;
+    }
+
+    .active {
+        background-color: orangered !important
+    }
+
+    .list-group {
+        width: 260px;
+        box-shadow: 0px 0px 5px #ccc !important;
+    }
+
+    .list-group-item {
+        border-color: #CCC !important
+    }
+
+    /* ---------------------------------- */
+
     @media(max-width: 860px) {
+        .main-config {
+            flex-direction: column;
+            justify-content: center;
+            align-items: center
+        }
+
+        .conteudo-principal {
+            margin-left: unset !important
+        }
+
         .secao {
             flex-direction: column
         }
@@ -87,6 +130,7 @@
 
         .conteudo {
             margin-top: 20px;
+            padding-left: 0 !important
         }
 
         .collapse-mobile {
@@ -137,7 +181,29 @@
         </div>
         {{-- CONTEUDO --}}
         <main class="conteudo">
-            @yield('conteudo')
+
+            @if (auth()->user())
+                <div class="conteudo-completo">
+                    @if (Request::segment(1) == 'configUsuario')
+                        <!-- CONTEUDO EM CONFIG -->
+                        <div class="conteudo-principal" style="margin:0 !important">
+                            <div class="main-config">
+                                @include('usuarios.configUsuario.menuConfig')
+                                <!--MENU DAS CONFIGURAÇÕES DE MINHA CONTA-->
+                                @yield('conteudo')
+                            </div>
+                        </div>
+                    @else
+                        <!-- CONTEUDO -->
+                        <div class="conteudo-principal">
+                            @yield('conteudo')
+                        </div>
+                    @endif
+                </div>
+            @else
+                @yield('conteudo')
+            @endif
+
             {{-- @if (count($produtoIndividual))
                 <style>
                     .div-filtro {

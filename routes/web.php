@@ -29,6 +29,19 @@ Route::get('/finalizarPedido', [\App\Http\Controllers\Usuario\PedidosController:
 Route::get('/get-pedidos-ptc', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_pedidos_ptc']);
 Route::get('/get-ptc-relacao-tamanho-cor', [\App\Http\Controllers\Usuario\PedidosController::class, 'get_ptc_relacao_tamanho_cor']);
 
+//MEUS DADOS
+Route::get('/configUsuario/meusDados/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'index'])->name('meusDadosUsuario');
+Route::put('/configUsuario/alterarMeusDados/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'alterar_meus_dados']);
+
+//MINHA SENHA
+//ROTA PARA A VIEW DE ALTERAR A SENHA
+Route::get('/configUsuario/alterarsenha/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'alterar_senha'])->name('alterarSenha');
+//ROTA QUE REALMENTE ALTERA A SENHA, QUE FAZ O UPDATE NO BANCO DE DADOS
+Route::put('/configUsuario/alterarSenha/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'alterar_senha_usuario_comum']);
+
+//ENDERECOS
+Route::get('/configUsuario/enderecos/{id}', [\App\Http\Controllers\Usuario\ConfiguracaoUsuarioController::class, 'enderecos'])->name('enderecos');
+
 Auth::routes();
 
 

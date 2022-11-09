@@ -1,16 +1,26 @@
 @extends('layouts.baseUsuario')
 @section('conteudo')
 <style>
+
+    .div-filtro{
+        display: none !important;
+    }
+    .btn-filtro{
+        display: none !important;
+    }
+    .conteudo-principal {
+        margin-left: 0;
+    }
     .individual-produto {
         display: flex;
         justify-content: space-around;
+        width: 100% !important;
     }
 
     .ip-imagens {
         /* border: 1px solid black; */
         height: 95vh;
         width: 59%;
-
         display: flex;
         justify-content: center;
         align-items: center
